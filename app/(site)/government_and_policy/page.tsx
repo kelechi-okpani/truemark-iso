@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Government_Policy from "@/components/Sectors/Government/Government";
+import Government_Policy from "@/components/Website/Sectors/Government/Government";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

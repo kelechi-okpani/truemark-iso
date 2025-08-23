@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import MarkUsePolicy from "@/components/Who_we_are/MarkUsePolicy";
+import MarkUsePolicy from "@/components/Website/Who_we_are/MarkUsePolicy";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

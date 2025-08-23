@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CertificationProcess from "@/components/Who_we_are/CertificationProcess";
+import CertificationProcess from "@/components/Website/Who_we_are/CertificationProcess";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

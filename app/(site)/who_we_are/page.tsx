@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import AboutHero from "@/components/About/About-Hero";
-import AboutTM from "@/components/About/AboutTM";
-import SectorsWeServe from "@/components/About/Services";
+import AboutHero from "@/components/Website/About/About-Hero";
+import AboutTM from "@/components/Website/About/AboutTM";
+import SectorsWeServe from "@/components/Website/About/Services";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

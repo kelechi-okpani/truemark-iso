@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Technology_Media from "@/components/Sectors/Technology/Technology";
+import Technology_Media from "@/components/Website/Sectors/Technology/Technology";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

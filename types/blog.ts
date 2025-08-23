@@ -1,3 +1,32 @@
+
+export type CourseList = {
+  _id: number;
+  title: string;
+  slug?: any;
+  metadata?: string;
+  publishedAt?: string;
+  category?: string;
+  status?: 'not-paid' | 'paid';
+  mainImage?: any;
+  mainVideo?: any;
+  price?: string;
+};
+
+
+export interface PaystackButtonProps {
+  text?: string;
+  className?: string;
+  email: string;
+  amount: number; // amount in kobo
+  publicKey: string;
+  reference?: string;
+  onSuccess: (reference: any) => void;
+  onClose: () => void;
+}
+
+
+
+
 export type Author = {
   name: string;
   image: string;
@@ -5,21 +34,6 @@ export type Author = {
   _id?: number | string;
   _ref?: number | string;
 };
-
-export type Blog = {
-  _id: number;
-  title: string;
-  slug?: any;
-  metadata?: string;
-  body?: string;
-  mainImage?: any;
-  author?: Author;
-  tags?: string[];
-  publishedAt?: string;
-  category?: string;
-};
-
-
 
 export type Course = {
   title: string;

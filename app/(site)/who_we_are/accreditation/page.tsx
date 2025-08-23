@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AccreditationSection from "@/components/Who_we_are/Accreditation";
+import AccreditationSection from "@/components/Website/Who_we_are/Accreditation";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

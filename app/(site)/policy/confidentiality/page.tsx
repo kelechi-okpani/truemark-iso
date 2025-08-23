@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ConfidentialityPolicy from "@/components/Who_we_are(cont1)/ConfidentialityPolicy";
+import ConfidentialityPolicy from "@/components/Website/Who_we_are(cont1)/ConfidentialityPolicy";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

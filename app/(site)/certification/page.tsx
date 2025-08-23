@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import TM_Certifications from "@/components/Services/Certification/Certifications";
-import AboutCertification from "@/components/Services/Certification/About-Certification";
+import TM_Certifications from "@/components/Website/Services/Certification/Certifications";
+import AboutCertification from "@/components/Website/Services/Certification/About-Certification";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

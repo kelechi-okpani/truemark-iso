@@ -106,21 +106,27 @@ const menuData: Menu[] = [
     submenu: [
       {
         id: 31,
-        title: "Energy and Mining",
+        title: "Energy",
         newTab: false,
-        path: "/energy_and_mining",
+        path: "/energy_sector",
       },
       {
-        id: 34,
+        id: 32,
         title: "Food and Agriculture",
         newTab: false,
         path: "/food_and_agriculture",
       },
       {
-        id: 35,
+        id: 33,
         title: "Industrial sector",
         newTab: false,
         path: "/industrial_sector",
+      },
+      {
+        id: 34,
+        title: "Automotive sector",
+        newTab: false,
+        path: "/automotive_Sector",
       },
       {
         id: 35,
@@ -129,10 +135,16 @@ const menuData: Menu[] = [
         path: "/government_and_policy",
       },
       {
-        id: 35,
+        id: 36,
         title: "Technology and Media",
         newTab: false,
         path: "/technology_and_media",
+      },
+      {
+        id: 37,
+        title: "Health Care Sector",
+        newTab: false,
+        path: "/healthcare_sector",
       },
     ],
   },
@@ -150,12 +162,12 @@ const menuData: Menu[] = [
     title: "Policy",
     newTab: false,
     submenu: [
-      {
-        id: 12,
-        title: "Privacy",
-        newTab: false,
-        path: "/policy",
-      },
+      // {
+      //   id: 12,
+      //   title: "Privacy",
+      //   newTab: false,
+      //   path: "/policy",
+      // },
       {
         id: 7,
         title: "Complaint/Appeal",
@@ -168,12 +180,12 @@ const menuData: Menu[] = [
         newTab: false,
         path: "/policy/confidentiality",
       },
-      {
-        id: 9,
-        title: "Exam Retake",
-        newTab: false,
-        path: "/policy/exam_retake",
-      },
+      // {
+      //   id: 9,
+      //   title: "Exam Retake",
+      //   newTab: false,
+      //   path: "/policy/exam_retake",
+      // },
       {
         id: 10,
         title: "Exam Security",

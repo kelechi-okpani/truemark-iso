@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import RetakePolicy from "@/components/Who_we_are(cont1)/RetakePolicy";
+import RetakePolicy from "@/components/Website/Who_we_are(cont1)/RetakePolicy";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

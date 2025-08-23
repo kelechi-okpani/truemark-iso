@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ImpartialityPolicy from "@/components/Who_we_are(cont1)/ImpartialityPolicy";
+import ImpartialityPolicy from "@/components/Website/Who_we_are(cont1)/ImpartialityPolicy";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

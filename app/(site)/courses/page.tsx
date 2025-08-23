@@ -1,19 +1,14 @@
 "use client"
-import CertificationData from "@/components/Certifications/CertificationData";
-import CertificationItem from "@/components/Certifications/CertificationItem";
+import CertificationData from "@/components/Website/Certifications/CertificationData";
+import CertificationItem from "@/components/Website/Certifications/CertificationItem";
 import { Metadata } from "next";
 import React, { useState } from "react";
-import Course_Hero from "@/components/Courses/Course_Hero";
-
-
-// export const metadata: Metadata = {
-//   title: "Certifications Page - Solid SaaS Boilerplate",
-//   description: "This is Certifications page for Solid Pro"
-// };
+import Course_Hero from "@/components/Website/Certifications/Course_Hero";
 
 
 
-const BlogPage =  () => {
+
+const CoursePage =  () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const categories = [
@@ -54,7 +49,7 @@ const BlogPage =  () => {
           {/* Grid */}
           <div className="grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
             {filteredCerts.slice(0, 1).map((post, key) => (
-              <CertificationItem key={key} blog={post} />
+              <CertificationItem key={key} courseListing={post} />
             ))}
           </div>
         </div>
@@ -64,4 +59,4 @@ const BlogPage =  () => {
   );
 };
 
-export default BlogPage;
+export default CoursePage;

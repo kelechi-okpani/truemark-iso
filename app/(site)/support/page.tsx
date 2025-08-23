@@ -1,6 +1,6 @@
 import React from "react";
-import Contact from "components/Home/Contact";
 import { Metadata } from "next";
+import Contact from "@/components/Website/Home/Contact";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",

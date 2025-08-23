@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CodeOfEthics from "@/components/Who_we_are/CodeOfEthics";
+import CodeOfEthics from "@/components/Website/Who_we_are/CodeOfEthics";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",
