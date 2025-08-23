@@ -35,6 +35,8 @@ export default function Cart() {
     onClose: () => alert("Payment closed"),
   };
 
+  //    "react-hls-player": "^3.0.7",
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6 text-900">Course Checkout Cart</h1>
