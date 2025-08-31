@@ -17,14 +17,14 @@ const ConfidentialityPolicy = () => {
         <section className="space-y-5">
           <h3 className="text-2xl font-semibold text-[#387467]">Purpose</h3>
           <p>
-            The purpose of the confidentiality policy is to ensure that all staff, management, applicants, and subcontractors understand Truemark’s requirements regarding the handling and disclosure of personal data and confidential information.
+            The purpose of the confidentiality policy is to ensure that all staff, management, applicants, and subcontractors understand Truemark global standards and solutions limited (TMGSS) requirements regarding the handling and disclosure of personal data and confidential information.
           </p>
         </section>
 
         <section className="space-y-5">
           <h3 className="text-2xl font-semibold text-[#387467]">Policy Statement</h3>
           <p>
-            All personnel associated with the certification program must keep confidential any information obtained during the execution of Truemark’s certification program objectives.
+            All personnel associated with the certification program must keep confidential any information obtained during the execution of TTruemark global standards and solutions limited (TMGSS) certification program objectives.
           </p>
           <p>
             Confidential information includes details about applicants, candidates, certified persons, and the intellectual property involved in the certification process. It also covers vendor-provided data that supports the program.
@@ -35,7 +35,7 @@ const ConfidentialityPolicy = () => {
         </section>
 
         <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-          Truemark is committed to protecting sensitive information and upholding privacy at every level of certification operations.
+          Truemark global standards and solutions limited (TMGSS) is committed to protecting sensitive information and upholding privacy at every level of certification operations.
         </p>
       </motion.div>
     </section>

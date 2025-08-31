@@ -19,13 +19,13 @@ const featuresData: Feature[] = [
     title: "Verification and Validation",
     description: "Confirm conformity and validate processes to ensure continuous compliance.",
   },
-  {
-    id: 4,
-    icon: "/images/icon/icon-04.svg",
-    title: "Accreditation Assurance",
-    description:
-      "True-Mark Services is accredited to ISO/IEC 17024 (Personnel Certification), 17021 (Management Systems), and 17065 (Product Certification).",
-  },
+  // {
+  //   id: 4,
+  //   icon: "/images/icon/icon-04.svg",
+  //   title: "Accreditation Assurance",
+  //   description:
+  //     "True-Mark Services is accredited to ISO/IEC 17024 (Personnel Certification), 17021 (Management Systems), and 17065 (Product Certification).",
+  // },
   {
     id: 5,
     icon: "/images/icon/icon-05.svg",

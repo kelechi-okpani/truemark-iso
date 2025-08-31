@@ -20,12 +20,12 @@ const menuData: Menu[] = [
         newTab: false,
         path: "/who_we_are",
       },
-      {
-        id: 2,
-        title: "Our Accreditation",
-        newTab: false,
-        path: "/who_we_are/accreditation",
-      },
+      // {
+      //   id: 2,
+      //   title: "Our Accreditation",
+      //   newTab: false,
+      //   path: "/who_we_are/accreditation",
+      // },
       {
         id: 3,
         title: "Certification Withdrawal",
@@ -64,12 +64,12 @@ const menuData: Menu[] = [
     title: "Services",
     newTab: false,
     submenu: [
-      {
-        id: 2.1,
-        title: "Courses",
-        newTab: false,
-        path: "/courses",
-      },
+      // {
+      //   id: 2.1,
+      //   title: "Courses",
+      //   newTab: false,
+      //   path: "/courses",
+      // },
       {
         id: 31,
         title: "Certification",
@@ -94,10 +94,21 @@ const menuData: Menu[] = [
         newTab: false,
         path: "/inspection",
       },
+
+      {
+        id: 2.1,
+        title: "Verification",
+        newTab: false,
+        path: "/verification_validation",
+      },
+      {
+        id: 2.3,
+        title: "Training",
+        newTab: false,
+        path: "/training",
+      },
     ],
   },
-
-
 
   {
     id: 23,
@@ -149,14 +160,13 @@ const menuData: Menu[] = [
     ],
   },
 
-
-
   {
     id: 4,
     title: "Support",
     newTab: false,
     path: "/support",
   },
+
   {
     id: 31,
     title: "Policy",

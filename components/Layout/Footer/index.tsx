@@ -1,8 +1,23 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import menuData from "@/components/Layout/Header/menuData";
+import Link from "next/link";
+
 
 const Footer = () => {
+
+  const sectorMenu = menuData.find((menuItem: any) => menuItem.title === "Sector");
+  const sortedSubmenu = sectorMenu?.submenu
+    ? [...sectorMenu.submenu].sort((a, b) => a.title.localeCompare(b.title))
+    : [];
+
+  const ServicesMenu = menuData.find((menuItem: any) => menuItem.title === "Services");
+  const sortedServiceMenu = ServicesMenu?.submenu
+    ? [...ServicesMenu.submenu].sort((a, b) => a.title.localeCompare(b.title))
+    : [];
+  // Services
+
   return (
     <>
       <footer className="border-t border-stroke  bg-white dark:border-strokedark dark:bg-blacksection">
@@ -148,41 +163,13 @@ const Footer = () => {
                     Services
                   </h4>
                   <ul>
-                    <li>
-                      <a
-                        href="/certification"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Certification
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/auditing"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Auditing
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/outsourcing"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Outsourcing
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/inspection"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Inspection
-                      </a>
-                    </li>
+                    {sortedServiceMenu.map((item: any) => (
+                      <li key={item.id} className={"mb-4"}>
+                        <Link href={item.path || "#"}>{item.title}</Link>
+                      </li>
+                    ))}
                   </ul>
                 </motion.div>
-
 
 
                 <motion.div
@@ -208,47 +195,11 @@ const Footer = () => {
                   </h4>
 
                   <ul>
-                    <li>
-                      <a
-                        href="/energy_and_mining"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Energy and Mining
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/food_and_agriculture"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Food and Agriculture
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/industrial_sector"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Industrial sector
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/government_and_policy"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Governance and Policy
-                      </a>
-                    </li>
-
-                    <li>
-                      <a
-                        href="/technology_and_media"
-                        className="mb-3 inline-block hover:text-primary"
-                      >
-                        Technology and Media
-                      </a>
-                    </li>
+                    {sortedSubmenu.map((item: any) => (
+                      <li key={item.id} className={"mb-4"}>
+                        <Link href={item.path || "#"}>{item.title}</Link>
+                      </li>
+                    ))}
                   </ul>
                 </motion.div>
 

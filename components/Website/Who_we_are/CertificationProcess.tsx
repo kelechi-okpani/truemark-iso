@@ -48,26 +48,7 @@ const CertificationProcess = () => {
             <li>Determine the credential that best fits their professional goals.</li>
             <li>Verify eligibility requirements for the chosen certification.</li>
           </ul>
-          <p>
-            View all available certifications here:
-            <Link
-              href="/courses"
-              target="_blank"
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              truemark.com/courses
-            </Link>
-          </p>
-          <p>
-             Register for a course via:{' '}
-            <Link
-              href="https://truemark.com/courses/registration"
-              target="_blank"
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              truemark.com/courses/registration
-            </Link>
-          </p>
+
         </div>
 
         {/* Take the Course */}

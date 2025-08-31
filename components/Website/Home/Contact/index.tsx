@@ -4,10 +4,6 @@ import Image from "next/image";
 import React from "react";
 
 const Contact = () => {
-  /**
-   * Source: https://www.joshwcomeau.com/react/the-perils-of-rehydration/
-   * Reason: To fix rehydration error
-   */
   const [hasMounted, setHasMounted] = React.useState(false);
   React.useEffect(() => {
     setHasMounted(true);
@@ -179,8 +175,8 @@ const Contact = () => {
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   Our Loaction
                 </h3>
-                {/*<p> 3, M. T. Mbu Close, Off Mamman Kontagora Crescent, Katampe Extension, Abuja Nigeria</p>*/}
-                <p>Abuja, Nigeria.</p>
+                 <p>Plot 2116 perfect mall amuwo odofin</p>
+                  <p>Lagos, Nigeria.</p>
               </div>
               <div className="5 mb-7">
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
@@ -195,10 +191,7 @@ const Contact = () => {
                   Phone Number
                 </h4>
                 <p>
-                  <a href="#"> +234 703 266 0619 </a>
-                </p>
-                <p>
-                  <a href="#"> +234 811 364 1323</a>
+                  <a href="#"> +234 905 743 8835 </a>
                 </p>
 
               </div>

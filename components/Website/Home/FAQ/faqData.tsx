@@ -16,11 +16,11 @@ const faqData: FAQ[] = [
     quest: "Can I manage my audits and courses online?",
     ans: "Yes. Our online platform allows full access to manage documentation, monitor status, receive alerts, and communicate with auditors in real-time.",
   },
-  {
-    id: 4,
-    quest: "Do you offer international certification services?",
-    ans: "Absolutely. We are accredited to issue courses that are recognized globally, making international trade and compliance easier for your business.",
-  },
+  // {
+  //   id: 4,
+  //   quest: "Do you offer international certification services?",
+  //   ans: "Absolutely. We are accredited to issue courses that are recognized globally, making international trade and compliance easier for your business.",
+  // },
   {
     id: 5,
     quest: "What industries do you serve?",
