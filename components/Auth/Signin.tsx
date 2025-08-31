@@ -16,7 +16,7 @@ const Signin = () => {
   });
 
   const handleRoute = () => {
-    router.push("/overviews");
+    router.push("/overview");
   }
 
   return (

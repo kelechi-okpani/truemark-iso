@@ -172,19 +172,19 @@ const Header = () => {
           <div className="mt-7 flex items-center gap-6 xl:mt-0">
             {/*<ThemeToggler />*/}
 
-            <Link
-              href="/auth/signup"
-              className="text-regular font-medium text-[#000] hover:text-[#387467]"
-            >
-              Sign Up
-            </Link>
+            {/*<Link*/}
+            {/*  href="/auth/signup"*/}
+            {/*  className="text-regular font-medium text-[#000] hover:text-[#387467]"*/}
+            {/*>*/}
+            {/*  Sign Up*/}
+            {/*</Link>*/}
 
-            <Link
-              href="/auth/signin"
-              className="flex items-center justify-center rounded-sm bg-[#387467]  px-7.5 py-1.5 text-regular text-white duration-300 ease-in-out hover:bg-[#387467] ho"
-            >
-             Login
-            </Link>
+            {/*<Link*/}
+            {/*  href="/auth/signin"*/}
+            {/*  className="flex items-center justify-center rounded-sm bg-[#387467]  px-7.5 py-1.5 text-regular text-white duration-300 ease-in-out hover:bg-[#387467] ho"*/}
+            {/*>*/}
+            {/* Login*/}
+            {/*</Link>*/}
           </div>
         </div>
       </div>
