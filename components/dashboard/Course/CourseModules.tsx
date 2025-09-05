@@ -2,15 +2,13 @@
 import Accordion from "@/components/dashboard/Course/Accordion";
 import React from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Modal } from "@/components/ui/modal";
-import { useModal } from "@/components/hooks/useModal";
-import Create_Module from "@/components/dashboard/Course/course/module/CreateModule";
 import { useCourseStore } from "@/store/useCourseStore";
 import { useQuery } from "@apollo/client/react";
 import { GET_COURSES_MODULES } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
 import EmptyContainer from "@/components/utility/EmptyContainer";
-import CourseItem from "@/components/dashboard/Course/CourseItem";
+
+
 
 const empty_details = {
   title: "Your course Module List is empty",

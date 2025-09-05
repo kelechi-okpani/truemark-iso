@@ -2,7 +2,6 @@
 import React from "react";
 import { useModal } from "@/components/hooks/useModal";
 import { Modal } from "@/components/ui/modal";
-import Create_Course from "@/components/dashboard/Course/course/course/CreateCourse";
 
 export default function UserInfo() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -86,9 +85,7 @@ export default function UserInfo() {
         </button>
       </div>
 
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
-        <Create_Course onClose={closeModal} isOpen={isOpen} />
-      </Modal>
+
     </div>
   );
 }

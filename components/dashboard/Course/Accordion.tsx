@@ -1,12 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Modal } from "@/components/ui/modal";
-import Create_Lesson from "@/components/dashboard/Course/course/lesson/CreateLesson";
-import { useModal } from "@/components/hooks/useModal";
 import CourseVideoListing from "@/components/dashboard/Course/CourseVideo/CourseVideoListing";
-import Update_Module from "@/components/dashboard/Course/course/module/UpdateModule";
-import { MoreVertical, Pencil, Trash2 } from "lucide-react";
-import Delete_Module from "@/components/dashboard/Course/course/module/DeleteModule";
 
 
  const Accordion =({course, modules})=> {

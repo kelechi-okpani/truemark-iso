@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import CoursePage from "@/components/dashboard/Course/CoursePlayer";
+import CoursePage from "@/app/(site)/courses/page";
 
 
 export default function MyLearningPage() {

@@ -1,19 +1,12 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import CourseItem from "@/components/dashboard/Course/CourseItem";
 import { Search } from "lucide-react";
-import EmptyContainer from "@/components/utility/EmptyContainer";
 import { useQuery } from "@apollo/client/react";
 import { GET_COURSES } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
+import CourseItem from "@/components/Website/Certifications/CourseItem";
 
 
-const empty_details = {
-  title: "Your course List is empty",
-  description: "Looks like you haven’t paid for any courses yet.",
-  callToAction: "Add New Courses",
-  to:"/overview/course"
-}
 
 export default function CourseListing() {
   const { data, loading, error} = useQuery(GET_COURSES, {
@@ -66,11 +59,6 @@ export default function CourseListing() {
           <div className="flex items-center justify-center min-h-[300px] w-full">
             <CenteredLoader/>
           </div>
-        ) : filteredCourses.length === 0 ? (
-          <EmptyContainer
-            title={empty_details.title}
-            description={empty_details.description}
-          />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {filteredCourses.map((post, key) => (

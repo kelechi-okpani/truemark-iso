@@ -1,9 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import EmptyContainer from "@/components/utility/EmptyContainer";
-import { useModal } from "@/components/hooks/useModal";
-import { Modal } from "@/components/ui/modal";
-import Create_Course from "@/components/dashboard/Course/course/course/CreateCourse";
 import { useQuery } from "@apollo/client/react";
 import { GET_COURSES, GET_COURSES_LESSONS } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";

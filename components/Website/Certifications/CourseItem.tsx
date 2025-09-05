@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { CourseList } from "@/types/blog";
 import { useCourseStore } from "@/store/useCourseStore";
-import Link from "next/link";
 import React from "react";
 
 
@@ -20,10 +19,6 @@ const CourseItem = ({ courseListing }: { courseListing: CourseList }) => {
   return (
     <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
       <div className="relative">
-        <Link
-          href={`/overview/course/${courseListing.id}`}
-          onClick={handleClick}
-        >
           <Image
             src={image}
             alt={name}
@@ -31,7 +26,6 @@ const CourseItem = ({ courseListing }: { courseListing: CourseList }) => {
             width={500}
             height={160}
           />
-        </Link>
       </div>
 
       <div className="p-4 flex justify-between">
@@ -44,18 +38,6 @@ const CourseItem = ({ courseListing }: { courseListing: CourseList }) => {
           currency: "NGN",
         }).format(Number(price ?? 0))}
       </p>
-
-
-       <div className="flex flex-col gap-4 py-2 px-4">
-        <button
-          onClick={() => addToCart(courseListing)}
-          className="bg-[#387467] text-white px-4 py-2 rounded-2xl hover:bg-gray-300"
-        >
-          Add to Cart
-           {/*{isPaid ? "Already Enrolled" : "Add to Cart"}*/}
-        </button>
-      </div>
-
 
     </div>
   )
