@@ -1,4 +1,5 @@
-import { gql } from "graphql-request";
+import { gql } from "@apollo/client";
+
 
 // TRUE-MARK COURSES - MODULES - LESSONS
 

@@ -1,73 +1,122 @@
+"use client";
 import { create } from "zustand";
-import { client } from "@/lib/graphqlClient";
+import { client } from "@/lib/apolloClient"; // ✅ use the exported client
 import { GET_USERS } from "@/lib/Query/queries";
-import { CREATE_USERS, LOGIN_USERS } from "@/lib/Mutation/mutation";
-
+import { persist } from "zustand/middleware";
 
 type User = {
   id: string;
   email: string;
-  fullname: string;
-  isAdmin: string;
-  createdAt: string;
-  updatedAt: string;
+  fullname?: string;
+  isAdmin?: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 type UserStore = {
-  users: User[];
+  currentUser: User | null;
+  token: string | null;
   loading: boolean;
   error: string | null;
 
+  setAuth: (currentUser: User, token?: string | null) => void;
+
   fetchUsers: () => Promise<void>;
-  createUser: (fullname: string, email: string, password: string) => Promise<void>;
-  loginUser: (email: string, password: string) => Promise<void>;
+  logout: () => void;
 };
 
-export const useUserStore = create<UserStore>((set) => ({
-  users: [],
-  loading: false,
-  error: null,
 
-  fetchUsers: async () => {
-    set({ loading: true, error: null });
-    try {
-      const data = await client.request<{ users: User[] }>(GET_USERS);
-      set({ users: data.users, loading: false });
-    } catch (err: any) {
-      set({ error: err.message, loading: false });
-    }
-  },
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      currentUser: null,
+      token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+      loading: false,
+      error: null,
 
-  createUser: async (fullname, email,password) => {
-    set({ loading: true, error: null });
-    try {
-      const data = await client.request<{ createUser: User }>(CREATE_USERS, {
-        fullname,
-        email,
-        password
-      });
-      set((state) => ({
-        users: [...state.users, data.createUser],
-        loading: false,
-      }));
-    } catch (err: any) {
-      set({ error: err.message, loading: false });
-    }
-  },
+      setAuth: (currentUser, token) => {
+         if(token && typeof window !== "undefined") {
+             localStorage.setItem("token", token);
+           }
+        set((state) => ({
+          currentUser: currentUser ?? state.currentUser,
+          token: token ?? state.token ?? null,
+        }));
+      },
 
-  loginUser: async ( email,password) => {
-    set({ loading: true, error: null });
-    try {
-      const data = await client.request<{ createUser: User }>(LOGIN_USERS, {
-        email,
-        password
-      });
-      set((state) => ({
-        users: [...state.users, data.createUser],
-        loading: false,
-      }));
-    } catch (err: any) {
-      set({ error: err.message, loading: false });
+      fetchUsers: async () => {
+        set({ loading: true, error: null });
+        try {
+          const res: any = await client.query<{ getUserInfo: User }>({
+            query: GET_USERS as any,
+            fetchPolicy: "network-only",
+          });
+          set({
+            currentUser: {
+              email: res?.data?.getUserInfo.email,
+              id: res?.data?.getUserInfo.id,
+              fullname: res?.data?.getUserInfo.fullname,
+            },
+            loading: false,
+          });
+        } catch (err: any) {
+          set({ error: err.message, loading: false });
+        }
+      },
+
+      logout: () => {
+        set({ currentUser: null, token: null });
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("token");
+         }
+      },
+    }),
+    {
+      name: "user-storage", // 👈 saves to localStorage
     }
-  },
-}));
+  )
+);
+
+// export const useUserStore = create<UserStore>((set) => ({
+//   currentUser: null,
+//   token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+//   loading: false,
+//   error: null,
+//
+//   setAuth: ( currentUser , token) => {
+//     if (token && typeof window !== "undefined") {
+//       localStorage.setItem("token", token);
+//     }
+//     set((state) => ({
+//       currentUser: currentUser ?? state.currentUser,
+//       token: token ?? state.token ?? null,
+//     }));
+//   },
+//
+//   fetchUsers: async () => {
+//     set({ loading: true, error: null });
+//     try {
+//       const res:any = await client.query<{ getUserInfo: User }>({
+//         query: GET_USERS as any,
+//         fetchPolicy: "network-only",
+//       });
+//       set({ currentUser: {
+//           email: res?.data?.getUserInfo.email,
+//           id: res?.data?.getUserInfo.id,
+//           fullname: res?.data?.getUserInfo.fullname,
+//         },
+//         loading: false });
+//     } catch (err: any) {
+//       set({ error: err.message, loading: false });
+//     }
+//   },
+//
+//   logout: () => {
+//     // if (typeof window !== "undefined") {
+//     //   localStorage.removeItem("token");
+//     // }
+//     set({ currentUser: null, token: null });
+//     localStorage.removeItem("token");
+//   },
+//
+// }));

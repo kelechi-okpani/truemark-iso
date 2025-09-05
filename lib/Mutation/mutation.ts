@@ -1,11 +1,10 @@
-import { gql } from "graphql-request";
-
+import { gql } from "@apollo/client";
 
 // TRUE-MARK COURSES - MODULES - LESSONS
 
 export const CREATE_COURSE = gql`
-    mutation CreateCourse($image: Upload!, $input: CourseInput) {
-        createCourse(image: $image, input: $input) {
+    mutation CreateCourse($input: CourseInput!) {
+        createCourse(input: $input) {
             course {
                 id
                 name
@@ -21,8 +20,8 @@ export const CREATE_COURSE = gql`
 `;
 
 export const CREATE_COURSE_MODULE = gql`
-    mutation CreateCourseModule($image: Upload!, $input: CreateModuleInput) {
-        createCourseModule(image: $image, input: $input) {
+    mutation CreateCourseModule($input: CreateModuleInput!) {
+        createCourseModule(input: $input) {
             courseModule {
                 id
                 name
@@ -34,11 +33,12 @@ export const CREATE_COURSE_MODULE = gql`
             }
             success
         }
-    }`;
+    }
+`;
 
 export const CREATE_COURSE_LESSON = gql`
-    mutation CreateCourseLession($video: Upload!, $input: CreateLessionInput) {
-        createCourseLession(Video: $video, input: $input) {
+    mutation CreateCourseLesson($input: CreateLessionInput!) {
+        createCourseLesson(input: $input) {
             lession {
                 id
                 name
@@ -55,8 +55,8 @@ export const CREATE_COURSE_LESSON = gql`
 
 
 export const UPDATE_COURSE = gql`
-    mutation UpdateCourse($input: UpdateCourse, $image: Upload) {
-        updateCourse(input: $input, image: $image) {
+    mutation UpdateCourse($input: UpdateCourse!) {
+        updateCourse(input: $input) {
             course {
                 id
                 name
@@ -68,11 +68,12 @@ export const UPDATE_COURSE = gql`
             }
             success
         }
-    }`;
+    }
+`;
 
 export const UPDATE_COURSE_MODULE = gql`
-    mutation UpdateCourseModule($input: UpdateModuleInput, $image: Upload) {
-        updateCourseModule(input: $input, image: $image) {
+    mutation UpdateCourseModule($input: UpdateModuleInput!) {
+        updateCourseModule(input: $input) {
             courseModule {
                 id
                 name
@@ -88,8 +89,8 @@ export const UPDATE_COURSE_MODULE = gql`
 `;
 
 export const UPDATE_COURSE_LESSON = gql`
-    mutation UpdateCourseLession($input: UpdateLessionInput, $video: Upload) {
-        updateCourseLession(input: $input, Video: $video) {
+    mutation UpdateCourseLesson($input: UpdateLessionInput!) {
+        updateCourseLesson(input: $input) {
             lession {
                 id
                 name
@@ -101,7 +102,8 @@ export const UPDATE_COURSE_LESSON = gql`
             }
             success
         }
-    }`;
+    }
+`;
 
 
 
@@ -119,8 +121,8 @@ export const DELETE_COURSE_MODULE = gql`
 `;
 
 export const DELETE_COURSE_LESSON = gql`
-    mutation DeleteCourseLession($deleteCourseLessionId: ID!) {
-        deleteCourseLession(id: $deleteCourseLessionId)
+    mutation DeleteCourseLesson($deleteCourseLessonId: ID!) {
+        deleteCourseLesson(id: $deleteCourseLessonId)
     }
 `;
 
@@ -128,31 +130,31 @@ export const DELETE_COURSE_LESSON = gql`
 
 
 // TRUE-MARK USER FLOW
-
 export const CREATE_USERS = gql`
-    mutation CreateAccount($input: CreateAccountData) {
+    mutation CreateAccount($input: CreateAccountData!) {
         createAccount(input: $input) {
             success
             user {
                 id
                 email
+                fullname
                 isAdmin
                 createdAt
                 updatedAt
-                fullname
             }
         }
     }
-
 `;
 
+
 export const LOGIN_USERS = gql`
-    mutation Login($input: LoginInput) {
+    mutation Login($input: LoginInput!) {
         login(input: $input) {
             success
             user {
                 id
                 email
+                fullname
                 isAdmin
                 createdAt
                 updatedAt

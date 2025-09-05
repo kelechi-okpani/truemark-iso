@@ -72,17 +72,17 @@ type LoginResponse {
 }
 
 type Mutation {
-    createAccount(input: CreateAccountData): AuthResponse!
-    createCourse(image: Upload!, input: CourseInput): CourseResponse!
-    createCourseLession(Video: Upload!, input: CreateLessionInput): CourseLessionResponse!
-    createCourseModule(image: Upload!, input: CreateModuleInput): CourseModuleResponse!
+    createAccount(input: CreateAccountData!): AuthResponse!
+    createCourse(input: CourseInput!): CourseResponse!
+    createCourseLesson(input: CreateLessionInput!): CourseLessionResponse!
+    createCourseModule(input: CreateModuleInput!): CourseModuleResponse!
     deleteCourse(id: ID!): Boolean!
-    deleteCourseLession(id: ID!): Boolean!
+    deleteCourseLesson(id: ID!): Boolean!
     deleteCourseModule(id: ID!): Boolean!
-    login(input: LoginInput): LoginResponse!
-    updateCourse(image: Upload, input: UpdateCourse): CourseResponse!
-    updateCourseLession(Video: Upload, input: UpdateLessionInput): CourseLessionResponse!
-    updateCourseModule(image: Upload, input: UpdateModuleInput): CourseModuleResponse!
+    login(input: LoginInput!): LoginResponse!
+    updateCourse(input: UpdateCourse!): CourseResponse!
+    updateCourseLesson(input: UpdateLessionInput!): CourseLessionResponse!
+    updateCourseModule(input: UpdateModuleInput!): CourseModuleResponse!
 }
 
 type Query {
@@ -102,11 +102,11 @@ type User {
     updatedAt: String!
 }
 
-"The `Upload` scalar type represents a file upload."
 scalar Upload
 
 input CourseInput {
     description: String!
+    image: String!
     name: String!
     price: Float!
 }
@@ -121,11 +121,13 @@ input CreateLessionInput {
     courseModuleId: ID!
     description: String!
     name: String!
+    video: String!
 }
 
 input CreateModuleInput {
     courseId: ID!
     description: String!
+    image: String!
     name: String!
 }
 
@@ -137,6 +139,7 @@ input LoginInput {
 input UpdateCourse {
     description: String!
     id: ID!
+    image: String!
     name: String!
     price: Float!
 }
@@ -146,11 +149,13 @@ input UpdateLessionInput {
     description: String!
     id: ID!
     name: String!
+    video: String!
 }
 
 input UpdateModuleInput {
     courseId: ID!
     description: String!
     id: ID!
+    image: String!
     name: String!
 }

@@ -3,8 +3,9 @@ import { Outfit } from 'next/font/google';
 import './globals.css';
 import { SidebarProvider } from "@/components/dashboard/context/SidebarContext";
 import NextTopLoader from "nextjs-toploader";
+import { ApolloProvider } from "@apollo/client/react";
 
-
+import { client } from "@/lib/apolloClient";
 
 export default function RootLayout({
   children,
@@ -25,7 +26,10 @@ export default function RootLayout({
         speed={200}
         shadow="0 0 10px #2299DD,0 0 5px #2299DD"
       />
-          <SidebarProvider>{children}</SidebarProvider>
+          {/*<SidebarProvider>{children}</SidebarProvider>*/}
+      <ApolloProvider client={client}>
+        <SidebarProvider>{children}</SidebarProvider>
+      </ApolloProvider>
       </body>
     </html>
   );
