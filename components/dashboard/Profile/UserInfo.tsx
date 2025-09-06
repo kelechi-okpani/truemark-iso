@@ -84,8 +84,6 @@ export default function UserInfo() {
           Edit
         </button>
       </div>
-
-
     </div>
   );
 }
