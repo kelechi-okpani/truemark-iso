@@ -25,10 +25,10 @@ import CourseVideoListing from "@/components/dashboard/Course/CourseVideo/Course
             <div className="flex justify-between gap-2">
               <button
                 type="button"
-                className="px-8 flex items-center bg-gray-300 justify-between w-full py-4 font-medium text-gray-700 gap-3"
+                className="px-8  flex items-center bg-gray-300 justify-between w-full py-4 font-medium text-gray-700 gap-3"
                 onClick={() => toggle(module?.id)}
               >
-                <span>{module?.name}</span>
+                <span className='text-sm'>{module?.name}</span>
                 <div>
                   <svg
                     className={`w-3 h-3 transition-transform ${
@@ -53,15 +53,11 @@ import CourseVideoListing from "@/components/dashboard/Course/CourseVideo/Course
 
             {openId === module?.id && (
               <div className="text-gray-500 dark:text-gray-400">
-                <div className="flex py-8 px-4 justify-end">
-                  {/*<h3 className="font-bold capitalize">{module?.name}</h3>*/}
-
+                <div className="py-6 justify-start bg-gray-100  px-3">
+                   <p className="capitalize font-bold py-4">Description:</p>
+                   <span className=" capitalize">{module?.description}</span>
                 </div>
                 <CourseVideoListing id={id} module={module} />
-                <div className="flex justify-start bg-gray-200 py-8 px-3">
-                  <span className=" capitalize">{module?.description}</span>
-                </div>
-
 
               </div>
             )}

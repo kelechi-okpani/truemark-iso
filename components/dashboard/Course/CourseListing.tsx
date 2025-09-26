@@ -1,10 +1,10 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CourseItem from "@/components/dashboard/Course/CourseItem";
 import { Search } from "lucide-react";
 import EmptyContainer from "@/components/utility/EmptyContainer";
 import { useQuery } from "@apollo/client/react";
-import { GET_COURSES } from "@/lib/Query/queries";
+import { GET_COURSES, GET_USER_ENROLLED_COURSES } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
 
 
@@ -22,28 +22,53 @@ export default function CourseListing() {
     // variables:{seasonId:seasonId},
   }) as any;
 
+  // 🔹 Get all courses
+  const { data: coursesData, loading: coursesLoading, error: coursesError, } = useQuery(GET_COURSES, {
+    fetchPolicy: "cache-and-network",
+  }) as any;
+
+  // 🔹 Get user enrolled courses
+  const { data: enrolledData, loading: enrolledLoading, error: enrolledError, } = useQuery(GET_USER_ENROLLED_COURSES, {
+    fetchPolicy: "cache-and-network",
+  }) as any;
+
+  const [paidCourses, setPaidCourses] = useState<number[]>([]);
+
+   // 🔹 Extract paid course IDs once enrolledData is loaded
+  useEffect(() => {
+      if (enrolledData?.getUserEnrolledCourses) {
+        const ids = enrolledData?.getUserEnrolledCourses.map(
+          (course: any) => course.id
+        );
+        setPaidCourses(ids);
+      }
+    }, [enrolledData]);
+
+
   const [searchTerm, setSearchTerm] = useState("");
+  const [paid, setPaid] = useState(true);
 
   const filteredCourses = useMemo(() => {
     let List: any = data?.getCourses || [];
-
     if (searchTerm.trim() !== "") {
       List = List.filter((c: any) =>
         c.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
     return List;
   }, [searchTerm, data]);
+
+  const courses = coursesData?.getCourses || [];
+
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-[#387467] text-white px-6 py-8  rounded-lg  flex justify-between">
+      <header className="bg-[#387467] text-white px-6 py-8  rounded-lg  flex flex-col md:flex-row justify-between">
         <h1 className="text-3xl font-bold">Certification Courses</h1>
       </header>
 
-      <div className="px-6 py-8 max-w-7xl mx-auto">
+      <div className="px-6 py-6 max-w-7xl mx-auto">
         {/* Filters & Search */}
         <div className="flex flex-col md:flex-row justify-end items-center mb-6 gap-4">
 
@@ -62,7 +87,7 @@ export default function CourseListing() {
           </div>
         </div>
 
-        {loading ? (
+        {enrolledLoading || coursesLoading ? (
           <div className="flex items-center justify-center min-h-[300px] w-full">
             <CenteredLoader/>
           </div>
@@ -72,10 +97,14 @@ export default function CourseListing() {
             description={empty_details.description}
           />
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {filteredCourses.map((post, key) => (
-              <CourseItem key={key} courseListing={post} />
-            ))}
+          // <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCourses?.map((course, key) => {
+              const paid = paidCourses?.includes(course?.id);
+              return (
+                <CourseItem key={key} courseListing={course} paid={paid}  />
+              )}
+            )}
           </div>
         )}
 

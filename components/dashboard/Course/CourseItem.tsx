@@ -6,22 +6,17 @@ import Link from "next/link";
 import React from "react";
 
 
-const CourseItem = ({ courseListing }: { courseListing: CourseList }) => {
-  const {image, name, price, id } = courseListing;
-
-  const setSelectedCourse = useCourseStore((s) => s.setSelectedCourse);
+const CourseItem = ({ courseListing, paid }: { courseListing: CourseList, paid:any }) => {
+   const {image, name, price, id } = courseListing;
+   const setSelectedCourse = useCourseStore((s) => s.setSelectedCourse);
    const {addToCart, } = useCourseStore()
-
-
-  const handleClick = () => {
-    setSelectedCourse(courseListing);
-  };
+   const handleClick = () => {setSelectedCourse(courseListing)};
 
   return (
     <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
       <div className="relative">
         <Link
-          href={`/overview/course/${courseListing.id}`}
+          href={`/overview/course/${courseListing?.id}`}
           onClick={handleClick}
         >
           <Image
@@ -38,7 +33,7 @@ const CourseItem = ({ courseListing }: { courseListing: CourseList }) => {
         <h3 className="font-semibold ">{name}</h3>
       </div>
 
-      <p className="text-lg text-gray-600 px-5 py-4">
+      <p className="text-lg text-gray-600 px-5 ">
         {new Intl.NumberFormat("en-NG", {
           style: "currency",
           currency: "NGN",
@@ -47,14 +42,23 @@ const CourseItem = ({ courseListing }: { courseListing: CourseList }) => {
 
 
        <div className="flex flex-col gap-4 py-2 px-4">
-        <button
-          onClick={() => addToCart(courseListing)}
-          className="bg-[#387467] text-white px-4 py-2 rounded-2xl hover:bg-gray-300"
-        >
-          Add to Cart
-           {/*{isPaid ? "Already Enrolled" : "Add to Cart"}*/}
-        </button>
-      </div>
+         {paid ? (
+             <button
+               className="bg-[#387467] text-white px-4 py-2 rounded-lg"
+             >
+               ✅ Enrolled
+             </button>
+         ) : (
+           <button
+             onClick={() => addToCart(courseListing)}
+             className="bg-[#387467] text-white px-4 py-2 rounded-lg"
+           >
+             Add to Cart
+           </button>
+         )}
+
+
+       </div>
 
 
     </div>

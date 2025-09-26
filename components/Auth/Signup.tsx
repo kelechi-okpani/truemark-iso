@@ -144,7 +144,7 @@ const Signup = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 "
+                className="absolute top-1/2 mt-2 right-3 -translate-y-1/2 text-gray-500 "
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -202,7 +202,7 @@ const Signup = () => {
 
           <p className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="/signin" className="text-pink-500">
+            <Link href="/auth/signin" className="text-pink-500">
               Sign in
             </Link>
           </p>

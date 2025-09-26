@@ -2,8 +2,19 @@
 import React, { ReactNode } from "react";
 import SideBar from "@/components/Layout/main/sidebar";
 import Header from "@/components/Layout/main/header";
+import { GET_USERS } from "@/lib/Query/queries";
+import { useQuery } from "@apollo/client/react";
+import useAppSecurity from "@/components/hooks/useAppSecurity";
 
 export default function layout({ children }: { children: ReactNode }) {
+  // useAppSecurity();
+  const { data, loading, error} = useQuery(GET_USERS, {
+    fetchPolicy: "cache-and-network",
+    // fetchPolicy: 'network-only',
+    // variables:{seasonId:seasonId},
+  });
+
+
   return (
 
     <div className="flex w-full h-screen">
@@ -14,7 +25,7 @@ export default function layout({ children }: { children: ReactNode }) {
       <div className="flex-grow flex flex-col h-screen overflow-hidden">
         {/* Sticky header at the top */}
         <div className="shrink-0">
-          <Header />
+          <Header data={data} />
         </div>
 
         {/* Scrollable content below header */}

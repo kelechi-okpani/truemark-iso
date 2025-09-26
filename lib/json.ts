@@ -8,17 +8,24 @@ export const mainSideBar = [
     active_icon: sideIcons.dashboard_active,
   },
   {
-    label: "course",
+    label: "Courses",
     link: "/overview/course",
     icon: sideIcons.inventory,
     active_icon: sideIcons.inventory_active,
   },
   {
-    label: "checkout-cart",
+    label: "Checkout",
     link: "/overview/cart",
     icon: sideIcons.purchase,
     active_icon: sideIcons.purchase_active,
   },
+  {
+    label: "Paid-Courses",
+    link: "/overview/enrolled-course",
+    icon: sideIcons.sales,
+    active_icon: sideIcons.sales_active,
+  },
+
   // {
   //   label: "Profile",
   //   link: "/overview/profile",
@@ -27,6 +34,7 @@ export const mainSideBar = [
   // },
 
 ];
+
 export const mainGeneral = [
 
   {
@@ -88,7 +96,6 @@ export const mobileSideBar = [
     active_icon: sideIcons.purchase_active,
   },
 ];
-
 export const mobileGeneral = [
   {
     label: "Main Menu",

@@ -47,11 +47,11 @@ const Hero = () => {
 
                   <motion.div
                     initial={{ y: 0 }}
-                    animate={{ y: [0, -15, 0] }}
+                    // animate={{ y: [0, -15, 0] }}
                     transition={{
                       duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
+                      // repeat: Infinity,
+                      // ease: "easeInOut"
                     }}
                     className="relative aspect-500/300 w-full"
                   >

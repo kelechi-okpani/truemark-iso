@@ -40,8 +40,8 @@ function SideBar() {
 
     <div
       className={cn(
-        " bg-white w-[280px] duration-150 flex flex-col shadow-lg",
-        isOpen ? null : "w-[115px]"
+        " bg-white w-[250px] duration-150 flex flex-col shadow-md",
+        isOpen ? null : "w-[80px]"
       )}
     >
       <div className="flex items-center h-[95px] relative px-6 shrink-0">
@@ -55,7 +55,7 @@ function SideBar() {
            }
         <button
           className={cn(
-            "absolute top-1/2 -translate-y-1/2 -right-3 bg-[#387467] w-8 h-8 flex justify-center items-center rounded-full z-30 duration-150",
+            "absolute top-1/2 -translate-y-1/2 -right-3 bg-[#387467] w-6 h-6 flex justify-center items-center rounded-full z-30 duration-150",
             isOpen ? null : "rotate-180"
           )}
           onClick={toggleSideBar}
@@ -85,7 +85,7 @@ function SideBar() {
               <Link
                 key={index}
                 className={cn(
-                  " hover:text-900 group text-text text-sm font-medium rounded-lg py-3 px-4 flex gap-4 items-center capitalize duration-150",
+                  " hover:text-900 group text-text text-sm font-medium rounded-lg py-2 px-4 flex gap-4 items-center capitalize duration-150",
                   // menu.link === pathname ? "bg-[#FEC28B]" : null,
                   // active ? "bg-[#04BA99] text-white" : null,
                   active ? "bg-[#387467] text-white " : "hover:bg-green-50",
@@ -97,9 +97,10 @@ function SideBar() {
               >
             <span
               className={cn(
-                "shrink-0 w-8 h-8 rounded-lg border group-hover:bg-[#04BA99] group-hover:border-none duration-150 flex items-center justify-center",
+                "shrink-0 w-8 h-8 rounded-lg border group-hover:bg-[#387467] group-hover:border-none duration-150 flex items-center justify-center",
                 // menu.link === pathname ? "bg-[#04BA99] border-none" : null
-                active ? "bg-[#04BA99] border-none" : null
+                // bg-[#04BA99]
+                active ? " bg-[#387467] border-none" : null
               )}
             >
               {/*{hoveredIndex === index || menu.link === pathname*/}
@@ -129,7 +130,7 @@ function SideBar() {
             key={index}
             className={cn(
               "hover:bg-green-50 group text-text text-sm font-medium rounded-lg py-3 px-4 flex gap-4 items-center capitalize duration-150",
-              menu.link === pathname ? "bg-[#FEC28B]" : null,
+              menu.link === pathname ? "bg-[#387467]" : null,
               isOpen ? null : "hover:bg-transparent !bg-transparent"
             )}
             href={menu.link}
@@ -138,8 +139,8 @@ function SideBar() {
           >
             <span
               className={cn(
-                "shrink-0 w-8 h-8 rounded-lg border group-hover:bg-[#04BA99] group-hover:border-none duration-150 flex items-center justify-center",
-                menu.link === pathname ? "bg-[#04BA99] border-none" : null
+                "shrink-0 w-8 h-8 rounded-lg border group-hover:bg-[#387467] group-hover:border-none duration-150 flex items-center justify-center",
+                menu.link === pathname ? "bg-[#387467] border-none" : null
               )}
             >
               {hoveredIndex === index || menu.link === pathname
@@ -173,12 +174,12 @@ function SideBar() {
 
             <ButtonComponent
               label="TMGL"
-              className="bg-white text-primary hover:bg-white w-full"
+              className="bg-white text-[#04BA99] hover:bg-white w-full"
             />
           </div>
         ) : (
           <button
-            className="mt-auto mx-auto bg-[#FEC28B] w-12 h-12 flex items-center justify-center rounded-xl shrink-0 text-white text-3xl font-normal my-6">
+            className="mt-auto mx-auto bg-[#04BA99] w-12 h-12 flex items-center justify-center rounded-xl shrink-0 text-white text-3xl font-normal my-6">
             +
           </button>
         )}

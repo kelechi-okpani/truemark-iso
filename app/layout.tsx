@@ -6,12 +6,14 @@ import NextTopLoader from "nextjs-toploader";
 import { ApolloProvider } from "@apollo/client/react";
 
 import { client } from "@/lib/apolloClient";
+import useAppSecurity from "@/components/hooks/useAppSecurity";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // useAppSecurity();
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>

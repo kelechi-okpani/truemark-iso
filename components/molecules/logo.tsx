@@ -34,7 +34,7 @@ export function Logo() {
     <Image
       src={Sub_Logo}
       alt="logo"
-      width={400} height={400}
+      width={800} height={800}
       draggable={false}
     />
   );

@@ -3,6 +3,14 @@ import { useCourseStore } from "@/store/useCourseStore";
 import EmptyContainer from "@/components/utility/EmptyContainer";
 import React from "react";
 import { useRouter } from "next/navigation";
+// import dynamic from "next/dynamic";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
+import { BUY_COURSE } from "@/lib/Mutation/mutation";
+import { VERIFY_PAYMENT } from "@/lib/Query/queries";
+import { useFormik } from "formik";
+import Payment from "@/components/dashboard/Course_Cart/Payment";
+// import Image from "next/image"
+// const Payment = dynamic(() => import("@/components/dashboard/Course_Cart/Payment"), { ssr: false });
 
 
 const empty_details = {
@@ -15,38 +23,41 @@ const empty_details = {
 
 export default function Cart() {
   const router = useRouter();
-  const {
-    cart,
-    removeFromCart,
-    clearCart,
-    markAsPaid,
-  } = useCourseStore();
-
-  // const total = cart.reduce((sum, course) => sum + (course.price || 0), 0);
+  const { cart, removeFromCart, clearCart, markAsPaid, } = useCourseStore();
   const total = cart.reduce((sum, course) => sum + Number(course.price ?? 0), 0);
 
-  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_KEY || "";
-  const email = "customer@email.com"; // Replace with user email
-  const componentProps = {
-    email,
-    amount: total * 100, // Paystack expects amount in kobo
-    metadata: { cart },
-    publicKey,
-    text: "Pay Now",
-    onSuccess: (reference: any) => {
-      console.log("Payment successful:", reference);
+  const [BuyCourse, { loading, data }] = useMutation(BUY_COURSE, { awaitRefetchQueries: true,
+    onCompleted: (data) => {console.log(data, ".....payStack redirect")},
+    onError: (error) => {console.log(error, "error")}
+  })
 
-      // ✅ Mark courses as paid
-      const courseIds = cart.map((c) => c.id);
-      markAsPaid(courseIds);
+  const [verifyPayment] = useLazyQuery(VERIFY_PAYMENT);
 
-      // ✅ Clear the cart
-      clearCart();
+  const User = {
+    name:"kellyblaq",
+    email: "kellyblaq12@gmail.com"
+  }
+
+  const Course = {
+    id:"c100001",
+    price: "1000",
+    title: "ISO 90001 Management"
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      courseId: '',
     },
-    onClose: () => alert("Payment closed"),
-  };
+    onSubmit: (values) => {
+      BuyCourse({ variables: {courseId:"ad31e86c-12ac-4b4c-b3e0-a9b05b2c3e6c"}})
+        .then((data) => {
+          console.log(data, "data.....")
+        })
+    },
+  })
 
-  //    "react-hls-player": "^3.0.7",
+  // console.log(cart, "cart...");
+
 
   return (
     <div>
@@ -119,9 +130,11 @@ export default function Cart() {
                 }).format(total)}
               </p>
 
-              <button className="w-full bg-[#387467] hover:bg-green-700 text-white py-3 rounded-lg">
-                Proceed to Checkout →
-              </button>
+
+
+              {cart.length > 0 && (
+                <Payment courseId={cart[0].id} amount={total} />
+              )}
 
               <p className="text-xs text-gray-500 mt-2">
                 You won’t be charged yet

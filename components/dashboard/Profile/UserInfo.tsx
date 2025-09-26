@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useModal } from "@/components/hooks/useModal";
-import { Modal } from "@/components/ui/modal";
+
 
 export default function UserInfo() {
   const { isOpen, openModal, closeModal } = useModal();
