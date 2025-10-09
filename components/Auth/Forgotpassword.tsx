@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BgImage from "../../public/images/bg.jpg"
 import { useUserStore } from "@/store/useUserStore";
 import { useMutation  } from "@apollo/client/react";
-import { CREATE_USERS, FORGOT_USERS_PASSWORD, LOGIN_USERS } from "@/lib/Mutation/mutation";
+import { FORGOT_USERS_PASSWORD, LOGIN_USERS } from "@/lib/Mutation/mutation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -25,22 +25,10 @@ const ForgotPassword = () => {
   // @ts-ignore
   const [ForgetPassword, { loading, error }] = useMutation(FORGOT_USERS_PASSWORD, {
     onCompleted: async (data:any) => {
-      //const payload = data?.forgetPassword;
-      console.log(data,"...data");
-
-      // if (payload?.success && payload?.user) {
-      //   // Optional: if token is returned from server, use it
-      //   const token = payload.accessToken ?? null;
-      //   localStorage.setItem("token", token);
-      //
-      //   // router.push("/resetpassword");
-      //   router.push({
-      //     pathname: "/resetpassword",
-      //     query: { email: "" },
-      //   } as any);
-      //
-      // }
-
+      const payload = data?.forgetPassword;
+      if (payload?.success === true) {
+         router.push("/auth/resetpassword");
+      }
 
     },
     onError: (err: any) => {
@@ -88,7 +76,7 @@ const ForgotPassword = () => {
               placeholder="Email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3 bg-[#fff9d9] focus:outline-none focus:ring-2 focus:ring-[#387467]"
+              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467]"
             />
 
             {formik.errors.email && formik.touched.email && (
@@ -99,7 +87,7 @@ const ForgotPassword = () => {
             <button
               onClick={() => formik.handleSubmit()}
               disabled={loading}
-              type='button'
+              type="button"
               className="inline-flex items-center justify-center w-full rounded-xl   text-white font-semibold px-4  shadow-md w-full  rounded-md bg-[#387467] text-white py-3 mt-4 disabled:opacity-60"
             >
               {loading ? (
@@ -125,7 +113,7 @@ const ForgotPassword = () => {
                       d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                     ></path>
                   </svg>
-                  please wait...
+                  sending email please wait...
                 </>
               ) : (
                 "Forgot Password"

@@ -17,6 +17,7 @@ export const CREATE_USERS = gql`
     }
 `;
 
+
 export const LOGIN_USERS = gql`
     mutation Login($input: LoginInput!) {
         login(input: $input) {
@@ -35,6 +36,7 @@ export const LOGIN_USERS = gql`
     }
 `;
 
+
 export const FORGOT_USERS_PASSWORD = gql`
     mutation ForgetPassword($email: String!) {
         forgetPassword(email: $email) {
@@ -45,10 +47,20 @@ export const FORGOT_USERS_PASSWORD = gql`
 `;
 
 
+export const VERIFY_FORGOT_USERS_PASSWORD = gql`
+    mutation VerifyForgotPassword($input: VerifyForgotPasswordInput!) {
+        verifyForgotPassword(input: $input) {
+            success
+            message
+        }
+    }
+`;
+
+
 
 export const BUY_COURSE = gql`
-    mutation BuyCourse($courseId: ID!) {
-        buyCourse(courseId: $courseId) {
+    mutation BuyCourse($courseIds: [ID!]!) {
+        buyCourse(courseIds: $courseIds) {
             paymentUrl
             paymentReference
             success
@@ -58,3 +70,37 @@ export const BUY_COURSE = gql`
 
 
 
+export const CUSTOMER_ENQUIRY = gql`
+    mutation CreateEnquiry($input: CreateEnquiryInput!) {
+        createEnquiry(input: $input) {
+            id
+            name
+            email
+            phoneNumber
+            subject
+            message
+            createdAt
+            updatedAt
+        }
+    }
+    
+`
+
+
+
+export const SUBMIT_QUIZ = gql`
+    mutation SubmitAssignment($input: SubmitAssignmentInput!) {
+        submitAssignment(input: $input) {
+            id
+            assignmentId
+            userId
+            score
+            answers {
+                id
+                submissionId
+                questionId
+                selectedOptionId
+            }
+        }
+    }
+`

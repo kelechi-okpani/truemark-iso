@@ -1,10 +1,9 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import CourseItem from "@/components/dashboard/Course/CourseItem";
 import { Search } from "lucide-react";
 import EmptyContainer from "@/components/utility/EmptyContainer";
 import { useQuery } from "@apollo/client/react";
-import { GET_COURSES, GET_USER_ENROLLED_COURSES } from "@/lib/Query/queries";
+import {  GET_USER_ENROLLED_COURSES } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
 import EnrolledCourseItem from "@/components/dashboard/EnrolledCourse/Enrolled-Course-Item";
 
@@ -19,11 +18,7 @@ const empty_details = {
 export default function EnrolledCourseListing() {
   const { data, loading, error} = useQuery(GET_USER_ENROLLED_COURSES, {
     fetchPolicy: "cache-and-network",
-    // fetchPolicy: 'network-only',
-    // variables:{seasonId:seasonId},
   }) as any;
-
-
 
   const [searchTerm, setSearchTerm] = useState("");
   const [paid, setPaid] = useState(true);

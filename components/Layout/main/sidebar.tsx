@@ -2,15 +2,22 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {mainGeneral, mainSideBar} from "@/lib/json";
 import { icons, sideIcons } from "@/public/assets/icons";
 import ButtonComponent from "@/components/molecules/button-component";
 import { Logo, PrimaryLogo, SecondaryLogo } from "@/components/molecules/logo";
+import { useUserStore } from "@/store/useUserStore";
+import { useCourseStore } from "@/store/useCourseStore";
 
 
 
 function SideBar() {
+  const params = useParams();
+  const router = useRouter();
+  const {logout } = useUserStore();
+  const {clearCart } = useCourseStore()
+
   const [isOpen, setIsOpen] = useState(true);
   const toggleSideBar = () => {
     setIsOpen(!isOpen);
@@ -36,11 +43,23 @@ function SideBar() {
     return pathname === menuLink || pathname.startsWith(`${menuLink}/`);
   };
 
-  return (
 
+  const handleRoute = () => {
+    try {
+      clearCart();
+      logout();
+      router.push("/auth/signin");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
+
+
+  return (
     <div
       className={cn(
-        " bg-white w-[250px] duration-150 flex flex-col shadow-md",
+        " bg-white w-[300px] duration-150 flex flex-col shadow-md flex-shrink-0",
         isOpen ? null : "w-[80px]"
       )}
     >
@@ -151,8 +170,9 @@ function SideBar() {
           </Link>
         ))}
         <button
+          onClick={handleRoute}
           className={cn(
-            "hover:bg-secondary  text-text text-sm font-medium rounded-lg py-3 px-4 flex gap-4 items-center capitalize duration-150"
+            "hover:bg-green-50 text-text text-sm font-medium rounded-lg py-3 px-4 flex gap-4 items-center capitalize duration-150"
           )}
         >
           <span

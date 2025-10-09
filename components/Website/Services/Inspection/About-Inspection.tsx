@@ -1,7 +1,7 @@
 const AboutInspection = () => {
   return (
-    <section className="lg:grid lg:h-screen   lg:place-content-center  transition-colors duration-300">
-      <div className="mx-auto w-screen max-w-screen-xl  px-4 py-16 sm:px-6 sm:py-24 lg:px-10 lg:py-32">
+    <section className="lg:grid lg:place-content-center  transition-colors duration-300">
+      <div className="mx-auto w-screen max-w-screen-xl  px-4 py-12 sm:px-6 sm:py-24 lg:px-10 lg:py-25">
         <div className=" text-center">
 
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl">

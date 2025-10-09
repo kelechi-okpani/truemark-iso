@@ -107,7 +107,7 @@ const Header = () => {
           }`}
         >
           <nav>
-            <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
+            <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10 text-sm">
               {menuData.map((menuItem, key) => (
                   <li key={key} className={menuItem.submenu ? "group relative text-[#000]" : ""}>
                   {menuItem.submenu ? (
@@ -174,14 +174,14 @@ const Header = () => {
 
             <Link
               href="/auth/signup"
-              className="text-regular font-medium text-[#000] hover:text-[#387467]"
+              className=" text-sm font-medium text-[#000] hover:text-[#387467]"
             >
               Sign Up
             </Link>
 
             <Link
               href="/auth/signin"
-              className="flex items-center justify-center rounded-sm bg-[#387467]  px-7.5 py-1.5 text-regular text-white duration-300 ease-in-out hover:bg-[#387467] ho"
+              className="flex items-center text-sm justify-center rounded-sm bg-[#387467]  px-7.5 py-1.5  text-white duration-300 ease-in-out hover:bg-[#387467] ho"
             >
              Login
             </Link>

@@ -121,36 +121,6 @@ export const useCourseStore = create<CourseState>((set, get) => ({
       return updated;
     }),
 
-  // addToCart: (course) =>
-  //   set((state) => {
-  //     // prevent duplicates
-  //     if (state.cart.find((c) => c.id === course.id)) return state;
-  //     return { cart: [...state.cart, course] };
-  //   }),
-
-    // removeFromCart: (id) =>
-    //   set((state) => ({
-    //     cart: state.cart.filter((c) => c.id !== id),
-    //   })),
-
-    // clearCart: () => set({ cart: [] }),
-
-  // addToWishlist: (course) =>
-  //   set((state) => {
-  //     if (state.wishlist.find((c) => c.id === course.id)) return state;
-  //     return { wishlist: [...state.wishlist, course] };
-  //   }),
-
-  // removeFromWishlist: (id) =>
-  //   set((state) => ({
-  //     wishlist: state.wishlist.filter((c) => c.id !== id),
-  //   })),
-
-  // markAsPaid: (id) =>
-  //   set((state) => ({
-  //     paidCourses: [...state.paidCourses, ...id],
-  //   })),
-
 }));
 
 

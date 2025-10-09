@@ -4,7 +4,7 @@ import { ReactTyped } from "react-typed";
 
 const AboutHero = () => {
   return (
-    <section className="lg:grid lg:h-screen lg:place-content-center  transition-colors duration-300">
+    <section className="lg:grid lg:place-content-center  transition-colors duration-300">
       <div className="mx-auto w-screen max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10 lg:py-32">
         <div className="mx-auto text-center">
           <h1 className="mb-5 pr-16 text-3xl font-bold text-black dark:text-white xl:text-hero ">
@@ -50,18 +50,17 @@ const AboutHero = () => {
 
           <div className="mt-4 flex justify-center gap-4 sm:mt-6">
             <a
-              className="animate_right inline-block rounded border border-[#387467] bg-[#387467] px-5 py-3 font-medium text-white shadow-sm transition-colors hover:bg-[#387467]"
-              href="/auth/signin"
+              className="animate_right inline-block rounded border border-[#387467] bg-[#387467] px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[#387467]"
+              href="/auth/signup"
             >
               Get Started
             </a>
 
-            <a
-              className="animate_right inline-block rounded border border-gray-300 dark:border-gray-600 px-5 py-3 font-medium text-gray-700 dark:text-gray-200 shadow-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
-              href="/public"
+            <span
+              className="animate_right inline-block rounded border border-gray-300 dark:border-gray-600 px-5 py-2 font-medium text-gray-700 dark:text-gray-200 shadow-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
             >
               Learn More
-            </a>
+            </span>
           </div>
         </div>
       </div>

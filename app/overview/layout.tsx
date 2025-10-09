@@ -17,7 +17,7 @@ export default function layout({ children }: { children: ReactNode }) {
 
   return (
 
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen bg-[#f8fefb]">
       {/* Sidebar fixed full height */}
       <SideBar />
 
@@ -29,9 +29,16 @@ export default function layout({ children }: { children: ReactNode }) {
         </div>
 
         {/* Scrollable content below header */}
-        <div className="px-8 pb-10 flex-grow mt-5 overflow-auto ">
-          {children}
-        </div>
+        {/*<div className="px-8 pb-10 flex-grow mt-5 overflow-auto  flex-1">*/}
+        {/*  {children}*/}
+        {/*</div>*/}
+
+        <main className="flex-1 overflow-y-auto overflow-x-hidden">
+          {/* Page Content */}
+          <div className="max-w-full p-6">
+            {children}
+          </div>
+        </main>
       </div>
     </div>
 

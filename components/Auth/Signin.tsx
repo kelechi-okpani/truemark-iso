@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import BgImage from "../../public/images/bg.jpg"
 import { useUserStore } from "@/store/useUserStore";
 import { useMutation  } from "@apollo/client/react";
-import { CREATE_USERS, LOGIN_USERS } from "@/lib/Mutation/mutation";
+import { LOGIN_USERS } from "@/lib/Mutation/mutation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
@@ -95,7 +95,7 @@ const Signin = () => {
               placeholder="Email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3 bg-[#fff9d9] focus:outline-none focus:ring-2 focus:ring-[#387467]"
+              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467]"
             />
 
             {formik.errors.email && formik.touched.email && (
@@ -109,7 +109,7 @@ const Signin = () => {
                 placeholder="Password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
-                className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3 bg-[#fff9d9] focus:outline-none focus:ring-2 focus:ring-[#387467] pr-10"
+                className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467] pr-10"
               />
 
               {/* Toggle button */}

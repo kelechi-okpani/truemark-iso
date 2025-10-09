@@ -51,7 +51,7 @@ const Signup = () => {
         const token = payload?.token ?? null;
 
         setAuth(user, token)
-        router.push("/signin");
+        router.push("/auth/signin");
       }
 
 
@@ -108,7 +108,7 @@ const Signup = () => {
               placeholder="Full Name"
               value={formik.values.fullname}
               onChange={formik.handleChange}
-              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3 bg-[#fff9d9] focus:outline-none focus:ring-2 focus:ring-[#387467]"
+              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467]"
             />
 
             {formik.errors.fullname && formik.touched.fullname && (
@@ -123,7 +123,7 @@ const Signup = () => {
               placeholder="Email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3 bg-[#fff9d9] focus:outline-none focus:ring-2 focus:ring-[#387467]"
+              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467]"
             />
 
             {formik.errors.email && formik.touched.email && (
@@ -137,7 +137,7 @@ const Signup = () => {
                 placeholder="Password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
-                className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3 bg-[#fff9d9] focus:outline-none focus:ring-2 focus:ring-[#387467] pr-10"
+                className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467] pr-10"
               />
 
               {/* Toggle button */}

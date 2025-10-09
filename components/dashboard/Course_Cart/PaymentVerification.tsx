@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, useParams } from "next/navigation";
-import { useMutation, useLazyQuery } from "@apollo/client/react";
+import { useLazyQuery } from "@apollo/client/react";
 
 import { useCourseStore } from "@/store/useCourseStore";
 import { VERIFY_PAYMENT } from "@/lib/Query/queries";
@@ -10,18 +10,18 @@ import { VERIFY_PAYMENT } from "@/lib/Query/queries";
 export default function PaymentVerification() {
   const params = useParams();
   // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
+  const reference = searchParams.get("reference") || searchParams.get("trxref");
+
   const router = useRouter();
-
-  // const reference = searchParams.get("reference");
-  // const trxref = searchParams.get("trxref");
-
-  const reference = params.reference as string;
-  const trxref = params.trxref as string;
 
   const { markAsPaid, clearCart } = useCourseStore();
 
-  const [verifyPayment, { loading, error, data }] = useLazyQuery(VERIFY_PAYMENT) as any;
+  const [verifyPayment, { loading, error, data }] = useLazyQuery(VERIFY_PAYMENT, ) as any;
   const [status, setStatus] = useState<boolean>(false);
+  // const [error, setError] = useState<boolean>("");
+
+  console.log(error?.message, "error....");
 
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function PaymentVerification() {
           setStatus(false);
         }
       } catch (err) {
-        console.error(err);
+        console.error(err, "error ");
         setStatus(false);
       }
     };
@@ -49,6 +49,35 @@ export default function PaymentVerification() {
     checkPayment();
   }, [reference, verifyPayment, markAsPaid, clearCart, router]);
 
+  const handleRoute = () => {
+      clearCart();
+      router.push("/overview/enrolled-course");
+  };
+
+
+  if(error?.message === "Payment has already been verified"){
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-50">
+        <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
+          <div className="text-yellow-500 text-6xl">⚠️</div>
+          <h2 className="mt-4 text-xl font-semibold">
+            Payment already verified
+          </h2>
+          <p className="text-gray-600">
+            This payment was previously confirmed ...
+          </p>
+
+          <button
+            onClick={handleRoute}
+            disabled={loading}
+            className="inline-flex items-center justify-center w-full rounded-xl pt-3   text-white font-semibold px-4  shadow-md w-full  rounded-md bg-[#387467] text-white py-3 mt-4 disabled:opacity-60"
+          >
+            Enrolled Courses
+          </button>
+        </div>
+      </div>
+  )
+  }
   return (
     <div className="flex h-screen items-center justify-center bg-gray-50">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">

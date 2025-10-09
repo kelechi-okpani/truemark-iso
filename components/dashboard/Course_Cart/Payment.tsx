@@ -19,7 +19,7 @@ export default function Payment({ courseId, amount }: PaymentProps) {
   const handlePayment = async () => {
     try {
       // Step 1: Call BuyCourse mutation
-      const { data } = await buyCourse({ variables: { courseId } }) as any;
+      const { data } = await buyCourse({ variables: { courseIds:courseId } }) as any;
       console.log(data, "payment data.....");
       if (data?.buyCourse?.paymentUrl && data?.buyCourse?.paymentReference) {
         const { paymentUrl, paymentReference } = data.buyCourse;

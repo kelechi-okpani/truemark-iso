@@ -13,10 +13,9 @@ import CourseVideoListing from "@/components/dashboard/Course/CourseVideo/Course
 
   return (
     <div>
-
       <div
         id="accordion-flush"
-        className="border border-gray-200 rounded-lg divide-y divide-gray-200 rounded-2xl mt-2"
+        className=" border border-gray-200 rounded-lg divide-y divide-gray-200 rounded-2xl mt-2"
       >
         {modules?.map((module: any) => (
           <div key={module?.id}
@@ -25,7 +24,7 @@ import CourseVideoListing from "@/components/dashboard/Course/CourseVideo/Course
             <div className="flex justify-between gap-2">
               <button
                 type="button"
-                className="px-8  flex items-center bg-gray-300 justify-between w-full py-4 font-medium text-gray-700 gap-3"
+                className="px-8  flex items-center bg-gray-300 justify-between  py-4 font-medium text-gray-700 gap-3"
                 onClick={() => toggle(module?.id)}
               >
                 <span className='text-sm'>{module?.name}</span>
@@ -48,29 +47,19 @@ import CourseVideoListing from "@/components/dashboard/Course/CourseVideo/Course
                   </svg>
                 </div>
               </button>
-
             </div>
-
             {openId === module?.id && (
-              <div className="text-gray-500 dark:text-gray-400">
+              <div className=" text-gray-500 dark:text-gray-400">
                 <div className="py-6 justify-start bg-gray-100  px-3">
                    <p className="capitalize font-bold py-4">Description:</p>
                    <span className=" capitalize">{module?.description}</span>
                 </div>
                 <CourseVideoListing id={id} module={module} />
-
               </div>
             )}
-
-
           </div>
-
-
         ))}
-
       </div>
-
-
     </div>
 
   );

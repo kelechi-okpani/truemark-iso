@@ -88,7 +88,6 @@ export const GET_USER_ENROLLED_COURSES = gql`
     }
 `;
 
-
 export const GET_USER_ENROLLED_COURSES_MODULES = gql`
     query GetEnrolledCourseModules($courseId: ID!) {
         getEnrolledCourseModules(courseId: $courseId) {
@@ -103,8 +102,6 @@ export const GET_USER_ENROLLED_COURSES_MODULES = gql`
     }
 `;
 
-
-
 export const GET_USER_ENROLLED_COURSES_MODULES_LESSONS = gql`
     query GetEnrolledModuleLessions($moduleId: ID!) {
         getEnrolledModuleLessions(moduleId: $moduleId) {
@@ -115,6 +112,41 @@ export const GET_USER_ENROLLED_COURSES_MODULES_LESSONS = gql`
             courseModuleId
             createdAt
             updatedAt
+        }
+    }
+`;
+
+
+// TRUE-MARK ENROLLED - EXAMINATION
+export const GET_ASSESSMENT = gql`
+    query GetAssignmentByCourseId($courseId: ID!) {
+        getAssignmentByCourseId(courseId: $courseId) {
+            id
+            courseId
+            title
+            description
+            questions {
+                id
+                assignmentId
+                questionText
+                options {
+                    id
+                    questionId
+                    optionText
+                }
+                correctAnswer
+            }
+        }
+    }
+`;
+
+export const GET_ASSESSMENT_SUBMISSION = gql`
+    query GetUserSubmissionsForCourse($courseId: ID!) {
+        getUserSubmissionsForCourse(courseId: $courseId) {
+            id
+            assignmentId
+            userId
+            score
         }
     }
 `;

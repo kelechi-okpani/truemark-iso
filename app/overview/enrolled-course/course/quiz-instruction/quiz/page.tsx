@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import EnrolledCourseModules from "@/components/dashboard/EnrolledCourse/Enrolled-Course-Modules";
+import QuizStepper from "@/components/dashboard/EnrolledCourse/Course-Quiz/Course-Quiz";
 
 export default function MyLearningPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <EnrolledCourseModules />
+      <QuizStepper />
     </div>
   );
 }

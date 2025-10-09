@@ -56,7 +56,7 @@ const FeaturesTab = () => {
                   : ""
               }`}
             >
-              <div className="flex h-12.5 w-12.5 items-center justify-center rounded-[50%] border border-[#387467] dark:border-strokedark dark:bg-blacksection">
+              <div className="flex h-10 w-12 items-center justify-center rounded-[50%] border border-[#387467] dark:border-strokedark dark:bg-blacksection">
                 <p className="text-metatitle3 font-medium text-black dark:text-white">
                   01
                 </p>
@@ -75,7 +75,7 @@ const FeaturesTab = () => {
                   : ""
               }`}
             >
-              <div className="flex h-12.5 w-12.5 items-center justify-center rounded-[50%] border border-[#387467] dark:border-strokedark dark:bg-blacksection">
+              <div className="flex h-10 w-12 items-center justify-center rounded-[50%] border border-[#387467] dark:border-strokedark dark:bg-blacksection">
                 <p className="text-metatitle3 font-medium text-black dark:text-white">
                   02
                 </p>
@@ -94,7 +94,7 @@ const FeaturesTab = () => {
                   : ""
               }`}
             >
-              <div className="flex h-12.5 w-12.5 items-center justify-center rounded-[50%] border border-[#387467] dark:border-strokedark dark:bg-blacksection">
+              <div className="flex h-10 w-12 items-center justify-center rounded-[50%] border border-[#387467] dark:border-strokedark dark:bg-blacksection">
                 <p className="text-metatitle3 font-medium text-black dark:text-white">
                   03
                 </p>

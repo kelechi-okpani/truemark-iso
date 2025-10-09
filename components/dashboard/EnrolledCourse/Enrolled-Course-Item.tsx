@@ -4,6 +4,7 @@ import { CourseList } from "@/types/blog";
 import { useCourseStore } from "@/store/useCourseStore";
 import Link from "next/link";
 import React from "react";
+import { router } from "next/client";
 
 
 const EnrolledCourseItem = ({ courseListing, paid }: { courseListing: CourseList, paid: boolean }) => {
@@ -13,16 +14,23 @@ const EnrolledCourseItem = ({ courseListing, paid }: { courseListing: CourseList
 
   const handleClick = () => {
     setSelectedCourse(courseListing);
+    router.push({
+      pathname: `/overview/enrolled-course/${courseListing.id}`,
+      query: { courseId: courseListing?.id },
+    })
   };
 
-   const paidUrl = `/overview/enrolled-course/${courseListing.id}`
-   const url = `/overview/enrolled-course/${courseListing.id}`
+
 
   return (
     <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
       <Link
-        href={`/overview/enrolled-course/${courseListing.id}`}
-        onClick={handleClick}
+        onClick={()=> {setSelectedCourse(courseListing)}}
+        href={{
+          pathname: `/overview/enrolled-course/course`,
+          // pathname: `/overview/enrolled-course/${courseListing.id}`,
+          // query: { courseId: courseListing?.id },
+        }}
       >
       <div className="relative">
           <Image
