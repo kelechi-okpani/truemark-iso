@@ -1,5 +1,4 @@
 'use client'
-import { Outfit } from 'next/font/google';
 import './globals.css';
 import { SidebarProvider } from "@/components/dashboard/context/SidebarContext";
 import NextTopLoader from "nextjs-toploader";

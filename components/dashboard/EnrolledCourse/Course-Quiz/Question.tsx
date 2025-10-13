@@ -20,8 +20,7 @@ const Quiz_Question = ({currentQuestion, currentStep, id, answers, allQuestions,
       const payload = data?.submitAssignment;
       if (payload) {
         console.log("Submission successful ✅", payload);
-        // Example: redirect to results page
-        router.push(`/results/${payload.id}`);
+        router.push(`overview/enrolled-course/course/quiz-instruction`);
       }
     },
     onError: (err: any) => {

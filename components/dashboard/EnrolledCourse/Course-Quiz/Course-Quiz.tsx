@@ -66,12 +66,6 @@ const QuizStepper = () => {
   return (
 
     <div>
-      {/*<button*/}
-      {/*  onClick={() => router.back()}*/}
-      {/*  className="mb-6 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"*/}
-      {/*>*/}
-      {/*  ← Back*/}
-      {/*</button>*/}
       <div className="items-center border justify-center py-8 bg-gray-50 rounded-md px-4">
 
 

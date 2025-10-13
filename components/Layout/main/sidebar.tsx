@@ -144,31 +144,7 @@ function SideBar() {
         >
           general
         </p>
-        {mainGeneral.map((menu, index) => (
-          <Link
-            key={index}
-            className={cn(
-              "hover:bg-green-50 group text-text text-sm font-medium rounded-lg py-3 px-4 flex gap-4 items-center capitalize duration-150",
-              menu.link === pathname ? "bg-[#387467]" : null,
-              isOpen ? null : "hover:bg-transparent !bg-transparent"
-            )}
-            href={menu.link}
-            onMouseOver={() => handleHover(index)}
-            onMouseOut={handleMouseOut}
-          >
-            <span
-              className={cn(
-                "shrink-0 w-8 h-8 rounded-lg border group-hover:bg-[#387467] group-hover:border-none duration-150 flex items-center justify-center",
-                menu.link === pathname ? "bg-[#387467] border-none" : null
-              )}
-            >
-              {hoveredIndex === index || menu.link === pathname
-                ? menu.active_icon
-                : menu.icon}
-            </span>
-            {isOpen ? <span>{menu.label}</span> : null}
-          </Link>
-        ))}
+
         <button
           onClick={handleRoute}
           className={cn(

@@ -4,7 +4,7 @@ import Quiz_Intro from "@/components/dashboard/EnrolledCourse/Course-Quiz/Intro-
 import Quiz_End from "@/components/dashboard/EnrolledCourse/Course-Quiz/End-Quiz";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client/react";
-import { GET_ASSESSMENT, GET_ASSESSMENT_SUBMISSION } from "@/lib/Query/queries";
+import { GET_USER_COURSE_SUBMISSION, GET_USER_COURSE_SUBMISSION_ASSESSMENT } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
 import { useCourseStore } from "@/store/useCourseStore";
 
@@ -13,11 +13,15 @@ export default function MyLearningPage() {
 
   const params = useParams();
   const course = useCourseStore((s) => s.selectedCourse);
-  // 2️⃣ Second query — get user's submission based on assignmentId
-  const { data, loading, error, } = useQuery(GET_ASSESSMENT_SUBMISSION, {
-    variables: { courseId: course?.id },
+  const { data, loading, error, } = useQuery(GET_USER_COURSE_SUBMISSION_ASSESSMENT, {
+    variables: {courseId: course?.id },
+    // variables: { assignmentId: data?.getAssignmentByCourseId?.id},
   }) as any;
 
+
+  console.log(data?.getUserSubmissionsForCourse?.score, "quiz data");
+
+  const quizScore = Number(data?.getUserSubmissionsForCourse?.score);
 
   // 4️⃣ Handle loading and errors
   if (loading)
@@ -27,12 +31,10 @@ export default function MyLearningPage() {
       </div>
     );
 
-  console.log(data?.getUserSubmissionsForCourse, "userScore...");
-  const userScore = 82; // from API
-  const max = 100;
 
 
-  if (data?.getUserSubmissionsForCourse === null)
+
+  if (!quizScore)
     return (
       <Quiz_Intro />
     );
@@ -41,7 +43,7 @@ export default function MyLearningPage() {
 
     <div className="min-h-screen bg-white">
       {/*<Quiz_Intro />*/}
-      <Quiz_End userScore={data?.getUserSubmissionsForCourse || 0} />
+      <Quiz_End userScore={quizScore} />
 
     </div>
   );

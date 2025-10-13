@@ -140,13 +140,51 @@ export const GET_ASSESSMENT = gql`
     }
 `;
 
-export const GET_ASSESSMENT_SUBMISSION = gql`
+
+export const GET_USER_COURSE_SUBMISSION = gql`
+    query GetAssignmentByCourseId($courseId: ID!) {
+        getAssignmentByCourseId(courseId: $courseId) {
+            id
+            courseId
+            title
+            description
+            questions {
+                id
+                assignmentId
+                questionText
+                options {
+                    id
+                    questionId
+                    optionText
+                }
+                correctAnswer
+            }
+        }
+    }
+`;
+
+export const GET_USER_COURSE_SUBMISSION_ASSESSMENT = gql`
     query GetUserSubmissionsForCourse($courseId: ID!) {
         getUserSubmissionsForCourse(courseId: $courseId) {
             id
             assignmentId
             userId
             score
+            answers {
+                id
+                submissionId
+                questionId
+                selectedOptionId
+                correctAnswer
+            }
+            user {
+                id
+                email
+                fullname
+                isAdmin
+                createdAt
+                updatedAt
+            }
         }
     }
 `;

@@ -29,7 +29,8 @@ type AssignmentSubmission {
     answers: [SubmissionAnswer]!
     assignmentId: ID!
     id: ID!
-    score: Int!
+    score: String!
+    user: User
     userId: ID!
 }
 
@@ -166,6 +167,7 @@ type Query {
     getUserInfo: User!
     getUserSubmissionsForAssignment(assignmentId: ID!): [AssignmentSubmission]
     getUserSubmissionsForCourse(courseId: ID!): AssignmentSubmission
+    getUsers(limit: Int!, page: Int!): UserPaginatedResponse!
     verifyPayment(reference: String!): Boolean!
 }
 
@@ -178,6 +180,7 @@ type Question {
 }
 
 type SubmissionAnswer {
+    correctAnswer: String
     id: ID!
     questionId: ID!
     selectedOptionId: ID!
@@ -191,6 +194,12 @@ type User {
     id: ID!
     isAdmin: Boolean!
     updatedAt: String!
+}
+
+type UserPaginatedResponse {
+    currentPage: Int!
+    totalPages: Int!
+    users: [User!]!
 }
 
 scalar Upload
