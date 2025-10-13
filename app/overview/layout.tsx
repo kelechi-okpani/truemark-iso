@@ -7,11 +7,11 @@ import { GET_USERS } from "@/lib/Query/queries";
 import Unauthorized from "@/components/hooks/Unauthorized";
 import { useUserStore } from "@/store/useUserStore";
 import CenteredLoader from "@/components/utility/Loader";
-// import useAppSecurity from "@/components/hooks/useAppSecurity";
+import useAppSecurity from "@/components/hooks/useAppSecurity";
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  // useAppSecurity();
+  useAppSecurity();
   const { token } = useUserStore();
   const { data, loading, error } = useQuery(GET_USERS, {
     fetchPolicy: "cache-and-network",
