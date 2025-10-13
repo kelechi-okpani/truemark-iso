@@ -10,6 +10,7 @@ const CourseItem = ({ courseListing, paid }: { courseListing: CourseList, paid:a
    const {image, name, description, price, id } = courseListing;
    const setSelectedCourse = useCourseStore((s) => s.setSelectedCourse);
    const {addToCart, } = useCourseStore()
+
    const handleClick = () => {setSelectedCourse(courseListing)};
 
   return (

@@ -2,7 +2,7 @@ import { sideIcons } from "@/public/assets/icons";
 
 export const mainSideBar = [
   {
-    label: "Overview",
+    label: "Analytics",
     link: "/overview",
     icon: sideIcons.dashboard,
     active_icon: sideIcons.dashboard_active,

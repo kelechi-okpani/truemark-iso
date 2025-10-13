@@ -4,6 +4,7 @@ import EmptyContainer from "@/components/utility/EmptyContainer";
 import React from "react";
 import { useRouter } from "next/navigation";
 import Payment from "@/components/dashboard/Course_Cart/Payment";
+import toast from "react-hot-toast";
 
 
 const empty_details = {
@@ -13,10 +14,9 @@ const empty_details = {
   to:"/overview/course"
 }
 
-
 export default function Cart() {
   const router = useRouter();
-  const { cart, removeFromCart, clearCart, markAsPaid, } = useCourseStore();
+  const { cart, removeFromCart, clearCart, markAsPaid, addToWishlist, removeFromWishlist } = useCourseStore();
   const total = cart.reduce((sum, course) => sum + Number(course.price ?? 0), 0);
 
 
@@ -66,8 +66,29 @@ export default function Cart() {
                       >
                         Remove
                       </button>
-                      <button className="hover:underline">Save for Later</button>
-                      <button className="hover:underline">Move to Wishlist</button>
+
+                      <button
+                        className="hover:underline"
+                        onClick={() => {
+                          addToWishlist(course);
+                          toast.success("Course added to wishlist!", {
+                            style: {
+                              background: "#387467",
+                              color: "#fff",
+                              padding: "0.5rem 1rem",
+                              borderRadius: "0.5rem",
+                              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                              fontWeight: 500,
+                              fontSize: "0.875rem"
+                            },
+                            position: "bottom-right",
+                            duration: 3000
+                          });
+                        }}
+                      >
+                        Add to Wishlist
+                      </button>
+
                     </div>
                   </div>
                   <div className="font-semibold text-[#387467] md:self-start">
@@ -105,7 +126,7 @@ export default function Cart() {
               </p>
 
               <button className="w-full border border-[#387467] text-[#387467] mt-6 py-2 rounded-lg">
-                Apply Coupon
+
               </button>
             </div>
           </div>

@@ -18,9 +18,6 @@ export default function MyLearningPage() {
     // variables: { assignmentId: data?.getAssignmentByCourseId?.id},
   }) as any;
 
-
-  console.log(data?.getUserSubmissionsForCourse?.score, "quiz data");
-
   const quizScore = Number(data?.getUserSubmissionsForCourse?.score);
 
   // 4️⃣ Handle loading and errors
@@ -31,10 +28,7 @@ export default function MyLearningPage() {
       </div>
     );
 
-
-
-
-  if (!quizScore)
+  if (!data?.getUserSubmissionsForCourse || !quizScore)
     return (
       <Quiz_Intro />
     );

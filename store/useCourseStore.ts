@@ -99,6 +99,7 @@ export const useCourseStore = create<CourseState>((set, get) => ({
       return updated;
     }),
 
+
   addToWishlist: (course) =>
     set((state) => {
       if (state.wishlist.find((c) => c.id === course.id)) return state;

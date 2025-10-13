@@ -3,9 +3,9 @@ import './globals.css';
 import { SidebarProvider } from "@/components/dashboard/context/SidebarContext";
 import NextTopLoader from "nextjs-toploader";
 import { ApolloProvider } from "@apollo/client/react";
-
 import { client } from "@/lib/apolloClient";
 import useAppSecurity from "@/components/hooks/useAppSecurity";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -28,6 +28,7 @@ export default function RootLayout({
         shadow="0 0 10px #2299DD,0 0 5px #2299DD"
       />
           {/*<SidebarProvider>{children}</SidebarProvider>*/}
+      <Toaster position="top-right" />
       <ApolloProvider client={client}>
         <SidebarProvider>{children}</SidebarProvider>
       </ApolloProvider>

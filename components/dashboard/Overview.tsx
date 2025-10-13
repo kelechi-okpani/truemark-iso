@@ -4,7 +4,8 @@ import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
 import { Badge } from "lucide-react";
 
 
-export default function Analytics() {
+export default function Analytics({data, list}) {
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -22,7 +23,7 @@ export default function Analytics() {
               Enrolled Courses
             </span>
               <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                0
+                {data?.getUserEnrolledCourses?.length || 0}
               </h4>
             </div>
             <Badge color="success" size={30}>
@@ -32,28 +33,7 @@ export default function Analytics() {
         </div>
         {/* <!-- Metric Item End --> */}
 
-        {/* <!-- Metric Item Start --> */}
-        <div
-          className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
-            <BoxIconLine className="text-gray-800 dark:text-white/90" />
-          </div>
-          <div className="flex items-end justify-between mt-5">
-            <div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-               Certificates
-            </span>
-              <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                0
-              </h4>
-            </div>
-            {/*<Badge color="error">*/}
-            {/*  <ArrowDownIcon className="text-error-500" />*/}
-            {/*  9.05%*/}
-            {/*</Badge>*/}
-          </div>
-        </div>
-        {/* <!-- Metric Item End --> */}
+
         <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
           <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
             <BoxIconLine className="text-gray-800 dark:text-white/90" />
@@ -64,7 +44,7 @@ export default function Analytics() {
                wishList
             </span>
               <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                0
+                {list?.length || 0}
               </h4>
             </div>
             <Badge color="error">
