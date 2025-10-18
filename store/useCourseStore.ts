@@ -14,8 +14,6 @@ type CourseState = {
   clearSelectedCourse: () => void;
 
 
-
-
   // cart
   cart: ExtendedCourse[];
   wishlist: ExtendedCourse[];

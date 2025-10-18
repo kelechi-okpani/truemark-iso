@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const ExamSecurityPolicy = () => {
   return (
-    <section className="bg-white dark:bg-black py-16 px-4 md:px-10 lg:px-20 text-[#1A1A1A] dark:text-white">
+    <section className=" py-16 px-4 md:px-10 lg:px-20 text-[#1A1A1A] dark:text-white">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -12,7 +12,7 @@ const ExamSecurityPolicy = () => {
         viewport={{ once: true }}
         className="max-w-5xl mx-auto space-y-10"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-[#002B5B]">Exam Security Policy</h2>
+        <h2 className="text-3xl md:text-4xl font-bold ">Exam Security Policy</h2>
 
         <section className="space-y-4">
           <h3 className="text-2xl font-semibold text-[#387467]">Purpose</h3>

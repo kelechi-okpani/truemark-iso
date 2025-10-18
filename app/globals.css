@@ -88,12 +88,23 @@
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+
+}
+
+body {
+  background: linear-gradient(to top, #71b7a6, #F8F9FF);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #000;
+  /*color: #71b7a6;*/
 }
 
 /* Block printing */
 @media print {
   body {
     display: none;
+
   }
 }
 

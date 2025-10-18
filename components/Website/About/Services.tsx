@@ -6,7 +6,7 @@ import { sectorsData } from "@/components/Website/About/AboutData";
 
 const SectorsWeServe = () => {
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16 xl:px-24 bg-white dark:bg-black text-[#1A1A1A] dark:text-white mb-[3rem]">
+    <section className="py-16 px-4 md:px-8 lg:px-16 xl:px-24 text-[#1A1A1A]  mb-[3rem]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ const SectorsWeServe = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="p-6 rounded-xl shadow-md bg-[#f9f9f9] dark:bg-[#1a1a1a]"
+            className="p-6 rounded-md shadow-md  bg-white py-6"
           >
             <h3 className="text-xl font-semibold mb-2">{sector.title}</h3>
             <p className="whitespace-pre-line text-base leading-relaxed">{sector.desc}</p>

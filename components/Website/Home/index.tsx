@@ -83,7 +83,7 @@ const Hero = () => {
                 transition={{ duration: 0.5 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="text-[28px] leading-[30px] md:text-[40px] md:leading-[55px] xl:text-[40px] xl:leading-[70px] mb-6 font-bold capitalize"
+                className="text-[30px] leading-[30px] md:text-[30px] md:leading-[45px] mb-6 font-bold capitalize"
               >
                 We provide{" "}
                 <span className="text-[#387467]">digital learning tools</span> that empower{" "}

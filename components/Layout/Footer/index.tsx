@@ -3,9 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import menuData from "@/components/Layout/Header/menuData";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { subscribe } from "graphql/execution";
+
 
 
 
@@ -24,7 +22,10 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="border-t border-stroke  bg-white dark:border-strokedark dark:bg-blacksection">
+      {/*<footer className="border-t border-stroke  bg-white dark:border-strokedark dark:bg-blacksection">*/}
+      {/*<footer className=" bg-gradient-to-t from-[#71b7a6]/20 via-[#F8F9FF]/30 to-transparent ">*/}
+
+      <footer className=" bg-linear-to-t from-[#F8F9FF]/20 via-[#71b7a6]/30 to-transparent ">
         <div className="mx-auto max-w-c-1390 px-6 w-full  md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
           <div className=" py-10 lg:py-10">

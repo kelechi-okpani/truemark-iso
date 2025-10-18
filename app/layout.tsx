@@ -15,7 +15,9 @@ export default function RootLayout({
   useAppSecurity();
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning className="bg-[#f8fefb]">
+      {/*<body suppressHydrationWarning className="bg-[#f8fefb]">*/}
+      {/*<body suppressHydrationWarning className="bg-linear-to-t from-[#F8F9FF] to-[#71b7a6]">*/}
+      <body suppressHydrationWarning className="">
       <NextTopLoader
         color="#387467"
         initialPosition={0.08}

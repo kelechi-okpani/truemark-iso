@@ -265,9 +265,11 @@ const AboutTM = () => {
 
               {section1.pillars.map((item) => (
                 <div key={item.num} className="mt-6 flex items-start gap-5">
-                  <div className="h-12 w-12 flex items-center justify-center rounded-full border border-stroke dark:border-strokedark dark:bg-blacksection">
+                  <div
+                    className="h-12 w-12 px-4 flex items-center justify-center rounded-full border border-stroke dark:border-strokedark dark:bg-blacksection">
                     <p className="font-semibold text-black dark:text-white">{item.num}</p>
                   </div>
+
                   <div>
                     <h3 className="text-lg font-semibold text-black dark:text-white">{item.title}</h3>
                     <p className="text-sm text-black dark:text-white">{item.desc}</p>
@@ -304,7 +306,7 @@ const AboutTM = () => {
               </h2>
               {section2.benefits.map((item) => (
                 <div key={item.num} className="mt-6 flex items-start gap-5">
-                  <div className="h-12 w-12 flex items-center justify-center rounded-full border border-stroke dark:border-strokedark dark:bg-blacksection">
+                  <div className="h-12 w-12 px-4 flex items-center justify-center rounded-full border border-stroke dark:border-strokedark dark:bg-blacksection">
                     <p className="font-semibold text-black dark:text-white">{item.num}</p>
                   </div>
                   <div>

@@ -19,7 +19,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={` ${inter.className}`} suppressHydrationWarning>
-      {/*<body className={`dark:bg-black ${inter.className}`} suppressHydrationWarning>*/}
       <NextTopLoader
         color="#387467"
         initialPosition={0.08}

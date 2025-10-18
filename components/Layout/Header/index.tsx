@@ -32,7 +32,8 @@ const Header = () => {
     <header
       className={`sticky left-0 top-0 z-99999 w-full py-4  ${
         stickyMenu
-          ? "bg-white py-4!  shadow-md transition duration-100 dark:bg-black"
+          // ? "bg-white py-4!  shadow-md transition duration-100 dark:bg-black"
+          ? "bg-linear-to-t from-[#F8F9FF] to-[#71b7a6]  py-4!  shadow-md transition duration-100 dark:bg-black"
           : ""
       }`}
     >
@@ -137,14 +138,23 @@ const Header = () => {
                         }`}
                       >
                         {menuItem.submenu.map((item, key) => (
+                          <Link href={item.path || "#"}
+                                onClick={() => {
+                                  setActiveDropdownIndex(null);
+                                  setNavigationOpen(false);
+                                }}
+                          >
                           <li key={key} className="hover:text-[#387467] text-[#000] py-3 px-2 hover:bg-[#387467]/10 cursor-pointer">
-                            <Link href={item.path || "#"}
-                                  onClick={() => {
-                                    setActiveDropdownIndex(null);
-                                    setNavigationOpen(false);
-                                  }}
-                            >{item.title}</Link>
+                            {/*<Link href={item.path || "#"}*/}
+                            {/*      onClick={() => {*/}
+                            {/*        setActiveDropdownIndex(null);*/}
+                            {/*        setNavigationOpen(false);*/}
+                            {/*      }}*/}
+                            {/*>*/}
+                              {item.title}
+                            {/*</Link>*/}
                           </li>
+                          </Link>
                         ))}
                       </ul>
                     </>

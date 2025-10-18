@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const CodeOfEthics = () => {
   return (
-    <section className="bg-white dark:bg-black py-16 px-4 md:px-10 lg:px-20 text-[#1A1A1A] dark:text-white">
+    <section className="py-16 px-4 md:px-10 lg:px-20 text-[#1A1A1A] dark:text-white">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

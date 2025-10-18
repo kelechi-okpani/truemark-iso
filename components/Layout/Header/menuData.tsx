@@ -20,12 +20,6 @@ const menuData: Menu[] = [
         newTab: false,
         path: "/who_we_are",
       },
-      // {
-      //   id: 2,
-      //   title: "Our Accreditation",
-      //   newTab: false,
-      //   path: "/who_we_are/accreditation",
-      // },
       {
         id: 3,
         title: "Certification Withdrawal",
@@ -50,12 +44,18 @@ const menuData: Menu[] = [
         newTab: false,
         path: "/who_we_are/code_of_ethics",
       },
-      {
-        id: 7,
-        title: "Certification Catalogue",
-        newTab: false,
-        path: "/certification_catalogue",
-      },
+      // {
+      //   id: 7,
+      //   title: "Certification Catalogue",
+      //   newTab: false,
+      //   path: "/certification_catalogue",
+      // },
+      // {
+      //   id: 2,
+      //   title: "Our Accreditation",
+      //   newTab: false,
+      //   path: "/who_we_are/accreditation",
+      // },
     ],
   },
 
