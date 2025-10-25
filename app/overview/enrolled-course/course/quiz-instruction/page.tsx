@@ -35,7 +35,7 @@ export default function MyLearningPage() {
 
   return (
 
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/*<Quiz_Intro />*/}
       <Quiz_End userScore={quizScore} />
 

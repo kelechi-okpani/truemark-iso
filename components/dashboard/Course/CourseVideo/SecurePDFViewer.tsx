@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { useModal } from "@/components/hooks/useModal";
 import { Modal } from "@/components/ui/modal";
@@ -10,8 +9,6 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react";
-import Update_Lesson from "@/components/dashboard/Course/course/lesson/UpdateLesson";
-import Delete_Lesson from "@/components/dashboard/Course/course/lesson/DeleteLesson";
 import { CourseList } from "@/types/blog";
 
 interface FilePreviewProps {
@@ -26,7 +23,6 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
   const [error, setError] = useState(false);
   const {isOpen, openModal, closeModal , isUpdate,  openUpdate, closeUpdate,  isDelete, openDelete, closeDelete  } = useModal();
 
-  console.log(courseListing, "courseListing");
 
 
   if (error) {
@@ -120,17 +116,7 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
         </div>
       </Modal>
 
-      <div>
-        <Modal isOpen={isUpdate} onClose={closeUpdate} className="max-w-[700px] m-4">
-          <Update_Lesson onClose={closeUpdate} isOpen={isUpdate} courseListing={courseListing} />
-        </Modal>
-      </div>
 
-      <div>
-        <Modal isOpen={isDelete} onClose={closeDelete} className="max-w-[700px] m-4">
-          <Delete_Lesson isOpen={isDelete} onClose={closeDelete} courseListing={courseListing} />
-        </Modal>
-      </div>
     </div>
   );
 };

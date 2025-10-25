@@ -20,6 +20,12 @@ export const mainSideBar = [
     active_icon: sideIcons.purchase_active,
   },
   {
+    label: "Wishlist",
+    link: "/overview/wishlist",
+    icon: sideIcons.expense,
+    active_icon: sideIcons.expense_active,
+  },
+  {
     label: "Paid-Courses",
     link: "/overview/enrolled-course",
     icon: sideIcons.sales,

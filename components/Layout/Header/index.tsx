@@ -138,13 +138,13 @@ const Header = () => {
                         }`}
                       >
                         {menuItem.submenu.map((item, key) => (
-                          <Link href={item.path || "#"}
+                          <Link key={key}  href={item.path || "#"}
                                 onClick={() => {
                                   setActiveDropdownIndex(null);
                                   setNavigationOpen(false);
                                 }}
                           >
-                          <li key={key} className="hover:text-[#387467] text-[#000] py-3 px-2 hover:bg-[#387467]/10 cursor-pointer">
+                          <li className="hover:text-[#387467] text-[#000] py-3 px-2 hover:bg-[#387467]/10 cursor-pointer">
                             {/*<Link href={item.path || "#"}*/}
                             {/*      onClick={() => {*/}
                             {/*        setActiveDropdownIndex(null);*/}

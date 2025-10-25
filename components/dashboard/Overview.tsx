@@ -1,14 +1,24 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
-import { Badge } from "lucide-react";
+import { Badge, CreditCard, Wallet } from "lucide-react";
 
 
 export default function Analytics({data, list}) {
 
+  const totalAmount = data?.getUserEnrolledCourses?.reduce(
+    (sum, course) => sum + Number(course.price),
+    0
+  );
+
+  const formattedAmount = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+  }).format(totalAmount);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white px-4 pt-8">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
         {/* <!-- Metric Item Start --> */}
         <div
@@ -45,6 +55,25 @@ export default function Analytics({data, list}) {
             </span>
               <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
                 {list?.length || 0}
+              </h4>
+            </div>
+            <Badge color="error">
+              <ArrowDownIcon  size={30}/>
+            </Badge>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
+          <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
+            <Wallet className="text-gray-800 dark:text-white/90" />
+          </div>
+          <div className="flex items-end justify-between mt-5">
+            <div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+               Amount spent
+            </span>
+              <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
+                {formattedAmount || 0}
               </h4>
             </div>
             <Badge color="error">

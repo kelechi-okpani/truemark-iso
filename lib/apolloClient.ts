@@ -3,8 +3,10 @@ import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 
 
+
 const httpLink = createHttpLink({
-  uri: "https://staging.api.truemarkglobalss.com/graphql",
+  // uri: "https://staging.api.truemarkglobalss.com/graphql",
+  uri: "https://api.truemarkglobalss.com/graphql",
 });
 
 // @ts-ignore

@@ -1,24 +1,20 @@
 "use client";
-
 import Footer from "components/Layout/Footer";
 import Header from "components/Layout/Header";
 import Lines from "components/Website/Lines";
 import ScrollToTop from "components/Website/ScrollToTop";
-import { Inter } from "next/font/google";
 import "../globals.css";
-const inter = Inter({ subsets: ["latin"] });
-
 import ToasterContext from "../context/ToastContext";
 import NextTopLoader from "nextjs-toploader";
+import useAppSecurity from "@/components/hooks/useAppSecurity";
 
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+  children, }: { children: React.ReactNode; }) {
+  useAppSecurity();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={` ${inter.className}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
       <NextTopLoader
         color="#387467"
         initialPosition={0.08}

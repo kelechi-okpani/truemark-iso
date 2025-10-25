@@ -51,12 +51,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Main content area */}
       <div className="flex-grow flex flex-col overflow-hidden">
         {/* Sticky header at the top */}
-        <div className="shrink-0">
+        <div className="shrink-0 ">
           <Header data={data} />
         </div>
 
         {/* Scrollable content below header */}
-        <main className="px-6 pb-10 flex-grow mt-5 overflow-auto">
+        <main className="px-4 pb-10  flex-grow mt-5 overflow-auto">
           {children}
         </main>
       </div>

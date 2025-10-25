@@ -6,6 +6,7 @@ import { ApolloProvider } from "@apollo/client/react";
 import { client } from "@/lib/apolloClient";
 import { Toaster } from "react-hot-toast";
 import useAppSecurity from "@/components/hooks/useAppSecurity";
+import AnimatedCursor from "@/components/utility/AnimatedCursor";
 
 export default function RootLayout({
   children,
@@ -34,6 +35,7 @@ export default function RootLayout({
       <ApolloProvider client={client}>
         <SidebarProvider>{children}</SidebarProvider>
       </ApolloProvider>
+      <AnimatedCursor/>
       </body>
     </html>
   );

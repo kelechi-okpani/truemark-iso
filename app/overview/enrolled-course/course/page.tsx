@@ -5,7 +5,7 @@ import EnrolledCourseModules from "@/components/dashboard/EnrolledCourse/Enrolle
 export default function MyLearningPage() {
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="">
       <Suspense
         fallback={
           <div className="flex justify-center items-center h-screen">

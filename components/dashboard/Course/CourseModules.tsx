@@ -28,8 +28,6 @@ const CourseModules = () => {
   }) as any;
 
 
-  console.log(course, "course...");
-
     return (
       <div>
         <button

@@ -40,30 +40,35 @@ const EnrolledCourseModules = () => {
           ← Back
         </button>
 
-        <header className="bg-[#387467] text-white px-6 py-8  rounded-lg  flex justify-between mt-2">
-          <h1 className="text-2xl font-bold">{course?.name}</h1>
-          <Link
-            href={`/overview/enrolled-course/course/quiz-instruction`}
-            // href={`/overview/enrolled-course/${params?.id}/quiz-instruction`}
-          >
-            <button className="bg-white text-[#387467] px-4 py-2 rounded-lg">
-              Take Exam
-            </button>
-          </Link>
-        </header>
+        <div className='bg-white min-h-screen rounded-md '>
+          <header className="bg-[#387467] text-white px-6 py-8  rounded-lg  flex justify-between mt-2">
+            <h1 className="text-2xl font-bold">{course?.name}</h1>
+            <Link
+              href={`/overview/enrolled-course/course/quiz-instruction`}
+              // href={`/overview/enrolled-course/${params?.id}/quiz-instruction`}
+            >
+              <button className="bg-white text-[#387467] px-4 py-2 rounded-lg">
+                Take Exam
+              </button>
+            </Link>
+          </header>
 
-        {loading ? (
-          <div className="flex items-center justify-center min-h-[300px] w-full">
-            <CenteredLoader />
-          </div>
-        ) : data?.getEnrolledCourseModules.length === 0 ? (
-          <EmptyContainer
-            title={empty_details.title}
-            description={empty_details.description}
-          />
-        ) : (
-          <EnrolledAccordion course={course} modules={data?.getEnrolledCourseModules}/>
-        )}
+        <div className='px-6 pt-6'>
+          {loading ? (
+            <div className="flex items-center justify-center min-h-[300px] w-full">
+              <CenteredLoader />
+            </div>
+          ) : data?.getEnrolledCourseModules.length === 0 ? (
+            <EmptyContainer
+              title={empty_details.title}
+              description={empty_details.description}
+            />
+          ) : (
+            <EnrolledAccordion course={course} modules={data?.getEnrolledCourseModules}/>
+          )}
+        </div>
+        </div>
+
 
       </div>
     )
