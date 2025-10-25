@@ -25,8 +25,8 @@ const ForgotPassword = () => {
   // @ts-ignore
   const [ForgetPassword, { loading, error }] = useMutation(FORGOT_USERS_PASSWORD, {
     onCompleted: async (data:any) => {
-      const payload = data?.forgetPassword;
-      if (payload?.success === true) {
+      const payload = data?.forgetPassword?.success;
+      if (payload) {
          router.push("/auth/resetpassword");
       }
 
