@@ -25,10 +25,15 @@ export default function Cart() {
   const vatRate = 0.075;
   const chargeRate = 0.02;
 
+
+
+
   // Calculate values
   const vat = total * vatRate;
   const charge = total * chargeRate;
+  const subTotal = total - vat - charge;
   const grandTotal = total + vat + charge;
+
 
   // Now remove VAT and charge from grandTotal
   const afterVat = grandTotal - vat;
@@ -158,19 +163,12 @@ export default function Cart() {
 
             {/* Right - Sticky Summary */}
             <div className="bg-white  rounded-lg p-6 h-fit lg:sticky lg:top-10 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_-4px_6px_rgba(0,0,0,0.1),4px_0_6px_rgba(0,0,0,0.1),-4px_0_6px_rgba(0,0,0,0.1)]">
-              {/*<h2 className="text-lg font-semibold mb-4">Total:</h2>*/}
-              {/*<p className="text-2xl font-bold mb-6">*/}
-              {/*  {new Intl.NumberFormat("en-NG", {*/}
-              {/*    style: "currency",*/}
-              {/*    currency: "NGN"*/}
-              {/*  }).format(total)}*/}
-              {/*</p>*/}
 
               <div className="space-y-3 text-gray-700">
 
                 <div className="flex justify-between">
                   <span className='font-bold'>Subtotal:</span>
-                  <span className="font-bold text-[#387467]"> {formatCurrency(total)}</span>
+                  <span className="font-bold text-[#387467]"> {formatCurrency(subTotal)}</span>
                 </div>
 
                 <div className="flex justify-between">
@@ -190,13 +188,13 @@ export default function Cart() {
                     <p> Total:</p>
                     <span className='font-normal text-xs'>(incl. VAT & Charge)</span>
                   </div>
-                  <span>{formatCurrency(grandTotal)}</span>
+                  <span>{formatCurrency(total)}</span>
                 </div>
 
               </div>
 
               {cart.length > 0 && (
-                <Payment courseId={cart.map(item => item.id)} amount={grandTotal} />
+                <Payment courseId={cart.map(item => item.id)} amount={total} />
               )}
 
               <button className="w-full border border-[#387467] text-[#387467] mt-6 py-2 rounded-lg">
