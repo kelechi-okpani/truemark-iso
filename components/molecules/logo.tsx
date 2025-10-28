@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 import Main_Logo from "public/assets/Logo/Logo.png"
@@ -34,6 +35,7 @@ export function Logo() {
     <Image
       src={Sub_Logo}
       alt="logo"
+      // className='w-[12rem] h-[3rem]'
       width={800} height={800}
       draggable={false}
     />

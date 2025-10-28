@@ -41,7 +41,7 @@ export default function EnergyAndMining() {
           </div>
 
             <div>
-              <Image src="/images/sectors/mining1.jpg" alt="Mining" width={600} height={400}
+              <Image src="/images/sectors/energy1.jpg" alt="Mining" width={600} height={400}
                      className="rounded-xl shadow-xl" />
             </div>
         </motion.div>
@@ -54,7 +54,7 @@ export default function EnergyAndMining() {
           className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center"
         >
           <div>
-            <Image src="/images/sectors/mining2.jpg" alt="Mining" width={600} height={400}
+            <Image src="/images/sectors/energy2.jpg" alt="Mining" width={600} height={400}
                    className="rounded-xl shadow-xl" />
           </div>
           <div className="mt-[4rem]">
@@ -113,7 +113,7 @@ export default function EnergyAndMining() {
 
           </div>
           <div>
-            <Image src="/images/sectors/mining3.jpg" alt="Mining" width={600} height={400}
+            <Image src="/images/sectors/energy3.avif" alt="Mining" width={600} height={400}
                    className="rounded-xl shadow-xl" />
           </div>
         </motion.div>

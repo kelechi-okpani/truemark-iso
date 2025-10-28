@@ -33,9 +33,9 @@ function Header({ data }:any) {
         </button>
       </Link>
 
-      <button className="w-8 h-8 flex items-center justify-center">
-        {icons.notification_bell}
-      </button>
+      {/*<button className="w-8 h-8 flex items-center justify-center">*/}
+      {/*  {icons.notification_bell}*/}
+      {/*</button>*/}
     </div>
   </div>
 

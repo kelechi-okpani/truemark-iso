@@ -16,11 +16,31 @@ const empty_details = {
 
 export default function Cart() {
   const router = useRouter();
-  const { cart, removeFromCart, clearCart, markAsPaid, addToWishlist, removeFromWishlist } = useCourseStore();
+  const { cart, removeFromCart, addToWishlist, wishlist } = useCourseStore();
   const total = cart.reduce((sum, course) => sum + Number(course.price ?? 0), 0);
 
-
   // console.log(cart[0].id, "cart[0].id");
+
+
+  const vatRate = 0.075;
+  const chargeRate = 0.02;
+
+  // Calculate values
+  const vat = total * vatRate;
+  const charge = total * chargeRate;
+  const grandTotal = total + vat + charge;
+
+  // Now remove VAT and charge from grandTotal
+  const afterVat = grandTotal - vat;
+  const afterCharge = grandTotal - charge;
+  const afterBoth = grandTotal - vat - charge;
+
+  const formatCurrency = (amount: number) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+    }).format(amount);
+
 
   return (
     <div>
@@ -46,7 +66,6 @@ export default function Cart() {
             {/* Left - Scrollable Cart Items */}
             <div className="lg:col-span-2 overflow-y-auto  space-y-8">
               <h2 className="font-semibold">{cart.length} Courses in Cart</h2>
-
               {cart?.map((course) => (
                 <div
                   key={course.id}
@@ -55,7 +74,7 @@ export default function Cart() {
                   <img
                     src={course.image}
                     alt={course.name}
-                    className="w-full md:w-40 h-28 object-cover rounded"
+                    className="w-full md:w-40 text-xs h-28 object-cover rounded"
                   />
                   <div className="flex-1 space-y-1">
                     <h3 className="font-semibold">{course.name}</h3>
@@ -64,29 +83,63 @@ export default function Cart() {
                         onClick={() => removeFromCart(course.id)}
                         className="hover:underline"
                       >
-                        Remove
+                        remove
                       </button>
 
                       <button
-                        className="hover:underline"
+                        className="rounded-full"
                         onClick={() => {
-                          addToWishlist(course);
-                          toast.success("Course added to wishlist!", {
-                            style: {
-                              background: "#387467",
-                              color: "#fff",
-                              padding: "0.5rem 1rem",
-                              borderRadius: "0.5rem",
-                              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                              fontWeight: 500,
-                              fontSize: "0.875rem"
-                            },
-                            position: "bottom-right",
-                            duration: 3000
-                          });
+                          const existsInWishlist = wishlist.some(
+                            (item: any) => item.id === course.id
+                          );
+
+                          if (existsInWishlist) {
+                            toast("Course already in wishlist!", {
+                              style: {
+                                background: "#fff",
+                                color: "#000",
+                                // background: "#F59E0B",
+                                padding: "0.5rem 1rem",
+                                borderRadius: "0.5rem",
+                                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                              },
+                              position: "bottom-right",
+                              duration: 2500,
+                            });
+                          } else {
+                            addToWishlist(course);
+                            toast.success("Course added to wishlist!", {
+                              style: {
+                                background: "#387467",
+                                color: "#fff",
+                                padding: "0.5rem 1rem",
+                                borderRadius: "0.5rem",
+                                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                                fontWeight: 500,
+                                fontSize: "0.875rem",
+                              },
+                              position: "bottom-right",
+                              duration: 3000,
+                            });
+                          }
                         }}
                       >
-                        Add to Wishlist
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-5 h-5 text-gray-700 hover:text-red-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21 8.25c0-2.485-2.014-4.5-4.5-4.5S12 5.765 12 8.25c0-2.485-2.014-4.5-4.5-4.5S3 5.765 3 8.25c0 4.556 9 11.25 9 11.25s9-6.694 9-11.25z"
+                          />
+                        </svg>
                       </button>
 
                     </div>
@@ -104,31 +157,54 @@ export default function Cart() {
             </div>
 
             {/* Right - Sticky Summary */}
-            <div
-              className="bg-white  rounded-lg p-6 h-fit lg:sticky lg:top-10 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_-4px_6px_rgba(0,0,0,0.1),4px_0_6px_rgba(0,0,0,0.1),-4px_0_6px_rgba(0,0,0,0.1)]">
-              <h2 className="text-lg font-semibold mb-4">Total:</h2>
-              <p className="text-2xl font-bold mb-6">
-                {new Intl.NumberFormat("en-NG", {
-                  style: "currency",
-                  currency: "NGN",
-                }).format(total)}
-              </p>
+            <div className="bg-white  rounded-lg p-6 h-fit lg:sticky lg:top-10 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_-4px_6px_rgba(0,0,0,0.1),4px_0_6px_rgba(0,0,0,0.1),-4px_0_6px_rgba(0,0,0,0.1)]">
+              {/*<h2 className="text-lg font-semibold mb-4">Total:</h2>*/}
+              {/*<p className="text-2xl font-bold mb-6">*/}
+              {/*  {new Intl.NumberFormat("en-NG", {*/}
+              {/*    style: "currency",*/}
+              {/*    currency: "NGN"*/}
+              {/*  }).format(total)}*/}
+              {/*</p>*/}
 
+              <div className="space-y-3 text-gray-700">
 
+                <div className="flex justify-between">
+                  <span className='font-bold'>Subtotal:</span>
+                  <span className="font-bold text-[#387467]"> {formatCurrency(total)}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className='text-sm font-bold'>VAT (7.5%):</span>
+                  <span className="font-medium text-xs text-[#387467]">+ {formatCurrency(vat)}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className='text-sm font-bold'> Service Charge (2%):</span>
+                  <span className="font-medium text-xs text-[#387467]">+ {formatCurrency(charge)}</span>
+                </div>
+
+                <hr className="my-3" />
+
+                <div className="flex justify-between font-semibold text-gray-900">
+                  <div>
+                    <p> Total:</p>
+                    <span className='font-normal text-xs'>(incl. VAT & Charge)</span>
+                  </div>
+                  <span>{formatCurrency(grandTotal)}</span>
+                </div>
+
+              </div>
 
               {cart.length > 0 && (
-                // <Payment courseId={cart[0].id} amount={total} />
-                <Payment courseId={cart.map(item => item.id)}  amount={total} />
+                <Payment courseId={cart.map(item => item.id)} amount={grandTotal} />
               )}
-
-              <p className="text-xs text-gray-500 mt-2">
-                You won’t be charged yet
-              </p>
 
               <button className="w-full border border-[#387467] text-[#387467] mt-6 py-2 rounded-lg">
 
               </button>
             </div>
+
+
           </div>
         )}
       </div>

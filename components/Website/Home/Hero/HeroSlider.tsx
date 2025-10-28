@@ -10,18 +10,6 @@ import { ReactTyped } from "react-typed";
 
 const slides = [
   {
-    id: 4,
-    image: "/images/Home/bg1.webp",
-    headline: "BUILD YOUR CAREER WITH CERTIFIED COURSES",
-    highlight: "Career-Focused ISO Programs",
-    typedWords: ["Auditors", "Lead Implementers", "Certification Coaches"],
-    buttons: [
-      { text: "Start Learning", color: "bg-red-600", textColor: "text-white" },
-      { text: "Browse Programs", color: "bg-blue-900", textColor: "text-white" },
-    ],
-  },
-
-  {
     id: 1,
     image: "/images/slide/Slide-1.jpg",
     headline: "BECOME AN ENDORSED TRAINING PARTNER",
@@ -44,19 +32,29 @@ const slides = [
       { text: "Become a Partner", color: "bg-blue-900", textColor: "text-white" },
     ],
   },
-  {
-    id: 3,
-    image: "/images/slide/Slide-4.jpg",
-    headline: "JOIN OUR GLOBAL LEARNING COMMUNITY",
-    highlight: "Accredited ISO Courses",
-    typedWords: ["Global Students", "Certified Professionals", "ISO Enthusiasts"],
-    buttons: [
-      { text: "Join Now", color: "bg-red-600", textColor: "text-white" },
-      { text: "See Testimonials", color: "bg-blue-900", textColor: "text-white" },
-    ],
-  },
 
-
+  // {
+  //   id: 3,
+  //   image: "/images/slide/Slide-4.jpg",
+  //   headline: "JOIN OUR GLOBAL LEARNING COMMUNITY",
+  //   highlight: "Accredited ISO Courses",
+  //   typedWords: ["Global Students", "Certified Professionals", "ISO Enthusiasts"],
+  //   buttons: [
+  //     { text: "Join Now", color: "bg-red-600", textColor: "text-white" },
+  //     { text: "See Testimonials", color: "bg-blue-900", textColor: "text-white" },
+  //   ],
+  // },
+  // {
+  //   id: 4,
+  //   image: "/images/Home/bg1.webp",
+  //   headline: "BUILD YOUR CAREER WITH CERTIFIED COURSES",
+  //   highlight: "Career-Focused ISO Programs",
+  //   typedWords: ["Auditors", "Lead Implementers", "Certification Coaches"],
+  //   buttons: [
+  //     { text: "Start Learning", color: "bg-red-600", textColor: "text-white" },
+  //     { text: "Browse Programs", color: "bg-blue-900", textColor: "text-white" },
+  //   ],
+  // },
 ];
 
 
@@ -102,8 +100,8 @@ export default function HeroSlider() {
                 <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-8">
                   {slide.headline}
                 </h1>
-                <p className="text-lg md:text-xl font-medium mb-8">
-                  <span className="text-[#ffff] text-3xl">{slide.highlight} </span>
+                <div className="text-lg md:text-xl font-medium mb-8">
+                  <span className="text-[#ffff] text-3xl ">{slide.highlight} </span>
                   <span className="text-[#ffff]  font-semibold ">
                   {/*<span className="text-[#00FFAA] font-semibold ">*/}
                     <ReactTyped
@@ -115,7 +113,7 @@ export default function HeroSlider() {
                       loop
                     />
                   </span>
-                </p>
+                </div>
                 {/*<div className="flex justify-left gap-4 flex-wrap">*/}
                 {/*  {slide.buttons.map((btn, index) => (*/}
                 {/*    <button*/}

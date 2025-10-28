@@ -2,7 +2,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import ISO from "../../public/images/Home/iso.jpg"
-import ISSO from "../../../public/images/Home/hero.png"
+// import ISSO from "../../../public/images/Home/hero.png"
+import ISSO from "../../../public/images/Home/hero.jpg"
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
 

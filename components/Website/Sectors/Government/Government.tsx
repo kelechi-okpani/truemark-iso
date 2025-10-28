@@ -43,7 +43,7 @@ export default function Government_Policy() {
           </div>
 
           <div>
-            <Image src="/images/sectors/gov1.jpg" alt="Governance" width={600} height={400}
+            <Image src="/images/sectors/government1.webp" alt="Governance" width={600} height={400}
                    className="rounded-xl shadow-xl" />
           </div>
         </motion.div>
@@ -57,7 +57,7 @@ export default function Government_Policy() {
           className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center"
         >
           <div>
-            <Image src="/images/sectors/gov2.jpg" alt="Governance" width={600} height={400}
+            <Image src="/images/sectors/government2.jpg" alt="Governance" width={600} height={400}
                    className="rounded-xl shadow-xl" />
           </div>
           <div>

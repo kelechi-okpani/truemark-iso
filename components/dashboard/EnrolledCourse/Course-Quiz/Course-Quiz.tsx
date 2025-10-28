@@ -6,6 +6,7 @@ import { GET_ASSESSMENT } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
 import Quiz_Question from "@/components/dashboard/EnrolledCourse/Course-Quiz/Question";
 import { useCourseStore } from "@/store/useCourseStore";
+import No_Question from "@/components/dashboard/EnrolledCourse/Course-Quiz/No-Question";
 
 const QuizStepper = () => {
   const course = useCourseStore((s) => s.selectedCourse);
@@ -57,7 +58,7 @@ const QuizStepper = () => {
   }
 
   if (!allQuestions.length) {
-    return <p className="text-gray-600">No questions found</p>;
+    return <No_Question/>;
   }
 
   const currentQuestion = allQuestions[currentStep];

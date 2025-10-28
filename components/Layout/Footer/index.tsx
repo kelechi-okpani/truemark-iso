@@ -28,7 +28,7 @@ const Footer = () => {
       <footer className=" bg-linear-to-t from-[#F8F9FF]/20 via-[#71b7a6]/30 to-transparent ">
         <div className="mx-auto max-w-c-1390 px-6 w-full  md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
-          <div className=" py-10 lg:py-10">
+          <div className="py-10 lg:py-10">
             <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
               <motion.div
                 variants={{
@@ -86,7 +86,8 @@ const Footer = () => {
               </motion.div>
 
               <div
-                className="flex text-sm w-full mt-8 pt-8 flex-col gap-8  md:flex-row md:justify-between md:gap-8 lg:w-3/2 xl:w-7/11">
+                className="flex text-sm w-full mt-8 pt-8 flex-col gap-8  md:flex-row md:justify-between md:gap-6 lg:w-3/3 xl:w-7/12">
+                {/*className="flex text-sm w-full mt-8 pt-8 flex-col gap-8  md:flex-row md:justify-between md:gap-6 lg:w-3/2 xl:w-7/11">*/}
 
                 <motion.div
                   variants={{
@@ -106,7 +107,7 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="animate_top"
                 >
-                  <h4 className="mb-9  font-medium text-black dark:text-white">
+                  <h4 className="mb-9 text-black dark:text-white font-bold">
                     Quick Links
                   </h4>
                   <ul>
@@ -164,7 +165,7 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="animate_top"
                 >
-                  <h4 className="mb-9 font-medium text-black dark:text-white">
+                  <h4 className="mb-9 font-bold text-black dark:text-white">
                     Services
                   </h4>
                   <ul>
@@ -195,7 +196,7 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="animate_top"
                 >
-                  <h4 className="mb-9  font-medium text-black dark:text-white">
+                  <h4 className="mb-9  font-bold text-black dark:text-white">
                     Sectors
                   </h4>
 
@@ -226,38 +227,37 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="animate_top"
                 >
-                  <h4 className="mb-9  font-medium text-black dark:text-white">
-                    Newsletter
-                  </h4>
-                  <p className="mb-4 w-[90%]">
-                    Subscribe to receive future updates
-                  </p>
-
-                  <div className="flex flex-col md:flex-row gap-4 items-center">
-                    <div className="relative w-full md:w-auto">
-                      <input
-                        required
-                        type="email"
-                        placeholder="Enter your email"
-                        className="w-full rounded-full border border-gray-500 px-8 py-3 pr-28 shadow focus:border-primary focus:outline-hidden dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
-                      />
-                      <button
-                        type="submit"
-                        className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-[#387467] text-white font-semibold px-5 py-2 shadow-md"
-                      >
-                        Subscribe
-                      </button>
-                    </div>
-                  </div>
+                  {/*<h4 className="mb-9  font-medium text-black dark:text-white">*/}
+                  {/*  Newsletter*/}
+                  {/*</h4>*/}
+                  {/*<p className="mb-4 w-[90%]">*/}
+                  {/*  Subscribe to receive future updates*/}
+                  {/*</p>*/}
+                  {/*<div className="flex flex-col md:flex-row gap-4 items-center">*/}
+                  {/*  <div className="relative w-full md:w-auto">*/}
+                  {/*    <input*/}
+                  {/*      required*/}
+                  {/*      type="email"*/}
+                  {/*      placeholder="Enter your email"*/}
+                  {/*      className="w-full rounded-full border border-gray-500 px-8 py-3 pr-28 shadow focus:border-primary focus:outline-hidden dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"*/}
+                  {/*    />*/}
+                  {/*    <button*/}
+                  {/*      type="submit"*/}
+                  {/*      className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-[#387467] text-white font-semibold px-5 py-2 shadow-md"*/}
+                  {/*    >*/}
+                  {/*      Subscribe*/}
+                  {/*    </button>*/}
+                  {/*  </div>*/}
+                  {/*</div>*/}
                 </motion.div>
+
               </div>
             </div>
           </div>
           {/* <!-- Footer Top --> */}
 
           {/* <!-- Footer Bottom --> */}
-          <div
-            className="  flex text-sm flex-col flex-wrap items-center justify-center gap-5 border-t border-stroke py-7 dark:border-strokedark lg:flex-row lg:justify-between lg:gap-0">
+          <div className="flex text-sm flex-col flex-wrap items-center justify-center gap-5 border-t border-stroke py-7 dark:border-strokedark lg:flex-row lg:justify-between lg:gap-0">
             <motion.div
               variants={{
                 hidden: {

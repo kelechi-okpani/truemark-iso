@@ -72,23 +72,19 @@ export const aboutContent = {
 
 export const sectorsData = [
   {
-    title: 'Training and Certification',
-    desc: 'Equip your team with the knowledge and skills to meet global standards.',
+    title: "Certification & Conformity Assessment",
+    desc: `We assess and certify that organizations, products, processes, and people meet internationally recognized standards such as ISO 9001 (Quality), ISO 14001 (Environment), ISO 45001 (Occupational Health & Safety), and others.\nOur certification demonstrates to clients, partners, and regulators that your organization is committed to quality, safety, and continual improvement.`,
   },
   {
-    title: 'Inspection',
-    desc: 'Conduct thorough evaluations to ensure product quality and integrity.',
+    title: "Inspections & Audits",
+    desc: `We conduct independent audits and inspections to verify compliance, identify weaknesses, and recommend strategic improvements.\nOur goal is to help organizations maintain high performance standards, manage risks, and stay compliant with local and international requirements.`,
   },
   {
-    title: 'Auditing',
-    desc: `Our audits help organizations:\n- Verify integrity and adherence to regulatory requirements\n- Identify areas for improvement and optimize processes\n- Ensure compliance with industry standards and best practices`,
+    title: "Training & Capacity Building",
+    desc: `We equip professionals and organizations with practical knowledge on international standards and best practices.\nOur training programs prepare your personnel for certification, improve operational efficiency, and instill a culture of continuous improvement.`,
   },
   {
-    title: 'Outsourcing',
-    desc: `By partnering with us, organizations can:\n- Streamline operations and improve efficiency\n- Achieve business goals through effective outsourcing\n- Focus on core activities while we handle conformity assessment needs.`,
-  },
-  {
-    title: 'Verification and Validation',
-    desc: 'Confirm conformity and validate processes to ensure continuous compliance.',
+    title: "Advisory & Continuous Support",
+    desc: `TrueMark provides continuous support to organizations, guiding them through the implementation of best practices and helping them sustain compliance.\nOur advisory services go beyond certification — we focus on building systems that ensure long-term operational excellence and global competitiveness.`,
   },
 ];

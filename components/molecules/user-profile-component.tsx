@@ -44,7 +44,8 @@ function UserProfileComponent({data}:any) {
         {/* User info (hidden on mobile, visible from md and up) */}
         <div className="hidden md:flex flex-col justify-center">
           <p className="capitalize text-text text-sm font-medium flex gap-3 items-center">
-            {data?.getUserInfo?.fullname} <ChevronDown className="text-base text-dark-gray w-4" />
+            {data?.getUserInfo?.fullname}
+            {/*<ChevronDown className="text-base text-dark-gray w-4" />*/}
           </p>
           <p className="text-dark-gray text-xs font-normal">
             {data?.getUserInfo?.email}

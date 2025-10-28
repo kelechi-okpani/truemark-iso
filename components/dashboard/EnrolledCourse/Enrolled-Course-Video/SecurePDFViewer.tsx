@@ -91,27 +91,26 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
           </div>
 
           <div className="p-4">
-            {/*<embed*/}
-            {/*  src={video}*/}
-            {/*  type="application/pdf"*/}
+            <embed
+              src={video}
+              type="application/pdf"
+              width="100%"
+              height="600px"
+              onError={() => setError(true)}
+              className="rounded-md border"
+              style={{ pointerEvents: "auto" }}
+            />
+
+            {/*<iframe*/}
+            {/*  // src={`${video}#toolbar=0`}*/}
+            {/*  src={`${video}#toolbar=0&navpanes=0&scrollbar=0`}*/}
             {/*  width="100%"*/}
             {/*  height="600px"*/}
-            {/*  onError={() => setError(true)}*/}
             {/*  className="rounded-md border"*/}
             {/*  sandbox="allow-scripts allow-same-origin"*/}
             {/*  style={{ pointerEvents: "auto" }}*/}
-            {/*/>*/}
-
-            <iframe
-              // src={`${video}#toolbar=0`}
-              src={`${video}#toolbar=0&navpanes=0&scrollbar=0`}
-              width="100%"
-              height="600px"
-              className="rounded-md border"
-              sandbox="allow-scripts allow-same-origin"
-              style={{ pointerEvents: "auto" }}
-              onError={() => setError(true)}
-            ></iframe>
+            {/*  onError={() => setError(true)}*/}
+            {/*></iframe>*/}
 
           </div>
         </div>

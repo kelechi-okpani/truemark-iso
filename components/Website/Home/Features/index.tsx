@@ -13,10 +13,11 @@ const Feature = () => {
           {/* <!-- Section Title Start --> */}
           <SectionHeader
             headerInfo={{
-              title: "SECTORS WE SERVE",
-              subtitle: "Why Get Certified with Truemark global standards and solutions.",
-              description: `At Truemark, we provide global standards and solutions tailored to various industries, ensuring compliance and trust in products and services. 
-              Our expertise spans multiple sectors, where we offer customized audit and conformity assessment services..`
+              title: "WHAT WE DO",
+              subtitle: "What We Do at TrueMark Global Standards & Solutions",
+              description: "At TrueMark Global, we help organizations earn global trust by achieving international standards of quality, safety, and operational excellence.\n" +
+                "Through certification, inspection, training, and continuous improvement, we empower businesses and institutions to operate confidently, comply consistently, and compete globally. \n" +
+                "Our expertise spans across multiple sectors, where we offer customised audit and conformity assessment services."
             }}
           />
           {/* <!-- Section Title End --> */}

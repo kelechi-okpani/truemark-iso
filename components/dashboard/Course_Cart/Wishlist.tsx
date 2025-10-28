@@ -16,8 +16,29 @@ const empty_details = {
 
 export default function Wishlist() {
   const router = useRouter();
-  const {addToCart,  cart, removeFromCart, clearCart, markAsPaid, addToWishlist, removeFromWishlist, wishlist } = useCourseStore();
-  const total = cart.reduce((sum, course) => sum + Number(course.price ?? 0), 0);
+  const {addToCart, removeFromWishlist, wishlist } = useCourseStore();
+  const total = wishlist.reduce((sum, course) => sum + Number(course.price ?? 0), 0);
+
+  const vatRate = 0.075;
+  const chargeRate = 0.02;
+
+  // Calculate values
+  const vat = total * vatRate;
+  const charge = total * chargeRate;
+  const grandTotal = total + vat + charge;
+
+  // Now remove VAT and charge from grandTotal
+  const afterVat = grandTotal - vat;
+  const afterCharge = grandTotal - charge;
+  const afterBoth = grandTotal - vat - charge;
+
+  const formatCurrency = (amount: number) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+    }).format(amount);
+
+
 
   return (
     <div>
@@ -31,7 +52,7 @@ export default function Wishlist() {
 
       <div className="min-h-screen bg-white p-4 md:p-10 rounded-lg ">
         {/*<div className="shadow-[0_4px_6px_rgba(0,0,0,0.1),0_-4px_6px_rgba(0,0,0,0.1),4px_0_6px_rgba(0,0,0,0.1),-4px_0_6px_rgba(0,0,0,0.1)] rounded-xl bg-white min-h-screen bg-white p-4 md:p-10  ">*/}
-        {cart.length === 0 ? (
+        {wishlist.length === 0 ? (
           <EmptyContainer
             title={empty_details.title}
             description={empty_details.description}
@@ -43,7 +64,7 @@ export default function Wishlist() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8  ">
             {/* Left - Scrollable Cart Items */}
             <div className="lg:col-span-2 overflow-y-auto  space-y-8">
-              <h2 className="font-semibold">{cart.length} Courses in Cart</h2>
+              <h2 className="font-semibold">{wishlist.length} Courses in wishlist</h2>
 
               {wishlist?.map((course) => (
                 <div
@@ -53,38 +74,16 @@ export default function Wishlist() {
                   <img
                     src={course.image}
                     alt={course.name}
-                    className="w-full md:w-40 h-28 object-cover rounded"
+                    className="w-full text-xs md:w-40 h-28 object-cover rounded"
                   />
                   <div className="flex-1 space-y-1">
                     <h3 className="font-semibold">{course.name}</h3>
                     <div className="flex gap-4 text-sm text-[#387467] mt-8">
                       <button
-                        onClick={() => removeFromCart(course.id)}
+                        onClick={() => removeFromWishlist(course.id)}
                         className="hover:underline"
                       >
-                        Remove
-                      </button>
-
-                      <button
-                        className="hover:underline"
-                        onClick={() => {
-                          addToCart(course)
-                          toast.success("Course added to wishlist!", {
-                            style: {
-                              background: "#387467",
-                              color: "#fff",
-                              padding: "0.5rem 1rem",
-                              borderRadius: "0.5rem",
-                              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                              fontWeight: 500,
-                              fontSize: "0.875rem"
-                            },
-                            position: "bottom-right",
-                            duration: 3000
-                          });
-                        }}
-                      >
-                        Add to Wishlist
+                        remove
                       </button>
 
                     </div>
@@ -102,17 +101,52 @@ export default function Wishlist() {
             </div>
 
             {/* Right - Sticky Summary */}
+
+
             <div
               className="bg-white  rounded-lg p-6 h-fit lg:sticky lg:top-10 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_-4px_6px_rgba(0,0,0,0.1),4px_0_6px_rgba(0,0,0,0.1),-4px_0_6px_rgba(0,0,0,0.1)]">
-              <h2 className="text-lg font-semibold mb-4">Total:</h2>
-              <p className="text-2xl font-bold mb-6">
-                {new Intl.NumberFormat("en-NG", {
-                  style: "currency",
-                  currency: "NGN",
-                }).format(total)}
-              </p>
+              {/*<h2 className="text-lg font-semibold mb-4">Total:</h2>*/}
+              {/*<p className="text-2xl font-bold mb-6">*/}
+              {/*  {new Intl.NumberFormat("en-NG", {*/}
+              {/*    style: "currency",*/}
+              {/*    currency: "NGN"*/}
+              {/*  }).format(total)}*/}
+              {/*</p>*/}
 
+              <div className="space-y-3 text-gray-700">
+
+                <div className="flex justify-between">
+                  <span className='font-bold'>Subtotal:</span>
+                  <span className="font-bold text-[#387467]"> {formatCurrency(total)}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className='text-sm font-bold'>VAT (7.5%):</span>
+                  <span className="font-medium text-xs text-[#387467]">+ {formatCurrency(vat)}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className='text-sm font-bold'> Service Charge (2%):</span>
+                  <span className="font-medium text-xs text-[#387467]">+ {formatCurrency(charge)}</span>
+                </div>
+
+                <hr className="my-3" />
+
+                <div className="flex justify-between font-semibold text-gray-900">
+                  <div>
+                    <p> Total:</p>
+                    <span className='font-normal text-xs'>(incl. VAT & Charge)</span>
+                  </div>
+                  <span>{formatCurrency(grandTotal)}</span>
+                </div>
+
+              </div>
+
+              <button className="w-full border border-[#387467] text-[#387467] mt-6 py-2 rounded-lg">
+
+              </button>
             </div>
+
           </div>
         )}
       </div>

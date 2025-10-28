@@ -14,7 +14,7 @@ const SectorsWeServe = () => {
         viewport={{ once: true }}
         className="mb-12 text-center max-w-3xl mx-auto"
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Sectors We Serve</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">What We Do</h2>
         <p className="text-lg leading-relaxed">
           At Truemark, we provide global standards and solutions tailored to various industries,
           ensuring compliance and trust in products and services. Our expertise spans multiple

@@ -43,25 +43,30 @@ const AboutHero = () => {
           {/*</h1>*/}
 
           <p className="mt-4 text-base text-pretty text-gray-700 dark:text-gray-300 sm:text-lg/relaxed">
-            Truemark global standards and solutions (TMGSS) is Nigeria most trusted conformity assessment and certification body,
-            offering globally accepted certifications in the continent of Africa like  certification, Halal certification,outsourcing,Inspection, Verification & Validation, Auditing. As a trusted partner  in certification, Inspection, outsourcing,Verification & Validation,
-            Auditing. we help our partners, organizations meet international standards and thrive in global markets.
+            TrueMark Global Standards & Solutions Limited was founded on a simple but powerful belief — African businesses deserve to compete fairly, confidently, and successfully on the world stage.
+
+            In today’s regulated and competitive global marketplace, trust, traceability, and compliance are not just desirable — they are essential. TrueMark helps businesses and organizations prove that they meet international quality, safety, and operational standards.
+
+            Through certification, inspections, audits, and training, we empower companies to operate safely, efficiently, and reliably — both locally and globally.
+
+            Meeting internationally recognized standards shows that an organization follows best practices, maintains quality, and operates with integrity. When Nigerian organizations meet global standards, they boost trade, attract investment, create jobs, and strengthen the national economy.
+
           </p>
 
-          <div className="mt-4 flex justify-center gap-4 sm:mt-6">
-            <a
-              className="animate_right inline-block rounded border border-[#387467] bg-[#387467] px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[#387467]"
-              href="/auth/signup"
-            >
-              Get Started
-            </a>
+          {/*<div className="mt-4 flex justify-center gap-4 sm:mt-6">*/}
+          {/*  <a*/}
+          {/*    className="animate_right inline-block rounded border border-[#387467] bg-[#387467] px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[#387467]"*/}
+          {/*    href="/auth/signup"*/}
+          {/*  >*/}
+          {/*    Get Started*/}
+          {/*  </a>*/}
 
-            <span
-              className="animate_right inline-block rounded border border-gray-300 dark:border-gray-600 px-5 py-2 font-medium text-gray-700 dark:text-gray-200 shadow-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
-            >
-              Learn More
-            </span>
-          </div>
+          {/*  <span*/}
+          {/*    className="animate_right inline-block rounded border border-gray-300 dark:border-gray-600 px-5 py-2 font-medium text-gray-700 dark:text-gray-200 shadow-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"*/}
+          {/*  >*/}
+          {/*    Learn More*/}
+          {/*  </span>*/}
+          {/*</div>*/}
         </div>
       </div>
     </section>
