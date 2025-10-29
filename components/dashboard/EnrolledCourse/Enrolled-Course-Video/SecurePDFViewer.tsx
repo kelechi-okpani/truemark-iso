@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useModal } from "@/components/hooks/useModal";
 import { Modal } from "@/components/ui/modal";
 import {
@@ -10,13 +10,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { CourseList } from "@/types/blog";
+import PdfViewer from "@/components/utility/PdfViewer";
+// import PdfViewerClient from "@/components/utility/PdfViewer";
+import dynamic from "next/dynamic";
 
-interface FilePreviewProps {
-  file: {
-    name: string;
-    video: string;
-  };
-}
+const PdfViewerClient = dynamic(() => import("@/components/utility/PdfViewer"), {
+  ssr: false,
+  loading: () => <p>Preparing secure PDF viewer...</p>,
+});
+
+
+
+
+
 
 const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList, module:any }) => {
   const {image,  video, name, price, id, description } = courseListing;
@@ -24,14 +30,66 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
   const {isOpen, openModal, closeModal , isUpdate,  openUpdate, closeUpdate,  isDelete, openDelete, closeDelete  } = useModal();
 
 
+  const handleOpenPdf = () => {
+    const pdfUrl = video; // Replace with the actual path to your PDF
+    const newWindow = window.open('', '_blank'); // Open a new blank tab
 
-  if (error) {
-    return (
-      <div className="p-6 text-center text-red-500 border border-red-200 rounded-lg">
-        Failed to load document. Please check the file link.
-      </div>
-    );
-  }
+    if (newWindow) {
+      // Create a div and append the PdfViewer component to it
+      const container = newWindow.document.createElement('div');
+      newWindow.document.body.appendChild(container);
+
+      // Render the PdfViewer component into the container
+      newWindow.document.title = name; // Set the new tab's title
+      newWindow.document.body.style.margin = '0'; // Remove default body margin
+      newWindow.document.body.style.overflow = 'hidden'; // Hide body overflow
+
+      // You would typically use ReactDOM.render here, but for simplicity
+      // and to avoid needing a full React environment in the new window,
+      // we'll directly inject the iframe.
+      container.innerHTML = `<iframe src="${pdfUrl}" width="100%" height="100%" style="border: none;" title="PDF Viewer"></iframe>`;
+    }
+  };
+
+
+  // const handleOpenPdf = () => {
+  //   const pdfUrl = video; // your PDF URL
+  //   const newWindow = window.open("", "_blank");
+  //
+  //   if (!newWindow) return;
+  //
+  //   // Basic page styling
+  //   newWindow.document.body.style.margin = "0";
+  //   newWindow.document.body.style.overflow = "hidden";
+  //
+  //   // Create iframe
+  //   const iframe = newWindow.document.createElement("iframe");
+  //   iframe.src = `${pdfUrl}#toolbar=0`; // hide toolbar
+  //   iframe.width = "100%";
+  //   iframe.height = "100%";
+  //   iframe.style.border = "none";
+  //   iframe.style.display = "block";
+  //
+  //   // Use sandbox but allow same-origin for rendering
+  //   iframe.setAttribute("sandbox", "allow-scripts allow-same-origin");
+  //
+  //   newWindow.document.body.appendChild(iframe);
+  //
+  //   // Disable keyboard shortcuts for printing / saving
+  //   newWindow.addEventListener("keydown", (e) => {
+  //     if (
+  //       (e.ctrlKey || e.metaKey) &&
+  //       ["p", "s", "P", "S"].includes(e.key)
+  //     ) {
+  //       e.preventDefault();
+  //       e.stopPropagation();
+  //       alert("Printing and saving is disabled.");
+  //     }
+  //   });
+  //
+  //   // Disable right-click
+  //   newWindow.addEventListener("contextmenu", (e) => e.preventDefault());
+  // };
 
 
   return (
@@ -77,7 +135,8 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
       </DropdownMenu>
 
       <button
-        onClick={openModal}
+        // onClick={openModal}
+        onClick={handleOpenPdf}
         className="bg-[#387467] text-white px-6 py-1 rounded-md hover:bg-[#1f2937] transition mt-4"
       >
         Open Course
@@ -90,17 +149,31 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
             <h2 className="font-semibold text-md text-gray-900">{name}</h2>
           </div>
 
+
           <div className="p-4">
-            <embed
-              // src={video}
-              src={`/api/proxy-file?url=${encodeURIComponent(video)}`}
-              type="application/pdf"
-              width="100%"
-              height="600px"
-              onError={() => setError(true)}
-              className="rounded-md border"
-              style={{ pointerEvents: "auto" }}
-            />
+                  <PdfViewerClient file={video}/>
+            {/*<embed*/}
+            {/*  // src={video}*/}
+            {/*  src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
+            {/*  type="application/pdf"*/}
+            {/*  width="100%"*/}
+            {/*  height="900px"*/}
+            {/*  onError={() => setError(true)}*/}
+            {/*  className="rounded-md border"*/}
+            {/*  style={{ pointerEvents: "auto" }}*/}
+            {/*/>*/}
+
+
+            {/*<iframe*/}
+            {/*  src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
+            {/*  width="100%"*/}
+            {/*  height="900"*/}
+            {/*  className="rounded-md border"*/}
+            {/*  style={{ pointerEvents: "auto" }}*/}
+            {/*  sandbox="allow-same-origin allow-scripts allow-popups"*/}
+            {/*  onError={() => setError(true)}*/}
+            {/*/>*/}
+
 
             {/*<iframe*/}
             {/*  // src={`${video}#toolbar=0`}*/}
@@ -119,7 +192,8 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
 
 
     </div>
-  );
+  )
+    ;
 };
 
 export default SecurePDFViewer;

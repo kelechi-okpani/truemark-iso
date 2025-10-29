@@ -17,47 +17,53 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 
 const EnrolledCourseVideoItem = ({ courseListing, module }: { courseListing: CourseList, module:any }) => {
   const {image,  video, name, price, id, description } = courseListing;
+  const { isOpen, openModal, closeModal,   isUpdate,  openUpdate, closeUpdate,  isDelete, openDelete, closeDelete  } = useModal();
 
 
   return (
-        <div className=" overflow-hidden  transition cursor-pointer">
-             <div className="w-full aspect-video bg-transparent relative select-none"
-                  onContextMenu={(e) => e.preventDefault()}
-                 >
-              <HlsVideoPlayer
-                poster={module?.image}
-                src={video}
-                autoPlay={false}
-                controls={true}
-                width="100%"
-                height="100%"
-                hlsConfig={{
-                  maxLoadingDelay: 4,
-                  minAutoBitrate: 0,
-                  lowLatencyMode: true
-                }}
-              />
-          </div>
+    <div className=" overflow-hidden  transition cursor-pointer">
+      <div className="w-full aspect-video bg-transparent relative">
+        <video
+          poster={module?.image}
+          src={video}
+          autoPlay={false}
+          controls={true}
+          width="100%"
+          height="100%"
+          style={{ objectFit: "contain" }}>
+          Your browser does not support the video tag.
+        </video>
 
-            <div className="p-4 shadow-sm hover:shadow-md border">
-              <p className="font-bold capitalize ">{name}</p>
-              <span className=" text-xs">{description}</span>
-              {/*<span className="font-semibold line-clamp-2">{description}</span>*/}
-           </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="absolute top-2 right-2 bg-[#387467] p-1 rounded-full shadow text-white">
+              <MoreVertical size={18} />
+            </button>
+          </DropdownMenuTrigger>
 
-          <div>
-            {/*<Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">*/}
-            {/*  <div className="h-[80vh]">*/}
-            {/*    <Viewer*/}
-            {/*      fileUrl={course.pdf}*/}
-            {/*      renderToolbar={() => <></>} // removes download/print UI*/}
-            {/*    />*/}
-            {/*  </div>*/}
-            {/*</Worker>*/}
-          </div>
+          <DropdownMenuContent align="end" className="w-32 ">
+            <DropdownMenuItem className="hover:bg-gray-300 "
+                              onClick={openUpdate}
+            >
+              <Pencil size={16} className="mr-2 text-blue-500" /> edit
+            </DropdownMenuItem>
 
-    </div>
-  )
+            <DropdownMenuItem className="hover:bg-red-100 mt-3"
+                              onClick={openDelete}
+            >
+              <Trash2 size={16} className="mr-2 text-red-500" /> delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className="p-4 shadow-sm hover:shadow-md border">
+        <p className="font-bold capitalize ">{name}</p>
+        <span className=" text-xs">{description}</span>
+        {/*<span className="font-semibold line-clamp-2">{description}</span>*/}
+      </div>
+
+    </div>)
 
 };
 

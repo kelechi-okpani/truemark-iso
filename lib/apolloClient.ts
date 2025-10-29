@@ -7,6 +7,7 @@ import { NEXT_PUBLIC_API_URL } from "@/lib/env";
 
 const httpLink = createHttpLink({
   uri: NEXT_PUBLIC_API_URL,
+  fetchOptions: { mode: "cors" },
   // uri: "https://staging.api.truemarkglobalss.com/graphql",
   // uri: "https://api.truemarkglobalss.com/graphql",
 });
@@ -58,12 +59,16 @@ export const errorLink = onError((graphQLErrors:any) => {
 
 });
 
+
 const authLink = setContext((_, { headers }) => {
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : "";
   return {
     headers: {
       ...headers,
-      Authorization: token ? `Bearer ${token}` : "",
+      ...(token && { Authorization: `Bearer ${token}` }),
+        "X-Client-Source": "web-app",
+        cache: 'no-store',
+      // Authorization: token ? `Bearer ${token}` : "",
     },
   };
 });

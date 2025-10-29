@@ -5,8 +5,8 @@ import { useQuery } from "@apollo/client/react";
 import { GET_USER_ENROLLED_COURSES_MODULES_LESSONS } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
 import EnrolledCourseVideoItem from "@/components/dashboard/EnrolledCourse/Enrolled-Course-Video/Enrolled-Course-Video-Item";
+import SecurePDFViewer from "./SecurePDFViewer";
 // import CourseVideoItem from "@/components/dashboard/Course/CourseVideo/CourseVideoItem";
-import SecurePDFViewer from "@/components/dashboard/Course/CourseVideo/SecurePDFViewer";
 
 
 const empty_details = {
@@ -46,6 +46,7 @@ export default function EnrolledCourseVideoListing({id, module}) {
     item?.video?.toLowerCase().endsWith(".pdf")
   );
 
+  console.log(pdfs, "pdfs....");
 
   return (
     <div className="bg-white">
