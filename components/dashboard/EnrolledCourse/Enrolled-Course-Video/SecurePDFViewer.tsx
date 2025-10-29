@@ -92,7 +92,8 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
 
           <div className="p-4">
             <embed
-              src={video}
+              // src={video}
+              src={`/api/proxy-file?url=${encodeURIComponent(video)}`}
               type="application/pdf"
               width="100%"
               height="600px"
