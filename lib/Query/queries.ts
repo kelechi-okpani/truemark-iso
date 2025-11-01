@@ -140,7 +140,6 @@ export const GET_ASSESSMENT = gql`
     }
 `;
 
-
 export const GET_USER_COURSE_SUBMISSION = gql`
     query GetAssignmentByCourseId($courseId: ID!) {
         getAssignmentByCourseId(courseId: $courseId) {
@@ -188,3 +187,35 @@ export const GET_USER_COURSE_SUBMISSION_ASSESSMENT = gql`
         }
     }
 `;
+
+
+//TRUE MARK TRANSACTION
+
+export const GET_USER_TRANSACTION = gql`
+    query GetPayments($page: Int, $pageSize: Int) {
+        getPayments(page: $page, pageSize: $pageSize) {
+            payments {
+                id
+                amount
+                paymentReference
+                status
+                courseId
+                userId
+                course {
+                    id
+                    name
+                    description
+                    image
+                    price
+                    createdAt
+                    updatedAt
+                }
+                createdAt
+                updatedAt
+            }
+            total
+            page
+            pageSize
+        }
+    }
+`

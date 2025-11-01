@@ -2,12 +2,20 @@
 import React, { useState, useMemo } from "react";
 import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
 import { Badge, CreditCard, Wallet } from "lucide-react";
+import { useCourseStore } from "@/store/useCourseStore";
+import { useQuery } from "@apollo/client/react";
+import { GET_USER_ENROLLED_COURSES } from "@/lib/Query/queries";
 
 
-export default function Analytics({data, list}) {
+export default function Analytics( ) {
+  const { wishlist} = useCourseStore();
+
+  const { data} = useQuery(GET_USER_ENROLLED_COURSES, {
+    fetchPolicy: "cache-and-network",
+  }) as any;
 
   const totalAmount = data?.getUserEnrolledCourses?.reduce(
-    (sum, course) => sum + Number(course.price),
+    (sum, course) => sum + Number(course?.price),
     0
   );
 
@@ -54,7 +62,7 @@ export default function Analytics({data, list}) {
                wishList
             </span>
               <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                {list?.length || 0}
+                {wishlist?.length || 0}
               </h4>
             </div>
             <Badge color="error">

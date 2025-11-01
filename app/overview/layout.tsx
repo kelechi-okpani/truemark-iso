@@ -13,7 +13,7 @@ import Unauthenticated from "@/components/hooks/Unauntheticated";
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  // useAppSecurity();
+  useAppSecurity();
   const { token } = useUserStore();
   const { data, loading, error } = useQuery(GET_USERS, {
     fetchPolicy: "cache-and-network",

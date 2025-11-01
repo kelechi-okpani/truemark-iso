@@ -66,9 +66,9 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       ...(token && { Authorization: `Bearer ${token}` }),
-        "X-Client-Source": "web-app",
         cache: 'no-store',
-      // Authorization: token ? `Bearer ${token}` : "",
+       // Authorization: token ? `Bearer ${token}` : "",
+       // "X-Client-Source": "web-app",
     },
   };
 });

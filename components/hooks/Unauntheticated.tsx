@@ -49,7 +49,7 @@ export default function Unauthenticated() {
       {/* Buttons */}
       <div className="flex gap-4">
         <Link
-          href="/auth/signin"
+          href="/signin"
           className="px-8 py-3 rounded-lg bg-[#387467] text-white font-semibold shadow-md hover:bg-[#2e5e55] transition"
         >
           Go Back Home

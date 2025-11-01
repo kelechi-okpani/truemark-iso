@@ -247,7 +247,7 @@ const Contact = () => {
               )}
 
               {success && (
-                <p className="bg-green-100 border border-green-400 text-green-600 px-4 py-3 rounded text-sm relative mt-3 text-center">Message sent successfully! </p>
+                <p className=" text-green-600 px-4 py-3 rounded text-sm relative mt-3 text-center font-medium ">Message sent successfully! </p>
               )}
 
             </div>

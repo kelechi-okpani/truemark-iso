@@ -27,7 +27,7 @@ const ForgotPassword = () => {
     onCompleted: async (data:any) => {
       const payload = data?.forgetPassword?.success;
       if (payload) {
-         router.push("/auth/resetpassword");
+         router.push("/resetpassword");
       }
 
     },

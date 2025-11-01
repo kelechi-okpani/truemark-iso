@@ -10,8 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { CourseList } from "@/types/blog";
-import PdfViewer from "@/components/utility/PdfViewer";
-// import PdfViewerClient from "@/components/utility/PdfViewer";
 import dynamic from "next/dynamic";
 
 const PdfViewerClient = dynamic(() => import("@/components/utility/PdfViewer"), {
@@ -50,47 +48,6 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
       container.innerHTML = `<iframe src="${pdfUrl}" width="100%" height="100%" style="border: none;" title="PDF Viewer"></iframe>`;
     }
   };
-
-
-  // const handleOpenPdf = () => {
-  //   const pdfUrl = video; // your PDF URL
-  //   const newWindow = window.open("", "_blank");
-  //
-  //   if (!newWindow) return;
-  //
-  //   // Basic page styling
-  //   newWindow.document.body.style.margin = "0";
-  //   newWindow.document.body.style.overflow = "hidden";
-  //
-  //   // Create iframe
-  //   const iframe = newWindow.document.createElement("iframe");
-  //   iframe.src = `${pdfUrl}#toolbar=0`; // hide toolbar
-  //   iframe.width = "100%";
-  //   iframe.height = "100%";
-  //   iframe.style.border = "none";
-  //   iframe.style.display = "block";
-  //
-  //   // Use sandbox but allow same-origin for rendering
-  //   iframe.setAttribute("sandbox", "allow-scripts allow-same-origin");
-  //
-  //   newWindow.document.body.appendChild(iframe);
-  //
-  //   // Disable keyboard shortcuts for printing / saving
-  //   newWindow.addEventListener("keydown", (e) => {
-  //     if (
-  //       (e.ctrlKey || e.metaKey) &&
-  //       ["p", "s", "P", "S"].includes(e.key)
-  //     ) {
-  //       e.preventDefault();
-  //       e.stopPropagation();
-  //       alert("Printing and saving is disabled.");
-  //     }
-  //   });
-  //
-  //   // Disable right-click
-  //   newWindow.addEventListener("contextmenu", (e) => e.preventDefault());
-  // };
-
 
   return (
     <div className="border p-4 rounded-lg bg-gray-50 shadow-sm hover:shadow-md transition-all relative">
@@ -142,53 +99,54 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
         Open Course
       </button>
 
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-6xl m-4">
-        <div className="bg-white rounded-lg overflow-hidden shadow-lg">
 
-          <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200">
-            <h2 className="font-semibold text-md text-gray-900">{name}</h2>
-          </div>
+      {/*<Modal isOpen={isOpen} onClose={closeModal} className="max-w-6xl m-4">*/}
+      {/*  <div className="bg-white rounded-lg overflow-hidden shadow-lg">*/}
 
-
-          <div className="p-4">
-                  <PdfViewerClient file={video}/>
-            {/*<embed*/}
-            {/*  // src={video}*/}
-            {/*  src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
-            {/*  type="application/pdf"*/}
-            {/*  width="100%"*/}
-            {/*  height="900px"*/}
-            {/*  onError={() => setError(true)}*/}
-            {/*  className="rounded-md border"*/}
-            {/*  style={{ pointerEvents: "auto" }}*/}
-            {/*/>*/}
+      {/*    <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200">*/}
+      {/*      <h2 className="font-semibold text-md text-gray-900">{name}</h2>*/}
+      {/*    </div>*/}
 
 
-            {/*<iframe*/}
-            {/*  src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
-            {/*  width="100%"*/}
-            {/*  height="900"*/}
-            {/*  className="rounded-md border"*/}
-            {/*  style={{ pointerEvents: "auto" }}*/}
-            {/*  sandbox="allow-same-origin allow-scripts allow-popups"*/}
-            {/*  onError={() => setError(true)}*/}
-            {/*/>*/}
+      {/*    <div className="p-4">*/}
+      {/*            <PdfViewerClient file={video}/>*/}
+      {/*      <embed*/}
+      {/*        // src={video}*/}
+      {/*        src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
+      {/*        type="application/pdf"*/}
+      {/*        width="100%"*/}
+      {/*        height="900px"*/}
+      {/*        onError={() => setError(true)}*/}
+      {/*        className="rounded-md border"*/}
+      {/*        style={{ pointerEvents: "auto" }}*/}
+      {/*      />*/}
 
 
-            {/*<iframe*/}
-            {/*  // src={`${video}#toolbar=0`}*/}
-            {/*  src={`${video}#toolbar=0&navpanes=0&scrollbar=0`}*/}
-            {/*  width="100%"*/}
-            {/*  height="600px"*/}
-            {/*  className="rounded-md border"*/}
-            {/*  sandbox="allow-scripts allow-same-origin"*/}
-            {/*  style={{ pointerEvents: "auto" }}*/}
-            {/*  onError={() => setError(true)}*/}
-            {/*></iframe>*/}
+      {/*      <iframe*/}
+      {/*        src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
+      {/*        width="100%"*/}
+      {/*        height="900"*/}
+      {/*        className="rounded-md border"*/}
+      {/*        style={{ pointerEvents: "auto" }}*/}
+      {/*        sandbox="allow-same-origin allow-scripts allow-popups"*/}
+      {/*        onError={() => setError(true)}*/}
+      {/*      />*/}
 
-          </div>
-        </div>
-      </Modal>
+
+      {/*      <iframe*/}
+      {/*        // src={`${video}#toolbar=0`}*/}
+      {/*        src={`${video}#toolbar=0&navpanes=0&scrollbar=0`}*/}
+      {/*        width="100%"*/}
+      {/*        height="600px"*/}
+      {/*        className="rounded-md border"*/}
+      {/*        sandbox="allow-scripts allow-same-origin"*/}
+      {/*        style={{ pointerEvents: "auto" }}*/}
+      {/*        onError={() => setError(true)}*/}
+      {/*      ></iframe>*/}
+
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</Modal>*/}
 
 
     </div>

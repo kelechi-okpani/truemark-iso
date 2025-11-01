@@ -34,7 +34,7 @@ const ResetPassword = () => {
     onCompleted: async (data:any) => {
       const payload = data?.verifyForgotPassword?.success;
       if (payload) {
-        router.push("/auth/signin");
+        router.push("/signin");
       }
     },
     onError: (err: any) => {

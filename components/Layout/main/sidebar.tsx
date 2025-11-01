@@ -48,7 +48,7 @@ function SideBar() {
     try {
       clearCart();
       logout();
-      router.push("/auth/signin");
+      router.push("/signin");
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -65,10 +65,10 @@ function SideBar() {
     >
       <div className="flex items-center h-[95px] relative px-6 shrink-0">
         {isOpen ?
-          <Link href="/">
+          <Link href="/signin">
             <PrimaryLogo />
           </Link>:
-          <Link href="/">
+          <Link href="/signin">
             <Logo />
           </Link>
            }

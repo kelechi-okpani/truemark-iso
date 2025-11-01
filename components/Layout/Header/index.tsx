@@ -183,14 +183,14 @@ const Header = () => {
             {/*<ThemeToggler />*/}
 
             <Link
-              href="/auth/signup"
+              href="/signup"
               className=" text-sm font-medium text-[#000] hover:text-[#387467]"
             >
               Sign Up
             </Link>
 
             <Link
-              href="/auth/signin"
+              href="/signin"
               className="flex items-center text-sm justify-center rounded-sm bg-[#387467]  px-7.5 py-1.5  text-white duration-300 ease-in-out hover:bg-[#387467] ho"
             >
              Login

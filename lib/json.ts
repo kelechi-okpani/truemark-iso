@@ -14,10 +14,22 @@ export const mainSideBar = [
     active_icon: sideIcons.inventory_active,
   },
   {
+    label: "Enrolled-Courses",
+    link: "/overview/enrolled-course",
+    icon: sideIcons.sales,
+    active_icon: sideIcons.sales_active,
+  },
+  {
     label: "Checkout",
     link: "/overview/cart",
     icon: sideIcons.purchase,
     active_icon: sideIcons.purchase_active,
+  },
+  {
+    label: "Transaction",
+    link: "/overview/transaction",
+    icon: sideIcons.expense,
+    active_icon: sideIcons.expense_active,
   },
   {
     label: "Wishlist",
@@ -25,12 +37,7 @@ export const mainSideBar = [
     icon: sideIcons.expense,
     active_icon: sideIcons.expense_active,
   },
-  {
-    label: "Paid-Courses",
-    link: "/overview/enrolled-course",
-    icon: sideIcons.sales,
-    active_icon: sideIcons.sales_active,
-  },
+
 
   // {
   //   label: "Profile",

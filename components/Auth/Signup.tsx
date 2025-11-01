@@ -51,7 +51,7 @@ const Signup = () => {
         const token = payload?.token ?? null;
 
         setAuth(user, token)
-        router.push("/auth/signin");
+        router.push("/signin");
       }
 
 
