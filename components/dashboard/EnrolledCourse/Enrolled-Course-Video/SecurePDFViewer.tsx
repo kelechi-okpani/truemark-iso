@@ -27,6 +27,7 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
   const [error, setError] = useState(false);
   const {isOpen, openModal, closeModal , isUpdate,  openUpdate, closeUpdate,  isDelete, openDelete, closeDelete  } = useModal();
 
+  const pdfUrl = video;
 
   const handleOpenPdf = () => {
     const pdfUrl = video; // Replace with the actual path to your PDF
@@ -49,8 +50,12 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
     }
   };
 
+  useEffect(() => {
+    // handleOpenPdf();
+  }, []);
+
   return (
-    <div className="border p-4 rounded-lg bg-gray-50 shadow-sm hover:shadow-md transition-all relative">
+    <div className="border p-4 rounded-lg bg-gray-50 shadow-sm hover:shadow-md transition-all relative " style={{height:"80vh"}}>
 
       {/*<p className="font-medium mb-3 text-gray-800 truncate">{name}</p>*/}
 
@@ -70,88 +75,28 @@ const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList,
         <p className="font-medium text-gray-800 text-sm truncate">{name}</p>
 
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button className="absolute top-2 right-2 bg-[#387467] p-1 rounded-full shadow text-white">
-            <MoreVertical size={18} />
-          </button>
-        </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" className="w-32 ">
-          <DropdownMenuItem className="hover:bg-gray-300" onClick={openUpdate}
-          >
-            <Pencil size={16} className="mr-2 text-blue-500" /> edit
-          </DropdownMenuItem>
+      <iframe
+        src={pdfUrl}
+        width="100%"
+        height="90%"
+        // height="100%"
+        className="mt-2 rounded"
+        title="PDF Viewer"
+      />
 
-          <DropdownMenuItem className="hover:bg-red-100 mt-3"
-                            onClick={openDelete}
-          >
-            <Trash2 size={16} className="mr-2 text-red-500" /> delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <button
-        // onClick={openModal}
-        onClick={handleOpenPdf}
-        className="bg-[#387467] text-white px-6 py-1 rounded-md hover:bg-[#1f2937] transition mt-4"
-      >
-        Open Course
-      </button>
-
-
-      {/*<Modal isOpen={isOpen} onClose={closeModal} className="max-w-6xl m-4">*/}
-      {/*  <div className="bg-white rounded-lg overflow-hidden shadow-lg">*/}
-
-      {/*    <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200">*/}
-      {/*      <h2 className="font-semibold text-md text-gray-900">{name}</h2>*/}
-      {/*    </div>*/}
-
-
-      {/*    <div className="p-4">*/}
-      {/*            <PdfViewerClient file={video}/>*/}
-      {/*      <embed*/}
-      {/*        // src={video}*/}
-      {/*        src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
-      {/*        type="application/pdf"*/}
-      {/*        width="100%"*/}
-      {/*        height="900px"*/}
-      {/*        onError={() => setError(true)}*/}
-      {/*        className="rounded-md border"*/}
-      {/*        style={{ pointerEvents: "auto" }}*/}
-      {/*      />*/}
-
-
-      {/*      <iframe*/}
-      {/*        src={`/api/proxy-file?url=${encodeURIComponent(video)}`}*/}
-      {/*        width="100%"*/}
-      {/*        height="900"*/}
-      {/*        className="rounded-md border"*/}
-      {/*        style={{ pointerEvents: "auto" }}*/}
-      {/*        sandbox="allow-same-origin allow-scripts allow-popups"*/}
-      {/*        onError={() => setError(true)}*/}
-      {/*      />*/}
-
-
-      {/*      <iframe*/}
-      {/*        // src={`${video}#toolbar=0`}*/}
-      {/*        src={`${video}#toolbar=0&navpanes=0&scrollbar=0`}*/}
-      {/*        width="100%"*/}
-      {/*        height="600px"*/}
-      {/*        className="rounded-md border"*/}
-      {/*        sandbox="allow-scripts allow-same-origin"*/}
-      {/*        style={{ pointerEvents: "auto" }}*/}
-      {/*        onError={() => setError(true)}*/}
-      {/*      ></iframe>*/}
-
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</Modal>*/}
-
-
+      {/*<iframe src="${pdfUrl}" width="100%" height="100%" title="PDF Viewer"></iframe>*/}
+      {/*<button*/}
+      {/*  // onClick={openModal}*/}
+      {/*  onClick={handleOpenPdf}*/}
+      {/*  className="bg-[#387467] text-white px-6 py-1 rounded-md hover:bg-[#1f2937] transition mt-4"*/}
+      {/*>*/}
+      {/*  Open Course*/}
+      {/*</button>*/}
     </div>
   )
     ;
 };
 
 export default SecurePDFViewer;
+
