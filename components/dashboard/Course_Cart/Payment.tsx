@@ -138,7 +138,7 @@ import { useMutation, useLazyQuery } from "@apollo/client/react";
 import { BUY_COURSE } from "@/lib/Mutation/mutation";
 
 type PaymentProps = {
-  courseId: string;
+  courseId: any;
   amount: number;
 };
 
