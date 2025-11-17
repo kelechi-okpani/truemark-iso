@@ -26,8 +26,6 @@ export default function Cart() {
   const chargeRate = 0.02;
 
 
-
-
   // Calculate values
   const vat = total * vatRate;
   const charge = total * chargeRate;

@@ -34,27 +34,6 @@ const EnrolledCourseVideoItem = ({ courseListing, module }: { courseListing: Cou
           Your browser does not support the video tag.
         </video>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="absolute top-2 right-2 bg-[#387467] p-1 rounded-full shadow text-white">
-              <MoreVertical size={18} />
-            </button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end" className="w-32 ">
-            <DropdownMenuItem className="hover:bg-gray-300 "
-                              onClick={openUpdate}
-            >
-              <Pencil size={16} className="mr-2 text-blue-500" /> edit
-            </DropdownMenuItem>
-
-            <DropdownMenuItem className="hover:bg-red-100 mt-3"
-                              onClick={openDelete}
-            >
-              <Trash2 size={16} className="mr-2 text-red-500" /> delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
 
       <div className="p-4 shadow-sm hover:shadow-md border">
@@ -63,7 +42,8 @@ const EnrolledCourseVideoItem = ({ courseListing, module }: { courseListing: Cou
         {/*<span className="font-semibold line-clamp-2">{description}</span>*/}
       </div>
 
-    </div>)
+    </div>
+  )
 
 };
 

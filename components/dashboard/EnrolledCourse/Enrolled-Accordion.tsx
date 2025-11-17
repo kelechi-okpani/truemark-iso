@@ -54,9 +54,9 @@ import EnrolledCourseVideoListing
 
             {openId === module?.id && (
               <div className="text-gray-500 dark:text-gray-400">
-                <div className="py-6 justify-start bg-gray-100  px-3">
+                <div className="py-6 justify-start bg-gray-100  px-8">
                    <p className="capitalize font-bold py-4">Description:</p>
-                   <span className=" capitalize">{module?.description}</span>
+                   <span className="capitalize text-sm ">{module?.description}</span>
                 </div>
                 <EnrolledCourseVideoListing id={id} module={module} />
               </div>

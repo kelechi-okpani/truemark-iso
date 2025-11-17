@@ -46,7 +46,6 @@ export default function EnrolledCourseVideoListing({id, module}) {
     item?.video?.toLowerCase().endsWith(".pdf")
   );
 
-  console.log(pdfs, "pdfs....");
 
   return (
     <div className="bg-white">
@@ -62,21 +61,8 @@ export default function EnrolledCourseVideoListing({id, module}) {
           />
         ) : (
           <div className="space-y-10">
-            {/* 📄 PDF GRID */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Course Documents</h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {pdfs.map((post, key) => (
-                  <SecurePDFViewer key={key} courseListing={post} module={module} />
-                ))}
-              </div>
-              {pdfs.length === 0 && (
-                <p className="text-gray-500 text-sm mt-2">
-                  No PDF documents available.
-                </p>
-              )}
-            </div>
-            <hr/>
+
+
             {/* 🎬 VIDEO GRID */}
             <div>
               <h3 className="text-lg font-semibold mb-4">Course Videos</h3>
@@ -90,12 +76,30 @@ export default function EnrolledCourseVideoListing({id, module}) {
                 ))}
               </div>
               {videos.length === 0 && (
-                <p className="text-gray-500 text-sm mt-2">
+                <p className="text-gray-500 text-sm mt-2 font-bold ">
                   No videos found for this module.
                 </p>
               )}
             </div>
 
+
+
+            <hr/>
+
+            {/* 📄 PDF GRID */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Course Documents</h3>
+              <div className="grid sm:grid-cols-1 lg:grid-cols-1 gap-6 " >
+                {pdfs.map((post, key) => (
+                  <SecurePDFViewer key={key} courseListing={post} module={module} />
+                ))}
+              </div>
+              {pdfs.length === 0 && (
+                <p className="text-gray-500 text-sm mt-2 font-bold">
+                  No PDF documents available.
+                </p>
+              )}
+            </div>
 
           </div>
         )}

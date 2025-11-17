@@ -21,7 +21,6 @@ export default function PaymentVerification() {
   const [status, setStatus] = useState<boolean>(false);
   // const [error, setError] = useState<boolean>("");
 
-  console.log(error?.message, "error....");
 
 
   useEffect(() => {
