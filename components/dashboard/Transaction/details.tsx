@@ -23,7 +23,7 @@ const NairaIcon = (props) => (
 
 
 export default function DetailsCard({selected}) {
-  console.log(selected, "selected....");
+
   return (
     <div className=" mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* Header with gradient and avatar */}

@@ -35,7 +35,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   // If query errored or user not found
-  if (error || !data?.getUserInfo) {
+  if (!data?.getUserInfo) {
+  // if (error || !data?.getUserInfo) {
     return <Unauthenticated />;
   }
 

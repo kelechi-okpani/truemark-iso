@@ -196,7 +196,6 @@ export default function Cart() {
               )}
 
               <button className="w-full border border-[#387467] text-[#387467] mt-6 py-2 rounded-lg">
-
               </button>
             </div>
 

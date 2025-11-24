@@ -44,9 +44,11 @@ export default function Analytics( ) {
                 {data?.getUserEnrolledCourses?.length || 0}
               </h4>
             </div>
-            <Badge color="success" size={30}>
-              <ArrowUpIcon />
+
+            <Badge className="bg-green-100 text-green-700 rounded-full p-2">
+              <ArrowUpIcon className="w-4 h-4" />
             </Badge>
+
           </div>
         </div>
         {/* <!-- Metric Item End --> */}
@@ -65,9 +67,10 @@ export default function Analytics( ) {
                 {wishlist?.length || 0}
               </h4>
             </div>
-            <Badge color="error">
-              <ArrowDownIcon  size={30}/>
+            <Badge className="bg-red-100 text-red-700 rounded-full p-2">
+              <ArrowDownIcon className="w-4 h-4" />
             </Badge>
+
           </div>
         </div>
 
@@ -84,8 +87,8 @@ export default function Analytics( ) {
                 {formattedAmount || 0}
               </h4>
             </div>
-            <Badge color="error">
-              <ArrowDownIcon  size={30}/>
+            <Badge className="bg-indigo-100 text-red-700 rounded-full p-2">
+              <ArrowDownIcon className="w-4 h-4" />
             </Badge>
           </div>
         </div>
