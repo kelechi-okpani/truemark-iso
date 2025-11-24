@@ -22,7 +22,7 @@ function SideBar() {
   const toggleSideBar = () => {
     setIsOpen(!isOpen);
   };
-
+  const [loading, setLoading] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const handleHover = (index: number) => {
     setHoveredIndex(index);
@@ -44,16 +44,29 @@ function SideBar() {
   };
 
 
-  const handleRoute = () => {
+  // const handleRoute = () => {
+  //   try {
+  //     clearCart();
+  //     logout();
+  //     router.push("/signin");
+  //   } catch (err) {
+  //     console.error("Logout failed:", err);
+  //   }
+  // };
+
+
+  const handleRoute = async () => {
     try {
-      clearCart();
-      logout();
+      setLoading(true);
+      await clearCart();
+      await logout();
       router.push("/signin");
     } catch (err) {
       console.error("Logout failed:", err);
+    } finally {
+      setLoading(false);
     }
   };
-
 
 
   return (
@@ -90,7 +103,7 @@ function SideBar() {
       >
         <p
           className={cn(
-            "text-normal font-bold text-sm text-dark-gray uppercase px-4",
+            "text-sm font-bold text-sm text-dark-gray uppercase px-4",
             isOpen ? null : "px-0 text-center"
           )}
         >
@@ -102,12 +115,13 @@ function SideBar() {
             const active = isRouteActive(menu.link);
             return (
               <Link
-                key={index}
+                // key={menu.id ?? index}
+                key={`${menu.id}-${index}`}
                 className={cn(
-                  " hover:text-900 group text-text text-sm font-medium rounded-lg py-2 px-4 flex gap-4 items-center capitalize duration-150",
+                  " hover:text-900 group text-text text-sm font-medium rounded-lg py-2 px-4 flex gap-4 items-center  duration-150 ",
                   // menu.link === pathname ? "bg-[#FEC28B]" : null,
                   // active ? "bg-[#04BA99] text-white" : null,
-                  active ? "bg-[#387467] text-white " : "hover:bg-green-50",
+                  active ? "bg-[#387467] text-white" : "hover:bg-green-50",
                   isOpen ? null : "hover:bg-transparent !bg-transparent"
                 )}
                 href={menu.link}
@@ -116,7 +130,7 @@ function SideBar() {
               >
             <span
               className={cn(
-                "shrink-0 w-8 h-8 rounded-lg border group-hover:bg-[#387467] group-hover:border-none duration-150 flex items-center justify-center",
+                "shrink-0 w-8 h-8  rounded-lg border group-hover:bg-[#387467] group-hover:border-none duration-150 flex items-center justify-center",
                 // menu.link === pathname ? "bg-[#04BA99] border-none" : null
                 // bg-[#04BA99]
                 active ? " bg-[#387467] border-none" : null
@@ -130,7 +144,7 @@ function SideBar() {
                 : menu.icon}
 
             </span>
-                {isOpen ? <span>{menu.label}</span> : null}
+                {isOpen ? <span className='text-sm' style={{fontSize:"12px"}}>{menu.label}</span> : null}
               </Link>
             );
           }
@@ -158,7 +172,66 @@ function SideBar() {
           >
             {sideIcons.logout}
           </span>
-          {isOpen ? <span>Logout</span> : null}
+          {/*{isOpen ? <span>Logout</span> : null}*/}
+          {loading ? (
+            <>
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+              Logging out...
+            </>
+          ) : (
+            "Logout"
+          )}
+          {/*{isOpen ? <span>*/}
+          {/*   {loading ? (*/}
+          {/*     <>*/}
+          {/*       <svg*/}
+          {/*         className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"*/}
+          {/*         xmlns="http://www.w3.org/2000/svg"*/}
+          {/*         fill="none"*/}
+          {/*         viewBox="0 0 24 24"*/}
+          {/*         aria-hidden="true"*/}
+          {/*       >*/}
+          {/*         <circle*/}
+          {/*           className="opacity-25"*/}
+          {/*           cx="12"*/}
+          {/*           cy="12"*/}
+          {/*           r="10"*/}
+          {/*           stroke="currentColor"*/}
+          {/*           strokeWidth="4"*/}
+          {/*         ></circle>*/}
+          {/*         <path*/}
+          {/*           className="opacity-75"*/}
+          {/*           fill="currentColor"*/}
+          {/*           d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"*/}
+          {/*         ></path>*/}
+          {/*       </svg>*/}
+          {/*       Logging out...*/}
+          {/*     </>*/}
+          {/*   ) : (*/}
+          {/*     "Logout"*/}
+          {/*   )}*/}
+          {/*</span> : null}*/}
+
         </button>
 
         {isOpen ? (

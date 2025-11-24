@@ -13,7 +13,7 @@ import Unauthenticated from "@/components/hooks/Unauntheticated";
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  useAppSecurity();
+  // useAppSecurity();
   const { token } = useUserStore();
   const { data, loading, error } = useQuery(GET_USERS, {
     fetchPolicy: "cache-and-network",
@@ -35,7 +35,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   // If query errored or user not found
-  if (error || !data?.getUserInfo) {
+  if (!data?.getUserInfo) {
+  // if (error || !data?.getUserInfo) {
     return <Unauthenticated />;
   }
 

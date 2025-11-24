@@ -136,6 +136,8 @@
 import React, { useRef, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client/react";
 import { BUY_COURSE } from "@/lib/Mutation/mutation";
+import { useCourseStore } from "@/store/useCourseStore";
+import { useUserStore } from "@/store/useUserStore";
 
 type PaymentProps = {
   courseId: any;
@@ -143,9 +145,23 @@ type PaymentProps = {
 };
 
 export default function Payment({ courseId, amount }: PaymentProps) {
-  const [buyCourse, { loading }] = useMutation(BUY_COURSE);
+  // const [buyCourse, { loading }] = useMutation(BUY_COURSE);
+  const { removeFromCart, cart } = useCourseStore();
+  const { token, currentUser } = useUserStore();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [buyCourse, { loading, data }] = useMutation(BUY_COURSE, {
+    onCompleted: (data:any) => {
+      console.log(data, "payment data.....");
+      const paidCourse = data?.buyCourse?.success === true;
+      if(paidCourse){
+        if (payWindow.current && !payWindow.current.closed) {
+          payWindow.current.close();
+        }
+      }
+    },
+  });
+
 
   const payWindow = useRef<Window | null>(null);
   const pollTimer = useRef<number | null>(null);
@@ -155,8 +171,14 @@ export default function Payment({ courseId, amount }: PaymentProps) {
 
     const paymentUrl = data?.buyCourse?.paymentUrl;
     if (!paymentUrl) return;
+    // payWindow.current = window.open(paymentUrl, "paystackPayment", "width=480,height=780");
 
-    payWindow.current = window.open(paymentUrl, "paystackPayment", "width=480,height=780");
+
+    const urlWithAuth = new URL(paymentUrl);
+    if (token) urlWithAuth.searchParams.append("token", token);
+    if (currentUser?.id) urlWithAuth.searchParams.append("userId", currentUser.id);
+    payWindow.current = window.open(urlWithAuth.toString(), "paystackPayment", "width=480,height=780");
+
     setIsOpen(true);
 
     pollTimer.current = window.setInterval(() => {
@@ -181,15 +203,15 @@ export default function Payment({ courseId, amount }: PaymentProps) {
       <button
         onClick={handlePayment}
         disabled={loading}
-        className="w-full bg-[#387467] text-white py-3 rounded-xl font-semibold shadow disabled:opacity-60"
+        className="w-full bg-[#387467] text-white py-2 text-sm rounded-md mt-4 font-semibold shadow disabled:opacity-60"
       >
-        {loading ? "Please wait..." : `Pay ₦${amount.toLocaleString()}`}
+        {loading ? "Initiating please wait..." : `Pay ₦ ${amount.toLocaleString()}`}
       </button>
 
       {isOpen && (
         <button
           onClick={handleCancel}
-          className="w-full border border-red-800 bg-transparent  text-xs py-2 rounded-xl font-semibold shadow"
+          className="w-full border border-[#387467] bg-transparent  text-xs  py-2 rounded-lg font-semibold shadow"
         >
           Cancel Payment
         </button>

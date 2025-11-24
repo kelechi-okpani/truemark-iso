@@ -19,6 +19,7 @@ type UserStore = {
   loading: boolean;
   error: string | null;
 
+  hydrated: boolean;
   setAuth: (currentUser: User, token?: string | null) => void;
 
   fetchUsers: () => Promise<void>;
@@ -30,9 +31,11 @@ export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
       currentUser: null,
-      token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+      token: null,
+      // token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
       loading: false,
       error: null,
+      hydrated: false,
 
       setAuth: (currentUser, token) => {
          if(token && typeof window !== "undefined") {
@@ -64,15 +67,32 @@ export const useUserStore = create<UserStore>()(
         }
       },
 
+      // logout: () => {
+      //   set({ currentUser: null, token: null });
+      //   if (typeof window !== "undefined") {
+      //     localStorage.removeItem("token");
+      //   }
+      // },
+
       logout: () => {
-        set({ currentUser: null, token: null });
         if (typeof window !== "undefined") {
-          localStorage.removeItem("token");
+          localStorage.removeItem("token"); // remove token from storage
         }
-      },
+        // Reset Zustand auth state
+        set({
+          currentUser: null,
+          token: null,
+        });
+        // Completely reset Apollo cache (important!)
+        client.clearStore().catch(() => {});
+      }
+
     }),
     {
       name: "user-storage", // 👈 saves to localStorage
+      onRehydrateStorage: () => (state) => {
+        if (state) state.hydrated = true;
+      },
     }
   )
 );

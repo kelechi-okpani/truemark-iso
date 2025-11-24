@@ -2,55 +2,52 @@ import { sideIcons } from "@/public/assets/icons";
 
 export const mainSideBar = [
   {
+    id: 1,
     label: "Analytics",
     link: "/overview",
     icon: sideIcons.dashboard,
     active_icon: sideIcons.dashboard_active,
   },
   {
+    id: 2,
     label: "Courses",
     link: "/overview/course",
     icon: sideIcons.inventory,
     active_icon: sideIcons.inventory_active,
   },
   {
+    id: 3,
     label: "Enrolled-Courses",
     link: "/overview/enrolled-course",
     icon: sideIcons.sales,
     active_icon: sideIcons.sales_active,
   },
   {
+    id: 4,
     label: "Checkout",
     link: "/overview/cart",
     icon: sideIcons.purchase,
     active_icon: sideIcons.purchase_active,
   },
   {
+    id: 5,
     label: "Transaction",
     link: "/overview/transaction",
     icon: sideIcons.expense,
     active_icon: sideIcons.expense_active,
   },
   {
+    id: 6,
     label: "Wishlist",
     link: "/overview/wishlist",
     icon: sideIcons.expense,
     active_icon: sideIcons.expense_active,
   },
-
-
-  // {
-  //   label: "Profile",
-  //   link: "/overview/profile",
-  //   icon: sideIcons.settings,
-  //   active_icon: sideIcons.settings_active,
-  // },
-
 ];
 
 export const mainGeneral = [
-
   {
+    id: 7,
     label: "help center",
     link: "/overview/help-center",
     icon: sideIcons.help_center,
