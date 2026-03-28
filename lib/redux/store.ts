@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './api/apiSlice'; // Essential Import
 import authReducer from './features/auth/authSlice';
 import courseReducer from './features/courses/courseSlice';
+import cartReducer from './features/cart/cartSlice';
 import { unauthenticatedMiddleware } from './middleware/authMiddleware';
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     // Standard Slices
     auth: authReducer,
     courses: courseReducer,
+    cart: cartReducer,
     // API Slice
     [apiSlice.reducerPath]: apiSlice.reducer,
   },

@@ -48,6 +48,7 @@
     "react-paystack": "^6.0.0",
     "react-pdf": "^10.2.0",
     "react-player": "^3.3.1",
+    "react-redux": "^9.2.0",
     "react-slick": "^0.30.3",
     "react-spinners": "^0.17.0",
     "react-typed": "^2.0.12",

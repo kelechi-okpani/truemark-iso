@@ -1,5 +1,5 @@
+import TM_Training from "@/components/Website/Services/Outsourcing/TM_Training";
 import { Metadata } from "next";
-import TM_Training from "@/components/Website/Services/Outsourcing /TM_Training";
 
 export const metadata: Metadata = {
   title: "True-Mark Global Standards & Solutions Limited",
