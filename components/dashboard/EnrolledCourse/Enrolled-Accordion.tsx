@@ -1,79 +1,122 @@
 "use client";
 import React, { useState } from "react";
-import EnrolledCourseVideoListing
-  from "@/components/dashboard/EnrolledCourse/Enrolled-Course-Video/Enrolled-Course-Video-Listing";
+import { ChevronDown, BookOpen, Clock, ShieldCheck, ListChecks } from "lucide-react";
+import { cn } from "@/lib/utils";
+import EnrolledCourseVideoListing from "./Enrolled-Course-Video/Enrolled-Course-Video-Listing";
 
+interface AccordionProps {
+  course: any;
+  modules: any[];
+}
 
- const EnrolledAccordion =({course, modules})=> {
-   const [id, setId] = useState('')
-   const [openId, setOpenId] = useState<string | null>(null);
+const EnrolledAccordion = ({ course, modules }: AccordionProps) => {
+  const [openId, setOpenId] = useState<string | null>(null);
 
-    const toggle = (id: string) => {
-      setOpenId(openId === id ? null : id);
-     };
+  const toggle = (id: string) => {
+    setOpenId(openId === id ? null : id);
+  };
 
   return (
-    <div>
+    <div className="w-full max-w-7xl mx-auto px-1">
+      {/* --- ISO Curriculum Header --- */}
+      <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-[#387467]/10 text-[#387467] rounded-lg">
+            <ListChecks size={20} />
+          </div>
+          <div>
+            <h2 className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em]">Course Syllabus</h2>
+            <p className="text-sm font-bold text-gray-900 uppercase">Learning Path Progression</p>
+          </div>
+        </div>
+        <div className="hidden md:flex items-center gap-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+            <span className="flex items-center gap-1.5"><Clock size={12}/> {modules?.length} Modules</span>
+            <span className="flex items-center gap-1.5 text-[#387467]"><ShieldCheck size={12}/> ISO Certified</span>
+        </div>
+      </div>
 
-      <div
-        id="accordion-flush"
-        className="border border-gray-200 rounded-lg divide-y divide-gray-200 rounded-2xl mt-2"
-      >
-        {modules?.map((module: any) => (
-          <div key={module?.id}
-               onClick={() => setId(module?.id)}
-               className="">
-            <div className="flex justify-between gap-2">
+      {/* --- Coursera-Style Accordion --- */}
+      <div className="space-y-3">
+        {modules?.map((module, index) => {
+          const isOpen = openId === module?.id;
+
+          return (
+            <div 
+              key={module?.id} 
+              className={cn(
+                "group border transition-all duration-300 rounded-xl overflow-hidden",
+                isOpen 
+                  ? "border-[#387467] bg-white ring-1 ring-[#387467]/10" 
+                  : "border-gray-200 bg-white hover:border-gray-300"
+              )}
+            >
+              {/* Trigger */}
               <button
                 type="button"
-                className="px-8 flex items-center bg-gray-300 justify-between w-full py-4 font-medium text-gray-700 gap-3"
                 onClick={() => toggle(module?.id)}
+                className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors"
               >
-                <span className='text-sm'>{module?.name}</span>
-                <div>
-                  <svg
-                    className={`w-3 h-3 transition-transform ${
-                      openId === module?.id ? "rotate-180" : ""
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5 5 1 1 5"
-                    />
-                  </svg>
+                <div className="flex items-center gap-5">
+                  <div className={cn(
+                    "w-8 h-8 rounded-full border flex items-center justify-center text-[10px] font-black transition-all",
+                    isOpen 
+                      ? "bg-[#387467] border-[#387467] text-white" 
+                      : "bg-gray-50 border-gray-100 text-gray-400 group-hover:border-gray-300"
+                  )}>
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h3 className={cn(
+                      "text-sm font-black uppercase tracking-tight transition-colors",
+                      isOpen ? "text-[#387467]" : "text-gray-800"
+                    )}>
+                      {module?.name}
+                    </h3>
+                    <div className="flex items-center gap-3 mt-0.5">
+                       <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                         <BookOpen size={10} /> {module?.lessonsCount || 0} Lessons
+                       </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={cn(
+                  "p-2 rounded-full transition-all duration-300",
+                  isOpen ? "bg-[#387467]/10 text-[#387467] rotate-180" : "text-gray-300 group-hover:text-gray-500"
+                )}>
+                  <ChevronDown size={18} />
                 </div>
               </button>
 
-            </div>
+              {/* Collapsible Content */}
+              <div className={cn(
+                "grid transition-all duration-500 ease-in-out",
+                isOpen ? "grid-rows-[1fr] opacity-100 border-t border-gray-50" : "grid-rows-[0fr] opacity-0 pointer-events-none"
+              )}>
+                <div className="overflow-hidden">
+                  {/* Module Metadata Brief */}
+                  <div className="bg-[#FDFDFD] px-8 py-6 border-b border-gray-50">
+                    <div className="flex items-center gap-2 mb-2">
+                       <div className="w-1 h-3 bg-[#387467] rounded-full" />
+                       <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Module Summary</p>
+                    </div>
+                    <p className="text-xs text-gray-600 leading-relaxed max-w-3xl font-medium">
+                      {module?.description || "Technical deep-dive into the core principles of this unit."}
+                    </p>
+                  </div>
 
-            {openId === module?.id && (
-              <div className="text-gray-500 dark:text-gray-400">
-                <div className="py-6 justify-start bg-gray-100  px-8">
-                   <p className="capitalize font-bold py-4">Description:</p>
-                   <span className="capitalize text-sm ">{module?.description}</span>
+                  {/* Asset Listing */}
+                  <div className="bg-white">
+                    <EnrolledCourseVideoListing id={module?.id} module={module} />
+                  </div>
                 </div>
-                <EnrolledCourseVideoListing id={id} module={module} />
               </div>
-            )}
-
-
-          </div>
-
-
-        ))}
-
+            </div>
+          );
+        })}
       </div>
-
-
     </div>
-
   );
- }
+};
 
-export default EnrolledAccordion
+export default EnrolledAccordion;

@@ -1,105 +1,156 @@
 "use client";
 import React from "react";
-import { useParams, useRouter } from "next/navigation";
-import { useCourseStore } from "@/store/useCourseStore";
-import { useQuery } from "@apollo/client/react";
-import {
-  GET_USER_ENROLLED_COURSES_MODULES,
-} from "@/lib/Query/queries";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { 
+  ChevronLeft, 
+  ShieldAlert, 
+  Clock, 
+  Wifi, 
+  FileCheck, 
+  AlertCircle,
+  Play
+} from "lucide-react";
+import { selectActiveCourse } from "@/lib/redux/features/courses/courseSlice";
 import CenteredLoader from "@/components/utility/Loader";
-import EmptyContainer from "@/components/utility/EmptyContainer";
-import Link from "next/link";
 
-
-const Quiz_Intro = () => {
-  const course = useCourseStore((s) => s.selectedCourse);
-  const params = useParams();
+const QuizIntro = () => {
   const router = useRouter();
+  const activeCourse = useSelector(selectActiveCourse);
 
-  const { data, loading } = useQuery(GET_USER_ENROLLED_COURSES_MODULES, {
-    fetchPolicy: "cache-and-network",
-    variables: { courseId: course?.id },
-  }) as any;
-
-  // standard instructions
+  // ISO Standardized Instructions
   const examInstructions = [
-    "You must complete the exam in one sitting. Once started, the timer will not stop.",
-    "Ensure you have a stable internet connection before beginning.",
-    "Each question has one correct answers.",
-    "Do not refresh or close the browser during the exam.",
-    "You are not allowed to use external help or resources during the exam.",
-    "Your responses will be automatically saved and submitted when time is up.",
+    {
+      icon: <Clock size={16} />,
+      text: "Continuous Sitting: The assessment must be completed in one session. The timer remains active once initialized.",
+    },
+    {
+      icon: <Wifi size={16} />,
+      text: "Connectivity: Ensure a stable internet connection. Network interruptions may invalidate your submission.",
+    },
+    {
+      icon: <FileCheck size={16} />,
+      text: "Submission: Responses are automatically logged and finalized when the allocated time expires.",
+    },
+    {
+      icon: <ShieldAlert size={16} />,
+      text: "Integrity: Use of external resources or browser refreshing is strictly prohibited under ISO compliance.",
+    },
   ];
 
+  if (!activeCourse) {
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <CenteredLoader />
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-8xl mx-auto p-2">
-      {/* Back Button */}
+    <div className="max-w-4xl mx-auto px-4 py-10 md:py-20">
+      
+      {/* --- Minimalist Back Nav --- */}
       <button
         onClick={() => router.back()}
-        className="mb-6 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+        className="group mb-8 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-[#387467] transition-all"
       >
-        ← Back
+        <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+        Return to Module
       </button>
 
-      {loading ? (
-        <div className="flex items-center justify-center min-h-[300px] w-full">
-          <CenteredLoader />
-        </div>
-      ) : !data?.getEnrolledCourseModules ||
-      data?.getEnrolledCourseModules.length === 0 ? (
-        <EmptyContainer
-          title="Your course module list is empty"
-          description="Looks like this course does not have any modules assigned yet."
-        />
-      ) : (
-        <div className="bg-white shadow rounded-lg border border-gray-200">
-          {/* Header */}
-          <div className="bg-[#387467] text-white px-6 py-8 rounded-t-lg">
-            <h1 className="text-2xl font-bold">{course?.name}</h1>
-            <p className="text-sm mt-2 opacity-90">
-              Exam Introduction & Instructions
-            </p>
+      {/* --- Coursera-Style Intro Card --- */}
+      <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm shadow-gray-200/20">
+        
+        {/* Professional Header */}
+        <div className="bg-[#387467] p-8 md:p-12 text-white">
+          <div className="flex items-center gap-2 mb-4 opacity-80">
+            <AlertCircle size={16} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Pre-Assessment Briefing</span>
           </div>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3">
+            {activeCourse?.name}
+          </h1>
+          <p className="text-green-50/70 text-sm font-medium">
+            Technical Evaluation & Certification Requirements
+          </p>
+        </div>
 
-          {/* Exam Instructions */}
-          <div className="p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-800">
-              Please read the instructions carefully before starting the exam:
-            </h2>
-            <ul className="list-decimal list-inside space-y-2 text-gray-700">
-              {examInstructions.map((rule, idx) => (
-                <li key={idx}>{rule}</li>
-              ))}
-            </ul>
-
-            <div className="mt-6 p-4 border border-yellow-300 bg-yellow-50 rounded-lg">
-              <p className="text-sm text-yellow-800">
-                ⚠️ Once you click <strong>Start Exam</strong>, the timer will begin and
-                you cannot pause or restart. Make sure you are ready.
-              </p>
+        {/* Content Body */}
+        <div className="p-8 md:p-12 lg:p-16">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            
+            {/* Left: Detailed Instructions */}
+            <div className="lg:col-span-3 space-y-8">
+              <section>
+                <h2 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-6">
+                  Standard Operating Procedures
+                </h2>
+                <div className="space-y-6">
+                  {examInstructions.map((item, idx) => (
+                    <div key={idx} className="flex gap-4 group">
+                      <div className="mt-1 w-8 h-8 shrink-0 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-[#387467]/10 group-hover:text-[#387467] transition-colors">
+                        {item.icon}
+                      </div>
+                      <p className="text-sm text-gray-600 leading-relaxed font-medium">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
 
-            {/* Action Buttons */}
-            <div className="mt-6 flex justify-between">
-              <button
-                onClick={() => router.back()}
-                className="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
-              >
-                Cancel
-              </button>
+            {/* Right: System Check / CTA */}
+            <div className="lg:col-span-2">
+              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 sticky top-24">
+                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">
+                  Assessment Overview
+                </h3>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex justify-between text-sm py-2 border-b border-gray-200/50">
+                    <span className="text-gray-500">Passing Score</span>
+                    <span className="font-black text-gray-900">80%</span>
+                  </li>
+                  <li className="flex justify-between text-sm py-2 border-b border-gray-200/50">
+                    <span className="text-gray-500">Attempts</span>
+                    <span className="font-black text-gray-900">1 Allowed</span>
+                  </li>
+                  <li className="flex justify-between text-sm py-2">
+                    <span className="text-gray-500">Status</span>
+                    <span className="font-black text-[#387467]">Verified</span>
+                  </li>
+                </ul>
 
-              <Link href={`/overview/enrolled-course/course/quiz-instruction/quiz`}>
-              {/*<Link href={`/overview/enrolled-course/${params?.id}/quiz-instruction/quiz`}>*/}
-                <button className="px-6 py-2 bg-[#387467] text-white rounded-lg hover:bg-[#2f5f54]">
-                  Start Exam
+                <button
+                  onClick={() => router.push(`/overview/enrolled-course/course/quiz-instruction/quiz`)}
+                  className="w-full flex items-center justify-center gap-3 py-4 bg-[#387467] text-white rounded-xl text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-900 transition-all shadow-lg shadow-[#387467]/10 active:scale-[0.98]"
+                >
+                  <Play size={14} fill="currentColor" />
+                  Initialize Exam
                 </button>
-              </Link>
+                
+                <p className="mt-4 text-[9px] text-center text-gray-400 leading-normal font-bold uppercase tracking-widest">
+                  By clicking, you confirm adherence to the <br /> 
+                  Professional Integrity Policy.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      )}
+
+        {/* Flat ISO Footer */}
+        <footer className="px-8 py-5 bg-[#FBFBFB] border-t border-gray-50 flex justify-between items-center">
+            <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest">
+              Security Protocol: V.2.06
+            </span>
+            <div className="flex gap-4">
+               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+               <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">System Ready</span>
+            </div>
+        </footer>
+      </div>
     </div>
   );
 };
 
-export default Quiz_Intro;
+export default QuizIntro;

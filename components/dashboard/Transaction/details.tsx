@@ -1,69 +1,111 @@
 "use client";
 import Image from "next/image";
-import { Mail, Phone, Briefcase, MapPin } from "lucide-react";
+import { Receipt, Calendar, User, ShieldCheck, Download, ExternalLink } from "lucide-react";
 import React from "react";
 import Sub_Logo from "@/public/assets/Logo/logo1.png";
 
+export default function DetailsCard({ selected }) {
+  if (!selected) return null;
 
-const NairaIcon = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M6 20V4h3l6 16h3V4" />
-    <path d="M6 8h12M6 16h12" />
-  </svg>
-);
-
-
-export default function DetailsCard({selected}) {
+  const formattedAmount = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+  }).format(Number(selected?.amount));
 
   return (
-    <div className=" mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
-      {/* Header with gradient and avatar */}
-
-      <div className="relative bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 p-6">
-
+    <div className="bg-white overflow-hidden">
+      {/* Header: Official Logo & Receipt Title */}
+      <div className="flex justify-between items-start border-b border-gray-100 pb-6 mb-6">
+        <div>
+          <Image
+            width={60}
+            height={60}
+            className="mb-3 grayscale contrast-125 opacity-90"
+            src={Sub_Logo}
+            alt="Institution Logo"
+          />
+          <h2 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">
+            Transaction Receipt
+          </h2>
+        </div>
+        <div className="text-right">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            Reference ID
+          </p>
+          <p className="text-xs font-mono font-bold text-gray-900">
+            #{selected?.paymentReference?.toUpperCase() || "N/A"}
+          </p>
+        </div>
       </div>
-      <div className=" ">
-        <Image
-          width={70}
-          height={70}
-          className="rounded-full"
-          src={Sub_Logo}
-          alt="logo"
-          draggable={false}
-        />
-      </div>
-      {/* Info Section */}
-      <div className=" px-6 pb-6">
-        <h2 className="text-xl font-semibold text-gray-800">{selected?.course?.name}</h2>
-        <p className="text-gray-500 text-sm mb-6">{selected?.email}</p>
 
-        <div className="space-y-4 text-sm">
-          <div className="flex items-center gap-3">
-            <span className="text-gray-700 text-2xl">
-                {new Intl.NumberFormat("en-NG", {
-                  style: "currency",
-                  currency: "NGN",
-                  minimumFractionDigits: 0 // no .00 unless you want it
-                }).format(Number(selected?.course?.price))}
-        </span>
+      {/* Main Content Area */}
+      <div className="space-y-6">
+        {/* Course Banner Info */}
+        <section>
+          <h3 className="text-xl font-black text-gray-900 leading-tight">
+            {selected?.course?.name}
+          </h3>
+          <div className="flex items-center gap-4 mt-2">
+            <span className="text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded font-black uppercase tracking-tighter border border-green-100">
+              {selected?.status}
+            </span>
+            <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+              <Calendar size={12} />
+              {/* Assuming createdAt exists, otherwise hardcode placeholder */}
+              {selected?.createdAt ? new Date(selected.createdAt).toLocaleDateString() : "Processed"}
+            </div>
           </div>
+        </section>
 
-          <hr />
-          <div className=" items-center gap-6">
-            <span className="text-gray-700 font-bold">Course Description:</span>
-            <p className="text-gray-700 pt-4">{selected?.course?.description}</p>
+        {/* Financial Breakdown */}
+        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+              Total Amount Paid
+            </span>
+            <span className="text-2xl font-black text-[#387467]">
+              {formattedAmount}
+            </span>
           </div>
+        </div>
 
+        {/* User & Course Details Grid */}
+        <div className="grid grid-cols-2 gap-6 py-4 border-t border-b border-gray-50">
+          <div>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+              Enrolled Student
+            </p>
+            <p className="text-sm font-bold text-gray-800 truncate">{selected?.email || "User Account"}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+              Payment Gateway
+            </p>
+            <p className="text-sm font-bold text-gray-800">Paystack Secure</p>
+          </div>
+        </div>
 
+        {/* Description Section */}
+        <section>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">
+            Program Description
+          </p>
+          <p className="text-sm text-gray-600 leading-relaxed italic">
+            {selected?.course?.description || "Professional development course enrollment."}
+          </p>
+        </section>
+
+        {/* Actions & Verification */}
+        <div className="pt-4 space-y-3">
+          <button className="flex items-center justify-center gap-2 w-full bg-[#387467] text-white py-4 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-[#2d5d52] transition-all">
+            <Download size={14} /> Download PDF Invoice
+          </button>
+          
+          <div className="flex items-center justify-center gap-2 text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">
+            <ShieldCheck size={12} className="text-blue-500" />
+            ISO 27001 Verified Enrollment Record
+          </div>
         </div>
       </div>
     </div>

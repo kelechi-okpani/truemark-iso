@@ -1,9 +1,9 @@
-import { gql } from "@apollo/client";
+// import { gql } from "@apollo/client";
 
 
 // TRUE-MARK COURSES - MODULES - LESSONS
 
-export const GET_COURSES = gql`
+export const GET_COURSES = `
     query GetCourses {
         getCourses {
             id
@@ -17,7 +17,7 @@ export const GET_COURSES = gql`
     }
 `;
 
-export const GET_COURSES_MODULES = gql`
+export const GET_COURSES_MODULES = `
     query GetCourseModules($courseId: ID!) {
         getCourseModules(courseId: $courseId) {
             id
@@ -31,7 +31,7 @@ export const GET_COURSES_MODULES = gql`
     }
 `;
 
-export const GET_COURSES_LESSONS = gql`
+export const GET_COURSES_LESSONS = `
     query GetCourseLessions($moduleId: ID!) {
         getCourseLessions(moduleId: $moduleId) {
             id
@@ -49,7 +49,7 @@ export const GET_COURSES_LESSONS = gql`
 
 
 // TRUE-MARK USER FLOW
-export const GET_USERS = gql`
+export const GET_USERS = `
     query GetUserInfo {
         getUserInfo {
             id
@@ -65,7 +65,7 @@ export const GET_USERS = gql`
 
 
 
-export const VERIFY_PAYMENT = gql`
+export const VERIFY_PAYMENT = `
     query Query($reference: String!) {
         verifyPayment(reference: $reference)
     }
@@ -74,7 +74,7 @@ export const VERIFY_PAYMENT = gql`
 
 
 // TRUE-MARK ENROLLED - COURSES - MODULES - LESSONS
-export const GET_USER_ENROLLED_COURSES = gql`
+export const GET_USER_ENROLLED_COURSES = `
     query GetUserEnrolledCourses {
         getUserEnrolledCourses {
             id
@@ -88,7 +88,7 @@ export const GET_USER_ENROLLED_COURSES = gql`
     }
 `;
 
-export const GET_USER_ENROLLED_COURSES_MODULES = gql`
+export const GET_USER_ENROLLED_COURSES_MODULES = `
     query GetEnrolledCourseModules($courseId: ID!) {
         getEnrolledCourseModules(courseId: $courseId) {
             id
@@ -102,7 +102,7 @@ export const GET_USER_ENROLLED_COURSES_MODULES = gql`
     }
 `;
 
-export const GET_USER_ENROLLED_COURSES_MODULES_LESSONS = gql`
+export const GET_USER_ENROLLED_COURSES_MODULES_LESSONS = `
     query GetEnrolledModuleLessions($moduleId: ID!) {
         getEnrolledModuleLessions(moduleId: $moduleId) {
             id
@@ -118,7 +118,7 @@ export const GET_USER_ENROLLED_COURSES_MODULES_LESSONS = gql`
 
 
 // TRUE-MARK ENROLLED - EXAMINATION
-export const GET_ASSESSMENT = gql`
+export const GET_ASSESSMENT = `
     query GetAssignmentByCourseId($courseId: ID!) {
         getAssignmentByCourseId(courseId: $courseId) {
             id
@@ -140,7 +140,7 @@ export const GET_ASSESSMENT = gql`
     }
 `;
 
-export const GET_USER_COURSE_SUBMISSION = gql`
+export const GET_USER_COURSE_SUBMISSION = `
     query GetAssignmentByCourseId($courseId: ID!) {
         getAssignmentByCourseId(courseId: $courseId) {
             id
@@ -162,7 +162,7 @@ export const GET_USER_COURSE_SUBMISSION = gql`
     }
 `;
 
-export const GET_USER_COURSE_SUBMISSION_ASSESSMENT = gql`
+export const GET_USER_COURSE_SUBMISSION_ASSESSMENT = `
     query GetUserSubmissionsForCourse($courseId: ID!) {
         getUserSubmissionsForCourse(courseId: $courseId) {
             id
@@ -191,7 +191,7 @@ export const GET_USER_COURSE_SUBMISSION_ASSESSMENT = gql`
 
 //TRUE MARK TRANSACTION
 
-export const GET_USER_TRANSACTION = gql`
+export const GET_USER_TRANSACTION = `
     query GetPayments($page: Int, $pageSize: Int) {
         getPayments(page: $page, pageSize: $pageSize) {
             payments {

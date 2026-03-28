@@ -2,230 +2,147 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useParams, usePathname, useRouter } from "next/navigation";
-import {mainGeneral, mainSideBar} from "@/lib/json";
-import { icons, sideIcons } from "@/public/assets/icons";
-import ButtonComponent from "@/components/molecules/button-component";
-import { Logo, PrimaryLogo, SecondaryLogo } from "@/components/molecules/logo";
-import { useUserStore } from "@/store/useUserStore";
-import { useCourseStore } from "@/store/useCourseStore";
-
+import { usePathname, useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { mainSideBar } from "@/lib/json";
+import { Logo, PrimaryLogo } from "@/components/molecules/logo";
+import { ChevronLeft, LogOut, Loader2, Sparkles } from "lucide-react";
+import { logout } from "@/lib/redux/features/auth/authSlice"; 
+import { toggleSidebar } from "@/lib/redux/features/courses/courseSlice";
 
 
 function SideBar() {
-  const params = useParams();
   const router = useRouter();
-  const {logout } = useUserStore();
-  const {clearCart } = useCourseStore()
-
-  const [isOpen, setIsOpen] = useState(true);
-  const toggleSideBar = () => {
-    setIsOpen(!isOpen);
-  };
-  const [loading, setLoading] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const handleHover = (index: number) => {
-    setHoveredIndex(index);
-  };
-  const handleMouseOut = () => {
-    setHoveredIndex(null);
-  };
-
+  const dispatch = useDispatch();
   const pathname = usePathname();
+  
+  const [isOpen, setIsOpen] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  
+  const toggleSideBar = () => {
+    setIsOpen(!isOpen)
+    if (window.innerWidth < 1024) {
+      dispatch(toggleSidebar(false));
+    }
+  };
 
   const isRouteActive = (menuLink: string) => {
-    // For overview, we want exact match only
-    if (menuLink === "/overview") {
-      return pathname === menuLink;
-    }
-    // For other routes, match exact or child routes
-    return pathname === menuLink || pathname.startsWith(`${menuLink}/`);
+    if (menuLink === "/overview") return pathname === menuLink;
+    return pathname.startsWith(menuLink);
   };
 
-
-  // const handleRoute = () => {
-  //   try {
-  //     clearCart();
-  //     logout();
-  //     router.push("/signin");
-  //   } catch (err) {
-  //     console.error("Logout failed:", err);
-  //   }
-  // };
-
-
-  const handleRoute = async () => {
+  const handleLogout = async () => {
     try {
-      setLoading(true);
-      await clearCart();
-      await logout();
+      setIsLoggingOut(true);
+      dispatch(logout()); 
       router.push("/signin");
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
-      setLoading(false);
+      setIsLoggingOut(false);
     }
   };
+
 
 
   return (
     <div
       className={cn(
-        " bg-white w-[300px] duration-150 flex flex-col shadow-md flex-shrink-0 ",
-        isOpen ? null : "w-[90px]"
+        "h-full bg-white transition-all duration-300 flex flex-col border-r border-gray-100 relative",
+        isOpen ? "w-72" : "w-20"
       )}
     >
-      <div className="flex items-center h-[95px] relative px-6 shrink-0">
-        {isOpen ?
-          <Link href="/signin">
-            <PrimaryLogo />
-          </Link>:
-          <Link href="/signin">
-            <Logo />
-          </Link>
-           }
+      {/* --- Logo Section --- */}
+      <div className="h-[72px] flex items-center px-6 mb-4">
+        <Link href="/overview" className="transition-opacity hover:opacity-80">
+          {isOpen ? <PrimaryLogo /> : <Logo />}
+        </Link>
+        
+        {/* Toggle Button: Hidden on Mobile, Managed by Layout drawer instead */}
         <button
-          className={cn(
-            "absolute top-1/2 -translate-y-1/2 -right-3 bg-[#387467] w-6 h-6 flex justify-center items-center rounded-full z-30 duration-150",
-            isOpen ? null : "rotate-180"
-          )}
           onClick={toggleSideBar}
+          className="hidden lg:flex absolute -right-3 top-8 bg-white border border-gray-200 w-6 h-6 justify-center items-center rounded-full z-50 text-gray-400 hover:text-[#387467] transition-all shadow-sm"
         >
-          {icons.chevrons_left}
+          <ChevronLeft size={14} className={cn("transition-transform", !isOpen && "rotate-180")} />
         </button>
       </div>
-      <div
-        className={cn(
-          "gap-1 flex flex-col overflow-auto flex-grow px-4 ",
-          isOpen ? null : "items-center"
-        )}
-      >
-        <p
-          className={cn(
-            "text-sm font-bold text-sm text-dark-gray uppercase px-4",
-            isOpen ? null : "px-0 text-center"
-          )}
-        >
-          Menu
-        </p>
 
+      {/* --- Navigation Links --- */}
+      <nav className="flex-grow px-3 space-y-1 overflow-y-auto custom-scrollbar">
+        <div className={cn("px-3 mb-2", !isOpen && "text-center px-0")}>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[2px]">
+            {isOpen ? "Main Menu" : "•••"}
+          </p>
+        </div>
 
         {mainSideBar.map((menu, index) => {
-            const active = isRouteActive(menu.link);
-            return (
-              <Link
-                // key={menu.id ?? index}
-                key={`${menu.id}-${index}`}
-                className={cn(
-                  " hover:text-900 group text-text text-sm font-medium rounded-lg py-2 px-4 flex gap-4 items-center  duration-150 ",
-                  // menu.link === pathname ? "bg-[#FEC28B]" : null,
-                  // active ? "bg-[#04BA99] text-white" : null,
-                  active ? "bg-[#387467] text-white" : "hover:bg-green-50",
-                  isOpen ? null : "hover:bg-transparent !bg-transparent"
-                )}
-                href={menu.link}
-                onMouseOver={() => handleHover(index)}
-                onMouseOut={handleMouseOut}
-              >
-            <span
+          const active = isRouteActive(menu.link);
+          return (
+            <Link
+              key={index}
+              href={menu.link}
               className={cn(
-                "shrink-0 w-8 h-8  rounded-lg border group-hover:bg-[#387467] group-hover:border-none duration-150 flex items-center justify-center",
-                // menu.link === pathname ? "bg-[#04BA99] border-none" : null
-                // bg-[#04BA99]
-                active ? " bg-[#387467] border-none" : null
+                "group flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200",
+                active 
+                  ? "bg-[#387467]/5 text-[#387467]" 
+                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
               )}
             >
-              {/*{hoveredIndex === index || menu.link === pathname*/}
-              {/*    ? menu.active_icon*/}
-              {/*    : menu.icon}*/}
-              {hoveredIndex === index || active
-                ? menu.active_icon
-                : menu.icon}
+              <div className={cn(
+                "w-8 h-8 flex items-center justify-center rounded-md transition-colors",
+                active ? "text-[#387467]" : "text-gray-400 group-hover:text-gray-600"
+              )}>
+                {active ? menu.active_icon : menu.icon}
+              </div>
+              
+              {isOpen && (
+                <span className="text-[14px] font-bold tracking-tight whitespace-nowrap">
+                  {menu.label}
+                </span>
+              )}
+              
+              {active && isOpen && (
+                <div className="ml-auto w-1 h-4 bg-[#387467] rounded-full animate-in fade-in zoom-in" />
+              )}
+            </Link>
+          );
+        })}
 
-            </span>
-                {isOpen ? <span className='text-sm' style={{fontSize:"12px"}}>{menu.label}</span> : null}
-              </Link>
-            );
-          }
-        )}
-
-        <p
-          className={cn(
-            "text-normal text-sm font-bold text-dark-gray uppercase px-4 mt-5",
-            isOpen ? null : "px-0 text-center"
-          )}
-        >
-          general
-        </p>
+        <div className={cn("px-3 mt-10 mb-2", !isOpen && "text-center px-0")}>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[2px]">
+             {isOpen ? "Account" : "•••"}
+          </p>
+        </div>
 
         <button
-          onClick={handleRoute}
-          className={cn(
-            "hover:bg-green-50 text-text text-sm font-medium rounded-lg py-3 px-4 flex gap-4 items-center capitalize duration-150"
-          )}
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          className="w-full group flex items-center gap-3 px-3 py-3 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200"
         >
-          <span
-            className={cn(
-              "shrink-0 w-8 h-8 rounded-lg border  duration-150 flex items-center justify-center"
-            )}
-          >
-            {sideIcons.logout}
-          </span>
-          {/*{isOpen ? <span>Logout</span> : null}*/}
-
-          {isOpen ? <span>
-             {loading ? (
-               <>
-                 <svg
-                   className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                   xmlns="http://www.w3.org/2000/svg"
-                   fill="none"
-                   viewBox="0 0 24 24"
-                   aria-hidden="true"
-                 >
-                   <circle
-                     className="opacity-25"
-                     cx="12"
-                     cy="12"
-                     r="10"
-                     stroke="currentColor"
-                     strokeWidth="4"
-                   ></circle>
-                   <path
-                     className="opacity-75"
-                     fill="currentColor"
-                     d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                   ></path>
-                 </svg>
-                 Logging out...
-               </>
-             ) : (
-               "Logout"
-             )}
-          </span> : null}
-
-        </button>
-
-        {isOpen ? (
-          <div
-            className="mt-auto mx-auto w-[192px] text-white shadow-2xl border rounded-[20px] py-7 px-[23px] my-6 bg-[#04BA99] bg-[url('/assets/images/Ellipse 128.svg'),url('/assets/images/Ellipse 129.svg')] bg-[left_top,right_bottom] bg-[auto,auto] flex flex-col gap-8 items-center">
-            <div className="flex flex-col items-center gap-2">
-              <SecondaryLogo />
-            </div>
-
-            <ButtonComponent
-              label="TMGL"
-              className="bg-white text-[#04BA99] hover:bg-white w-full"
-            />
+          <div className="w-8 h-8 flex items-center justify-center">
+            {isLoggingOut ? <Loader2 size={18} className="animate-spin text-red-600" /> : <LogOut size={18} />}
           </div>
-        ) : (
-          <button
-            className="mt-auto mx-auto bg-[#04BA99] w-12 h-12 flex items-center justify-center rounded-xl shrink-0 text-white text-3xl font-normal my-6">
-            +
-          </button>
-        )}
-      </div>
+          {isOpen && <span className="text-[14px] font-bold whitespace-nowrap">Sign Out</span>}
+        </button>
+      </nav>
+
+      {/* --- Upgrade Card --- */}
+      {isOpen && (
+        <div className="p-4 mt-auto border-t border-gray-50">
+          <div className="bg-[#387467] rounded-2xl p-5 text-center relative overflow-hidden group shadow-md shadow-[#387467]/20">
+            <div className="relative z-10">
+              <Sparkles className="mx-auto mb-2 text-white/50" size={20} />
+              <p className="text-[10px] font-black text-white/70 uppercase mb-1 tracking-[0.2em]">ISO Pro Access</p>
+              <p className="text-[11px] text-white/90 mb-4 font-medium leading-relaxed">Unlock advanced labs and technical certifications.</p>
+              <button className="bg-white text-[#387467] text-[11px] font-black py-2.5 px-4 rounded-lg w-full transition-all active:scale-95 hover:bg-slate-900 hover:text-white uppercase tracking-wider">
+                Upgrade Now
+              </button>
+            </div>
+            <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full group-hover:scale-150 transition-transform duration-700" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -78,7 +78,7 @@ export const useUserStore = create<UserStore>()(
         if (typeof window !== "undefined") {
           localStorage.removeItem("token"); // remove token from storage
         }
-        // Reset Zustand auth state
+        // Reset Zustand auth.ts state
         set({
           currentUser: null,
           token: null,

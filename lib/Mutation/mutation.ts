@@ -1,7 +1,6 @@
-import { gql } from "@apollo/client";
 
 // TRUE-MARK USER FLOW
-export const CREATE_USERS = gql`
+export const CREATE_USERS =  `
     mutation CreateAccount($input: CreateAccountData!) {
         createAccount(input: $input) {
             success
@@ -18,7 +17,7 @@ export const CREATE_USERS = gql`
 `;
 
 
-export const LOGIN_USERS = gql`
+export const LOGIN_USERS =  `
     mutation Login($input: LoginInput!) {
         login(input: $input) {
             success
@@ -37,7 +36,7 @@ export const LOGIN_USERS = gql`
 `;
 
 
-export const FORGOT_USERS_PASSWORD = gql`
+export const FORGOT_USERS_PASSWORD =  `
     mutation ForgetPassword($email: String!) {
         forgetPassword(email: $email) {
             success
@@ -47,7 +46,7 @@ export const FORGOT_USERS_PASSWORD = gql`
 `;
 
 
-export const VERIFY_FORGOT_USERS_PASSWORD = gql`
+export const VERIFY_FORGOT_USERS_PASSWORD =  `
     mutation VerifyForgotPassword($input: VerifyForgotPasswordInput!) {
         verifyForgotPassword(input: $input) {
             success
@@ -58,7 +57,7 @@ export const VERIFY_FORGOT_USERS_PASSWORD = gql`
 
 
 
-export const BUY_COURSE = gql`
+export const BUY_COURSE =  `
     mutation BuyCourse($courseIds: [ID!]!) {
         buyCourse(courseIds: $courseIds) {
             paymentUrl
@@ -70,7 +69,7 @@ export const BUY_COURSE = gql`
 
 
 
-export const CUSTOMER_ENQUIRY = gql`
+export const CUSTOMER_ENQUIRY =  `
     mutation CreateEnquiry($input: CreateEnquiryInput!) {
         createEnquiry(input: $input) {
             id
@@ -88,7 +87,7 @@ export const CUSTOMER_ENQUIRY = gql`
 
 
 
-export const SUBMIT_QUIZ = gql`
+export const SUBMIT_QUIZ =  `
     mutation SubmitAssignment($input: SubmitAssignmentInput!) {
         submitAssignment(input: $input) {
             id

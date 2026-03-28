@@ -1,193 +1,169 @@
 "use client";
+import React, { useState } from "react";
 import Link from "next/link";
-import React, {useState } from "react";
-import BgImage from "../../public/images/bg.jpg"
-import { useUserStore } from "@/store/useUserStore";
-import { useMutation  } from "@apollo/client/react";
-import { LOGIN_USERS } from "@/lib/Mutation/mutation";
+import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Eye, EyeOff } from "lucide-react";
-import { useRouter } from "next/navigation"; // Next.js 13+ app router
+import { Eye, EyeOff, Lock, Mail, Loader2 } from "lucide-react";
+import { useLoginMutation } from "@/lib/redux/features/auth/authApi"; // Assume you've added this to your API slices
+import { useUserStore } from "@/store/useUserStore";
 
 const validationSchema = Yup.object({
   email: Yup.string()
-    .email("Please enter a valid email address")
+    .email("Please enter a valid corporate email")
     .required("Email is required"),
-
   password: Yup.string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[^A-Za-z0-9]/, "Password must contain at least one special character")
+    .min(8, "Security requirement: Minimum 8 characters")
     .required("Password is required"),
 });
 
-
-
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { setAuth, currentUser } = useUserStore()
+  const { setAuth } = useUserStore();
   const router = useRouter();
-  // @ts-ignore
-  const [Login, { loading, error }] = useMutation(LOGIN_USERS, {
-    onCompleted: async (data:any) => {
-      const payload = data?.login;
-      if (payload?.success && payload?.user) {
-        // Optional: if token is returned from server, use it
-        const token = payload.accessToken ?? null;
-        localStorage.setItem("token", token);
-        setAuth({
-          id: payload.user.id,
-          email: payload.user.email,
-          isAdmin: payload.user.isAdmin},
-          token)
-        router.push("/overview");
-      }
-    },
-    onError: (err: any) => {
-      if (err?.graphQLErrors?.length) {
-        err.graphQLErrors.forEach((graphError: any) => {
-          if (graphError.extensions?.errors) {
-          }
-        });
-      }
-    }
-  });
-
+  
+  // ✅ Switch to RTK Query for consistency across the LMS
+  // const [login, { isLoading, error: apiError }] = useLoginMutation();
+const [login, { isLoading, isError, error, isSuccess }] = useLoginMutation();
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues: { email: "", password: "" },
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await Login({
-          variables: {
-            input: {
-              email: values.email,
-              password: values.password,
-            }
-          }
-        })
-      } catch (error: any) {
-        console.log(error, "error")
+        const payload = await login({
+          email: values.email,
+          password: values.password,
+        }).unwrap();
+
+        console.log(payload, "payload...")
+        if (payload?.user) {
+          const token = payload.accessToken;
+          localStorage.setItem("token", token);
+          
+          setAuth({
+            id: payload.user.id,
+            email: payload.user.email,
+            isAdmin: payload.user.isAdmin
+          }, token);
+
+          router.push("/overview");
+        }
+      } catch (err) {
+        console.error("Login failed:", err);
       }
     },
   });
 
   return (
-    <>
-      <div
-        className="min-h-screen w-full flex flex-col items-center justify-center  bg-cover bg-center relative overflow-hidden"
-        style={{ backgroundImage: `url(${BgImage.src})` }}
-      >
-          <div className="max-w-lg w-full bg-white px-10 py-16 rounded-2xl">
-          <h1 className="text-center text-2xl font-semibold mb-6">Sign In</h1>
-          <div className=" space-y-4 w-full">
+    <main className="relative min-h-screen w-full flex items-center justify-center bg-slate-50">
+      {/* Professional Overlay for ISO Feel */}
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-[url('/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
 
-            <input
-              id="email"
-              name="email"
-              type="text"
-              placeholder="Email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467]"
-            />
+      <div className="relative z-10 w-full max-w-[440px] px-6">
+        {/* Logo / Branding Placeholder */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-[#387467] text-white mb-4 shadow-lg shadow-[#387467]/20">
+            <Lock size={32} />
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900">ISO Training Portal</h1>
+          <p className="text-slate-500 mt-2">Secure Access to Global Standards LMS</p>
+        </div>
 
-            {formik.errors.email && formik.touched.email && (
-              <span className="text-red-500 text-xs w-full mt-0">{formik.errors.email}</span>
-            )}
-            <div className="relative w-full">
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                className="w-full text-[#387467] rounded-md border  border-gray-300 mt-4 p-3  focus:outline-none focus:ring-2 focus:ring-[#387467] pr-10"
-              />
-
-              {/* Toggle button */}
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 mt-2 right-3 -translate-y-1/2 text-gray-500 "
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-
-              {formik.errors.password && formik.touched.password && (
-                <span className="text-red-500 text-xs w-full mt-0">{formik.errors.password}</span>
+        <div className="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200 border border-slate-100">
+          <form onSubmit={formik.handleSubmit} className="space-y-5">
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5 ml-1">Corporate Email</label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <input
+                  {...formik.getFieldProps('email')}
+                  type="email"
+                  placeholder="name@company.com"
+                  className={`w-full text-sm pl-10 pr-4 py-3 bg-slate-50 border rounded-xl transition-all focus:ring-2 focus:ring-[#387467]/20 focus:bg-white outline-none ${
+                    formik.touched.email && formik.errors.email ? 'border-red-400' : 'border-slate-200 focus:border-[#387467]'
+                  }`}
+                />
+              </div>
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 text-xs mt-1.5 ml-1">{formik.errors.email}</p>
               )}
             </div>
 
-            {/* Create Account Button */}
-            <button
-              onClick={() => formik.handleSubmit()}
-              disabled={loading}
-              className="inline-flex items-center justify-center w-full rounded-xl   text-white font-semibold px-4  shadow-md w-full  rounded-md bg-[#387467] text-white py-3 mt-4 disabled:opacity-60"
-            >
-              {loading ? (
-                <>
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                    ></path>
-                  </svg>
-                  please wait...
-                </>
-              ) : (
-                "Login Account"
+            {/* Password Field */}
+            <div>
+              <div className="flex justify-between mb-1.5 ml-1">
+                <label className="text-sm font-medium text-slate-700">Password</label>
+                <Link href="/forgotpassword" className="text-xs font-semibold text-[#387467] hover:underline">
+                  Forgot?
+                </Link>
+              </div>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <input
+                  {...formik.getFieldProps('password')}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  className={`w-full text-sm pl-10 pr-12 py-3 bg-slate-50 border rounded-xl transition-all focus:ring-2 focus:ring-[#387467]/20 focus:bg-white outline-none ${
+                    formik.touched.password && formik.errors.password ? 'border-red-400' : 'border-slate-200 focus:border-[#387467]'
+                  }`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 text-xs mt-1.5 ml-1">{formik.errors.password}</p>
               )}
-            </button>
+            </div>
 
-            {error?.message && (
-              <div
-                className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative mt-3 text-sm text-center">
-                {error?.message}
+            {/* Error Message */}
+            {isError && (
+              <div className="p-3 bg-red-50 border border-red-100 rounded-lg flex items-start gap-2 animate-shake">
+                <p className="text-xs text-red-600 font-medium leading-relaxed text-center w-full">
+                  Invalid credentials. Please try again or contact your admin.
+                </p>
               </div>
             )}
 
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-[#387467] hover:bg-[#2d5e53] text-white font-bold py-3.5 rounded-xl transition-all shadow-md shadow-[#387467]/20 flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} />
+                  Authenticating...
+                </>
+              ) : (
+                "Sign In"
+              )}
+            </button>
+          </form>
 
-          </div>
-                     <div className="flex justify-between gap-8 mt-3">
-                       <p className="mt-4 text-start text-sm">
-                         Do not have an account?{" "}
-                         <br/>
-                         <Link href="/auth/signup" className="text-pink-500">
-                           Sign up
-                         </Link>
-                       </p>
-                       <p className="mt-4 text-center text-sm">
-                         <Link href="/auth/forgotpassword" className="text-pink-500">
-                           Forgot password?
-                         </Link>
-                       </p>
-                     </div>
+          {/* Footer */}
+          <p className="text-center text-sm text-slate-500 mt-8">
+            New to ISO Training?{" "}
+            <Link href="/signup" className="text-[#387467] font-bold hover:underline">
+              Create a corporate account
+            </Link>
+          </p>
+        </div>
+
+        {/* ISO Compliance Footer */}
+        <div className="mt-8 text-center">
+          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
+            Certified Security & GDPR Compliant
+          </p>
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

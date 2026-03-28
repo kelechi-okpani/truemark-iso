@@ -1,101 +1,123 @@
 "use client";
-import React, { useState, useMemo } from "react";
-import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
-import { Badge, CreditCard, Wallet } from "lucide-react";
+import React, { useMemo } from "react";
+import { 
+  BookOpen, 
+  Heart, 
+  Wallet, 
+  ChevronRight 
+} from "lucide-react";
 import { useCourseStore } from "@/store/useCourseStore";
-import { useQuery } from "@apollo/client/react";
-import { GET_USER_ENROLLED_COURSES } from "@/lib/Query/queries";
+import { useGetEnrolledCoursesQuery } from "@/lib/redux/features/courses/courseApi";
 
+export default function Analytics() {
+  const { wishlist } = useCourseStore();
+  const { data: enrolledCourses, isLoading } = useGetEnrolledCoursesQuery(undefined);
 
-export default function Analytics( ) {
-  const { wishlist} = useCourseStore();
+  const { formattedAmount } = useMemo(() => {
+    const total = enrolledCourses?.reduce(
+      (sum: number, course: any) => sum + (Number(course?.price) || 0),
+      0
+    ) || 0;
 
-  const { data} = useQuery(GET_USER_ENROLLED_COURSES, {
-    fetchPolicy: "cache-and-network",
-  }) as any;
+    const formatted = new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(total);
 
-  const totalAmount = data?.getUserEnrolledCourses?.reduce(
-    (sum, course) => sum + Number(course?.price),
-    0
-  );
+    return { formattedAmount: formatted };
+  }, [enrolledCourses]);
 
-  const formattedAmount = new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-    minimumFractionDigits: 0,
-  }).format(totalAmount);
+  if (isLoading) return <AnalyticsSkeleton />;
 
   return (
-    <div className="min-h-screen bg-white px-4 pt-8">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
-        {/* <!-- Metric Item Start --> */}
-        <div
-          className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
-            <GroupIcon className="text-gray-800 size-6 dark:text-white/90" />
-          </div>
+    <div className="bg-white py-6">
+      {/* Header Section: Coursera style title */}
+      <div className="mb-6 px-1">
+        <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Learning Activity</h2>
+        <p className="text-sm text-gray-600">Track your progress and financial investment.</p>
+      </div>
 
-          <div className="flex items-end justify-between mt-5">
-            <div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              Enrolled Courses
-            </span>
-              <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                {data?.getUserEnrolledCourses?.length || 0}
-              </h4>
-            </div>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        
+        {/* Metric: Enrolled */}
+        <CourseraMetricCard
+          title="Enrolled Courses"
+          value={enrolledCourses?.length || 0}
+          icon={<BookOpen className="text-[#387467]" size={20} />}
+          footer="View my courses"
+          color="#387467"
+        />
 
-            <Badge className="bg-green-100 text-green-700 rounded-full p-2">
-              <ArrowUpIcon className="w-4 h-4" />
-            </Badge>
+        {/* Metric: Wishlist */}
+        <CourseraMetricCard
+          title="Wishlist"
+          value={wishlist?.length || 0}
+          icon={<Heart className="text-pink-600" size={20} />}
+          footer="Continue Purchase"
+          color="#db2777"
+        />
 
-          </div>
-        </div>
-        {/* <!-- Metric Item End --> */}
-
-
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
-            <BoxIconLine className="text-gray-800 dark:text-white/90" />
-          </div>
-          <div className="flex items-end justify-between mt-5">
-            <div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-               wishList
-            </span>
-              <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                {wishlist?.length || 0}
-              </h4>
-            </div>
-            <Badge className="bg-red-100 text-red-700 rounded-full p-2">
-              <ArrowDownIcon className="w-4 h-4" />
-            </Badge>
-
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-          <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
-            <Wallet className="text-gray-800 dark:text-white/90" />
-          </div>
-          <div className="flex items-end justify-between mt-5">
-            <div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-               Amount spent
-            </span>
-              <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-                {formattedAmount || 0}
-              </h4>
-            </div>
-            <Badge className="bg-indigo-100 text-red-700 rounded-full p-2">
-              <ArrowDownIcon className="w-4 h-4" />
-            </Badge>
-          </div>
-        </div>
+        {/* Metric: Investment */}
+        <CourseraMetricCard
+          title="Total Amount"
+          value={formattedAmount}
+          icon={<Wallet className="text-blue-600" size={20} />}
+          footer="Download receipts"
+          color="#2563eb"
+        />
 
       </div>
     </div>
   );
 }
 
+// --- Coursera-Inspired Metric Card ---
+function CourseraMetricCard({ title, value, icon, footer, color }: any) {
+  return (
+    <div className="group relative flex flex-col bg-white border border-gray-200 rounded-lg transition-all hover:border-gray-300 hover:bg-gray-50/50">
+      <div className="p-6 flex-grow">
+        <div className="flex items-center gap-3 mb-4">
+          <div 
+            className="flex items-center justify-center w-10 h-10 rounded-md bg-gray-50 border border-gray-100"
+          >
+            {icon}
+          </div>
+          <span className="text-[13px] font-semibold text-gray-500 uppercase tracking-wider">
+            {title}
+          </span>
+        </div>
 
+        <div className="flex items-baseline gap-2">
+          <h4 className="text-3xl font-bold text-gray-900 tracking-tighter">
+            {value}
+          </h4>
+        </div>
+      </div>
+
+      {/* Coursera Style Footer Action */}
+      <div className="px-6 py-3 border-t border-gray-100 flex items-center justify-between group-hover:bg-gray-50 transition-colors cursor-pointer">
+        <span className="text-xs font-bold text-[#387467] uppercase tracking-tighter">
+          {footer}
+        </span>
+        <ChevronRight size={14} className="text-[#387467] transform group-hover:translate-x-1 transition-transform" />
+      </div>
+      
+      {/* Accent strip on top - Coursera aesthetic */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-[3px] rounded-t-lg" 
+        style={{ backgroundColor: color }}
+      />
+    </div>
+  );
+}
+
+function AnalyticsSkeleton() {
+  return (
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 py-6">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="h-44 w-full bg-gray-50 animate-pulse rounded-lg border border-gray-100" />
+      ))}
+    </div>
+  );
+}

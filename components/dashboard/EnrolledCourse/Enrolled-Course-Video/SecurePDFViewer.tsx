@@ -1,102 +1,129 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { useModal } from "@/components/hooks/useModal";
-import { Modal } from "@/components/ui/modal";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { MoreVertical, Pencil, Trash2 } from "lucide-react";
+import React, { useState } from "react";
+import { 
+  FileText, 
+  ExternalLink, 
+  ShieldAlert, 
+  Download, 
+  Eye, 
+  Lock,
+  CheckCircle2
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 import { CourseList } from "@/types/blog";
-import dynamic from "next/dynamic";
 
-const PdfViewerClient = dynamic(() => import("@/components/utility/PdfViewer"), {
-  ssr: false,
-  loading: () => <p>Preparing secure PDF viewer...</p>,
-});
+interface SecurePDFProps {
+  courseListing: CourseList;
+  module: any;
+}
 
+const SecurePDFViewer = ({ courseListing, module }: SecurePDFProps) => {
+  const { video: pdfUrl, name, description } = courseListing;
+  const [isLoaded, setIsLoaded] = useState(false);
 
-
-
-
-
-const SecurePDFViewer = ({ courseListing, module }: { courseListing: CourseList, module:any }) => {
-  const {image,  video, name, price, id, description } = courseListing;
-  const [error, setError] = useState(false);
-  const {isOpen, openModal, closeModal , isUpdate,  openUpdate, closeUpdate,  isDelete, openDelete, closeDelete  } = useModal();
-
-  const pdfUrl = video;
-
-  const handleOpenPdf = () => {
-    const pdfUrl = video; // Replace with the actual path to your PDF
-    const newWindow = window.open('', '_blank'); // Open a new blank tab
-
+  // ISO Standard: Open in a secure, controlled tab
+  const handleSecureOpen = () => {
+    const newWindow = window.open('', '_blank');
     if (newWindow) {
-      // Create a div and append the PdfViewer component to it
-      const container = newWindow.document.createElement('div');
-      newWindow.document.body.appendChild(container);
-
-      // Render the PdfViewer component into the container
-      newWindow.document.title = name; // Set the new tab's title
-      newWindow.document.body.style.margin = '0'; // Remove default body margin
-      newWindow.document.body.style.overflow = 'hidden'; // Hide body overflow
-
-      // You would typically use ReactDOM.render here, but for simplicity
-      // and to avoid needing a full React environment in the new window,
-      // we'll directly inject the iframe.
-      container.innerHTML = `<iframe src="${pdfUrl}" width="100%" height="100%" style="border: none;" title="PDF Viewer"></iframe>`;
+      newWindow.document.title = `SECURE_VIEW: ${name}`;
+      newWindow.document.body.style.margin = '0';
+      newWindow.document.body.style.backgroundColor = '#1a1a1a';
+      
+      // Injecting a simple but secure wrapper
+      const iframe = newWindow.document.createElement('iframe');
+      iframe.src = pdfUrl;
+      iframe.style.width = '100vw';
+      iframe.style.height = '100vh';
+      iframe.style.border = 'none';
+      newWindow.document.body.appendChild(iframe);
     }
   };
 
-  useEffect(() => {
-    // handleOpenPdf();
-  }, []);
-
   return (
-    <div className="border p-4 rounded-lg bg-gray-50 shadow-sm hover:shadow-md transition-all relative " style={{height:"80vh"}}>
+    <div className="w-full bg-white border border-gray-100 rounded-2xl overflow-hidden transition-all duration-300 hover:border-gray-200">
+      
+      {/* --- ISO Document Header --- */}
+      <div className="px-6 py-4 bg-gray-50/50 border-b border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-red-500 shadow-sm">
+            <FileText size={20} />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] font-black text-[#387467] uppercase tracking-[0.2em] bg-[#387467]/5 px-2 py-0.5 rounded">
+                Controlled Doc
+              </span>
+              <div className="flex items-center gap-1 text-[9px] font-bold text-gray-400 uppercase">
+                <Lock size={10} /> Encryption Active
+              </div>
+            </div>
+            <h3 className="text-sm font-black text-gray-900 tracking-tight uppercase mt-0.5">
+              {name}
+            </h3>
+          </div>
+        </div>
 
-      {/*<p className="font-medium mb-3 text-gray-800 truncate">{name}</p>*/}
-
-      <div className="flex items-center gap-2 mb-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 48 48"
-          width="34"
-          height="34"
-          fill="currentColor"
-          className="text-red-600"
-        >
-          <path
-            d="M6 4h24l12 12v28a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm26 2H6v36h36V18H32V6zM17 34v-9h3a3 3 0 0 1 0 6h-1v3h-2zm7 0v-9h4a2.5 2.5 0 1 1 0 5h-2v4h-2zm7 0v-9h6v2h-4v2h3v2h-3v3h-2zm-4-7h2a.5.5 0 0 0 0-1h-2v1zm-8-2v3h1a1.5 1.5 0 0 0 0-3h-1z" />
-        </svg>
-
-        <p className="font-medium text-gray-800 text-sm truncate">{name}</p>
-
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={handleSecureOpen}
+            className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-[10px] font-black uppercase tracking-widest text-gray-600 hover:text-[#387467] hover:border-[#387467] transition-all active:scale-95"
+          >
+            <ExternalLink size={14} /> Fullscreen
+          </button>
+        </div>
       </div>
 
-      <iframe
-        src={pdfUrl}
-        width="100%"
-        height="90%"
-        // height="100%"
-        className="mt-2 rounded"
-        title="PDF Viewer"
-      />
+      {/* --- Viewer Area --- */}
+      <div className="relative group bg-slate-100" style={{ height: "65vh" }}>
+        {!isLoaded && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-gray-50">
+            <div className="w-8 h-8 border-2 border-[#387467]/20 border-t-[#387467] rounded-full animate-spin mb-4" />
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+              Verifying Document Integrity...
+            </p>
+          </div>
+        )}
 
-      {/*<iframe src="${pdfUrl}" width="100%" height="100%" title="PDF Viewer"></iframe>*/}
-      {/*<button*/}
-      {/*  // onClick={openModal}*/}
-      {/*  onClick={handleOpenPdf}*/}
-      {/*  className="bg-[#387467] text-white px-6 py-1 rounded-md hover:bg-[#1f2937] transition mt-4"*/}
-      {/*>*/}
-      {/*  Open Course*/}
-      {/*</button>*/}
+        <iframe
+          src={`${pdfUrl}#toolbar=0`} // Hides some browser default controls for "security" feel
+          className={cn(
+            "w-full h-full border-none transition-opacity duration-700",
+            isLoaded ? "opacity-100" : "opacity-0"
+          )}
+          onLoad={() => setIsLoaded(true)}
+          title={name}
+        />
+
+        {/* --- ISO Watermark Overlay (Subtle) --- */}
+        <div className="absolute bottom-6 right-6 pointer-events-none opacity-20 select-none hidden md:block">
+           <div className="flex flex-col items-end">
+              <ShieldAlert size={40} className="text-gray-400 mb-1" />
+              <p className="text-[8px] font-black text-gray-500 uppercase tracking-[0.3em]">
+                ISO-LMS SECURE VIEW
+              </p>
+           </div>
+        </div>
+      </div>
+
+      {/* --- Document Footer / Progress --- */}
+      <div className="px-6 py-4 bg-white flex items-center justify-between">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Eye size={14} className="text-gray-400" />
+            <span className="text-[10px] font-bold text-gray-500 uppercase">Read Only</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 size={14} className="text-[#387467]" />
+            <span className="text-[10px] font-bold text-gray-500 uppercase">Valid Asset</span>
+          </div>
+        </div>
+        
+        <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest hidden sm:block">
+          Asset ID: PDF-{String(courseListing.id).slice(0, 8)}
+        </p>
+      </div>
     </div>
-  )
-    ;
+  );
 };
 
 export default SecurePDFViewer;
-

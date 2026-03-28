@@ -56,7 +56,7 @@ const AboutHero = () => {
           {/*<div className="mt-4 flex justify-center gap-4 sm:mt-6">*/}
           {/*  <a*/}
           {/*    className="animate_right inline-block rounded border border-[#387467] bg-[#387467] px-5 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[#387467]"*/}
-          {/*    href="/auth/signup"*/}
+          {/*    href="/auth.ts/signup"*/}
           {/*  >*/}
           {/*    Get Started*/}
           {/*  </a>*/}

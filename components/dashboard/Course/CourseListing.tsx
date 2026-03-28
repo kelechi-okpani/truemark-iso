@@ -1,118 +1,134 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import CourseItem from "@/components/dashboard/Course/CourseItem";
-import { Search } from "lucide-react";
+import { Search, SlidersHorizontal, Filter } from "lucide-react";
 import EmptyContainer from "@/components/utility/EmptyContainer";
-import { useQuery } from "@apollo/client/react";
-import { GET_COURSES, GET_USER_ENROLLED_COURSES } from "@/lib/Query/queries";
 import CenteredLoader from "@/components/utility/Loader";
+import { cn } from "@/lib/utils"; 
+import { 
+  useGetCoursesQuery, 
+  useGetEnrolledCoursesQuery 
+} from "@/lib/redux/features/courses/courseApi";
 
-
-const empty_details = {
-  title: "Your course List is empty",
-  description: "Looks like you haven’t paid for any courses yet.",
-  callToAction: "Add New Courses",
-  to:"/overview/course"
-}
+type TabType = "all" | "in-progress" | "completed";
 
 export default function CourseListing() {
-  const { data, loading, error} = useQuery(GET_COURSES, {
-    fetchPolicy: "cache-and-network",
-    // fetchPolicy: 'network-only',
-    // variables:{seasonId:seasonId},
-  }) as any;
-
-  // 🔹 Get all courses
-  const { data: coursesData, loading: coursesLoading, error: coursesError, } = useQuery(GET_COURSES, {
-    fetchPolicy: "cache-and-network",
-  }) as any;
-
-  // 🔹 Get user enrolled courses
-  const { data: enrolledData, loading: enrolledLoading, error: enrolledError, } = useQuery(GET_USER_ENROLLED_COURSES, {
-    fetchPolicy: "cache-and-network",
-  }) as any;
-
-  const [paidCourses, setPaidCourses] = useState<number[]>([]);
-
-   // 🔹 Extract paid course IDs once enrolledData is loaded
-  useEffect(() => {
-      if (enrolledData?.getUserEnrolledCourses) {
-        const ids = enrolledData?.getUserEnrolledCourses.map(
-          (course: any) => course.id
-        );
-        setPaidCourses(ids);
-      }
-    }, [enrolledData]);
-
-
   const [searchTerm, setSearchTerm] = useState("");
-  const [paid, setPaid] = useState(true);
+  const [activeTab, setActiveTab] = useState<TabType>("all");
+
+  const { data: allCourses, isLoading: loadingCourses } = useGetCoursesQuery(undefined);
+  const { data: enrolledData, isLoading: loadingEnrolled } = useGetEnrolledCoursesQuery(undefined);
+
+  const paidCourseIds = useMemo(() => {
+    return enrolledData?.getUserEnrolledCourses?.map((c: any) => c.id) || [];
+  }, [enrolledData]);
 
   const filteredCourses = useMemo(() => {
-    let List: any = data?.getCourses || [];
-    if (searchTerm.trim() !== "") {
-      List = List.filter((c: any) =>
+    let list = allCourses?.getCourses || [];
+
+    if (searchTerm.trim()) {
+      list = list.filter((c: any) =>
         c.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-    return List;
-  }, [searchTerm, data]);
 
-  const courses = coursesData?.getCourses || [];
+    if (activeTab === "in-progress") {
+      list = list.filter((c: any) => {
+        const enrollment = enrolledData?.getUserEnrolledCourses?.find((e: any) => e.id === c.id);
+        return enrollment && enrollment.progress > 0 && enrollment.progress < 100;
+      });
+    } else if (activeTab === "completed") {
+      list = list.filter((c: any) => {
+        const enrollment = enrolledData?.getUserEnrolledCourses?.find((e: any) => e.id === c.id);
+        return enrollment && enrollment.progress === 100;
+      });
+    }
 
+    return list;
+  }, [searchTerm, activeTab, allCourses, enrolledData]);
+
+  if (loadingCourses || loadingEnrolled) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <CenteredLoader />
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-[#387467] text-white px-6 py-8  rounded-lg  flex flex-col md:flex-row justify-between">
-        <h1 className="text-3xl font-bold">Certification Courses</h1>
-      </header>
+    <div className="min-h-screen bg-white pb-20">
+      {/* --- Coursera Header Section --- */}
+      <div className="border-b border-gray-100 mb-6 md:mb-10">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-6 md:pt-10">
+          <h1 className="text-2xl md:text-4xl font-black text-gray-900 tracking-tight">
+            My Learning
+          </h1>
+          
+          {/* Sub-navigation Tabs: Added Horizontal Scroll for Mobile */}
+          <div className="flex gap-6 md:gap-10 mt-6 overflow-x-auto no-scrollbar scroll-smooth">
+            {[
+              { id: "all", label: "All Courses" },
+              { id: "in-progress", label: "In Progress" },
+              { id: "completed", label: "Completed" }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as TabType)}
+                className={cn(
+                  "text-[13px] md:text-sm font-bold pb-4 px-1 transition-all border-b-2 whitespace-nowrap uppercase tracking-widest",
+                  activeTab === tab.id 
+                    ? "text-[#387467] border-[#387467]" 
+                    : "text-gray-400 border-transparent hover:text-gray-800"
+                )}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      <div className="px-6 py-6 max-w-7xl mx-auto">
-        {/* Filters & Search */}
-        <div className="flex flex-col md:flex-row justify-end items-center mb-6 gap-4">
-
-          <div className="relative w-full md:w-80">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
+        {/* --- Search & Filter Bar: Responsive Flex/Grid --- */}
+        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8 md:mb-12">
+          <div className="relative w-full sm:max-w-md">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input
               type="text"
-              placeholder="Search my courses"
-              className="w-full border rounded-lg px-4 py-2"
+              placeholder="Search your library..."
+              className="w-full bg-gray-50/50 border border-gray-100 rounded-xl pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-[#387467]/20 focus:border-[#387467] focus:bg-white outline-none transition-all"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search
-              className="absolute right-3 top-2.5 text-gray-500"
-              size={20}
-            />
           </div>
+
+          <button className="flex items-center justify-center gap-2.5 px-5 py-3 border border-gray-100 rounded-xl text-xs font-black uppercase tracking-widest text-gray-600 hover:bg-gray-50 hover:border-gray-200 transition-all">
+            <Filter size={14} className="text-[#387467]" />
+            Sort & Filter
+          </button>
         </div>
 
-        {enrolledLoading || coursesLoading ? (
-          <div className="flex items-center justify-center min-h-[300px] w-full">
-            <CenteredLoader/>
+        {/* --- Course Grid: Optimized Column Spans --- */}
+        {filteredCourses.length === 0 ? (
+          <div className="py-20">
+            <EmptyContainer
+              title={activeTab === "all" ? "No courses found" : `No ${activeTab.replace("-", " ")} courses`}
+              description="Explore our catalog to find new courses and start learning today."
+            />
           </div>
-        ) : filteredCourses.length === 0 ? (
-          <EmptyContainer
-            title={empty_details.title}
-            description={empty_details.description}
-          />
         ) : (
-          // <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCourses?.map((course, key) => {
-              const paid = paidCourses?.includes(course?.id);
-              return (
-                <CourseItem key={key} courseListing={course} paid={paid}  />
-              )}
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+            {filteredCourses.map((course: any) => (
+              <div key={course.id} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <CourseItem 
+                  courseListing={course} 
+                  paid={paidCourseIds.includes(course.id)} 
+                />
+              </div>
+            ))}
           </div>
         )}
-
       </div>
-
     </div>
   );
 }
-
-
-
