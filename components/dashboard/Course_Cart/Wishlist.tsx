@@ -69,6 +69,7 @@ export default function Wishlist() {
         </div>
       </div>
 
+
       <div className="min-h-[60vh] rounded-2xl">
         {wishlist.length === 0 ? (
           <EmptyContainer {...empty_details} />
