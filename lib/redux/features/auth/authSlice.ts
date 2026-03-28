@@ -30,7 +30,9 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthenticated = true;
+     if (typeof window !== "undefined") {
       localStorage.setItem("token", action.payload.token);
+    }
     },
     clearAuth: (state) => {
       state.user = null;

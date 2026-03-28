@@ -4,7 +4,6 @@ import Header from "components/Layout/Header";
 import Lines from "components/Website/Lines";
 import ScrollToTop from "components/Website/ScrollToTop";
 import "../globals.css";
-import ToasterContext from "../context/ToastContext";
 import NextTopLoader from "nextjs-toploader";
 import useAppSecurity from "@/components/hooks/useAppSecurity";
 
@@ -35,7 +34,7 @@ export default function RootLayout({
 
           <Lines />
           <Header />
-          <ToasterContext />
+      
           {children}
           <Footer />
           <ScrollToTop />
