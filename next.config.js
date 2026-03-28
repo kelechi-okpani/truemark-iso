@@ -2,9 +2,10 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  // swcMinify: true,
+  
+  // ✅ Modern Next.js 15 Image Optimization
   images: {
-    domains: ["localhost"],
+    // Note: 'domains' is deprecated in favor of 'remotePatterns' for better security
     remotePatterns: [
       {
         protocol: "https",
@@ -17,14 +18,48 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
-        port: "",
       },
       {
         protocol: "https",
         hostname: "truemarkglobalss.com",
       },
+      // ✅ Added support for local development images
+      {
+        protocol: "http",
+        hostname: "localhost",
+      }
     ],
   },
+
+  // ✅ ISO Standard: Security Headers
+  // This protects your LMS from common attacks like Clickjacking and XSS
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
+
+  // ✅ SVG Handling
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -34,6 +69,10 @@ const nextConfig = {
     return config;
   },
 
+  // ✅ Suppress minor hydration warnings during Redux/LMS state sync
+  devIndicators: {
+    appIsrStatus: false,
+  },
 };
 
 module.exports = nextConfig;
