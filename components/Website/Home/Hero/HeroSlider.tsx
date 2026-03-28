@@ -5,132 +5,138 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
-
-
+import { CheckCircle, Globe, Shield } from "lucide-react";
 
 const slides = [
   {
     id: 1,
     image: "/images/slide/Slide-1.jpg",
     headline: "BECOME AN ENDORSED TRAINING PARTNER",
-    highlight: "ISO 9001 Training",
+    subHeadline: "Join a global network of accredited professionals. We provide the framework, you provide the expertise.",
+    highlight: "ISO 9001 Training for",
     typedWords: ["Auditors", "Consultants", "Training Partners"],
     buttons: [
-      { text: "Get Started", color: "bg-red-600", textColor: "text-white" },
-      { text: "Contact Us", color: "bg-blue-900", textColor: "text-white" },
+      { text: "Partner With Us", color: "bg-[#387467]", textColor: "text-white" },
+      { text: "Contact Support", color: "bg-white/10", textColor: "text-white" },
     ],
   },
   {
     id: 2,
-
     image: "/images/slide/Slide-2.jpg",
     headline: "GET ISO CERTIFIED FROM ANYWHERE",
-    highlight: "ISO Online Certification",
+    subHeadline: "Scale your professional credibility with our internationally recognized online certification programs.",
+    highlight: "Empowering",
     typedWords: ["Quality Experts", "Remote Learners", "Compliance Officers"],
     buttons: [
-      { text: "Explore Courses", color: "bg-red-600", textColor: "text-white" },
-      { text: "Become a Partner", color: "bg-blue-900", textColor: "text-white" },
+      { text: "Explore Courses", color: "bg-[#387467]", textColor: "text-white" },
+      { text: "View Accreditations", color: "bg-white/10", textColor: "text-white" },
     ],
   },
-
-  // {
-  //   id: 3,
-  //   image: "/images/slide/Slide-4.jpg",
-  //   headline: "JOIN OUR GLOBAL LEARNING COMMUNITY",
-  //   highlight: "Accredited ISO Courses",
-  //   typedWords: ["Global Students", "Certified Professionals", "ISO Enthusiasts"],
-  //   buttons: [
-  //     { text: "Join Now", color: "bg-red-600", textColor: "text-white" },
-  //     { text: "See Testimonials", color: "bg-blue-900", textColor: "text-white" },
-  //   ],
-  // },
-  // {
-  //   id: 4,
-  //   image: "/images/Home/bg1.webp",
-  //   headline: "BUILD YOUR CAREER WITH CERTIFIED COURSES",
-  //   highlight: "Career-Focused ISO Programs",
-  //   typedWords: ["Auditors", "Lead Implementers", "Certification Coaches"],
-  //   buttons: [
-  //     { text: "Start Learning", color: "bg-red-600", textColor: "text-white" },
-  //     { text: "Browse Programs", color: "bg-blue-900", textColor: "text-white" },
-  //   ],
-  // },
 ];
-
 
 export default function HeroSlider() {
   const settings = {
-    dots: false,
+    dots: true, // Added dots for better navigation
     infinite: true,
-    speed: 800,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000, // Increased for readability
+    fade: true, // Smoother transition for text-heavy slides
   };
 
   return (
-    <div >
-
+    <div className="relative overflow-hidden">
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id}>
             <div
+              className="relative w-full flex items-center"
               style={{
                 backgroundImage: `url(${slide.image})`,
                 height: "93vh",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                display: "flex",
-                alignItems: "left",
-                justifyContent: "left",
-                textAlign: "left",
               }}
             >
-              <div className="absolute inset-0 bg-gradient-to-l from-[#38546a]/30 to-transparent z-10" />
+              {/* Darker Overlay for Text Contrast */}
+              <div className="absolute inset-0 bg-black/50 z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="relative z-20 max-w-4xl px-4 text-white pl-[4rem] pt-[12rem]"
-
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1 }}
+                className="relative z-20 max-w-5xl px-6 md:px-16 lg:pl-[6rem]"
               >
-                <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-8">
+                {/* Authority Badge */}
+                <div className="flex items-center gap-2 mb-6">
+                   <span className="bg-[#387467] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+                     Global Standards
+                   </span>
+                   <div className="h-[1px] w-12 bg-white/30"></div>
+                </div>
+
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 uppercase tracking-tighter">
                   {slide.headline}
                 </h1>
-                <div className="text-lg md:text-xl font-medium mb-8">
-                  <span className="text-[#ffff] text-3xl ">{slide.highlight} </span>
-                  <span className="text-[#ffff]  font-semibold ">
-                  {/*<span className="text-[#00FFAA] font-semibold ">*/}
-                    <ReactTyped
-                      strings={slide.typedWords}
-                      style={{ fontSize: "30px" }}
-                      typeSpeed={100}
-                      backSpeed={100}
-                      backDelay={2500}
-                      loop
-                    />
-                  </span>
-                </div>
-                {/*<div className="flex justify-left gap-4 flex-wrap">*/}
-                {/*  {slide.buttons.map((btn, index) => (*/}
-                {/*    <button*/}
-                {/*      key={index}*/}
-                {/*      className={`${btn.color} ${btn.textColor} px-6 py-3 rounded-md font-semibold hover:opacity-90 transition`}*/}
-                {/*    >*/}
-                {/*      {btn.text}*/}
-                {/*    </button>*/}
-                {/*  ))}*/}
-                {/*</div>*/}
 
+                <div className="flex flex-col mb-8">
+                  <p className="text-lg md:text-xl text-gray-200 max-w-2xl font-medium leading-relaxed mb-4">
+                    {slide.subHeadline}
+                  </p>
+                  
+                  <div className="flex items-center gap-3">
+                    <span className="text-white text-2xl md:text-3xl font-bold tracking-tight">
+                        {slide.highlight}
+                    </span>
+                    <span className="text-[#387467] font-black bg-white px-3 py-1 rounded-lg">
+                      <ReactTyped
+                        strings={slide.typedWords}
+                        style={{ fontSize: "28px" }}
+                        typeSpeed={80}
+                        backSpeed={50}
+                        backDelay={2000}
+                        loop
+                      />
+                    </span>
+                  </div>
+                </div>
+
+                {/* Revived & Styled Buttons */}
+                <div className="flex flex-wrap gap-4 mb-12">
+                  {slide.buttons.map((btn, index) => (
+                    <button
+                      key={index}
+                      className={`${btn.color} ${btn.textColor} px-8 py-4 rounded-xl font-black text-[11px] uppercase tracking-[0.2em] hover:scale-105 transition-all active:scale-95 border border-white/10 backdrop-blur-sm`}
+                    >
+                      {btn.text}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10 max-w-2xl">
+                  <div className="flex items-center gap-3">
+                    <Shield className="text-[#387467]" size={20} />
+                    <span className="text-[10px] text-gray-300 font-bold uppercase tracking-wider">Accredited Certs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Globe className="text-[#387467]" size={20} />
+                    <span className="text-[10px] text-gray-300 font-bold uppercase tracking-wider">Worldwide Access</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="text-[#387467]" size={20} />
+                    <span className="text-[10px] text-gray-300 font-bold uppercase tracking-wider">ISO Compliance</span>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </div>
         ))}
       </Slider>
     </div>
-
   );
 }
