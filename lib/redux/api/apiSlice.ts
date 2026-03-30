@@ -4,6 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.truemarkglobalss.com/graphql";
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://truemark-backend.onrender.com";
 
+
+
 export const apiSlice = createApi({
   reducerPath: 'api', // The key in the Redux store
   baseQuery: fetchBaseQuery({
