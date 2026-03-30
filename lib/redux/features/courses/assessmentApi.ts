@@ -29,10 +29,15 @@ export const assessmentApi = apiSlice.injectEndpoints({
 
     // --- SUBMIT QUIZ ---
     submitQuiz: builder.mutation({
-      query: (input) => ({
+      // Destructure the argument to get 'input' specifically
+      query: ({ input }) => ({
         url: '/graphql',
         method: 'POST',
-        body: { query: SUBMIT_QUIZ, variables: { input } },
+        // This ensures the body is { query: ..., variables: { input: { ... } } }
+        body: { 
+          query: SUBMIT_QUIZ, 
+          variables: { input } 
+        },
       }),
       transformResponse: (res: any) => {
         if (res?.errors) throw res.errors[0].message;
@@ -41,10 +46,9 @@ export const assessmentApi = apiSlice.injectEndpoints({
           message: res?.data?.submitAssignment?.message || "Assessment submitted successfully!"
         };
       },
-      transformErrorResponse: (res: any) => 
-        res?.data?.errors?.[0]?.message || "Submission failed. Please check your connection.",
-      invalidatesTags: (result, error, { input }) => [
-        { type: 'Assessment', id: input.courseId },
+      // Use the courseId passed in the call to invalidate tags
+      invalidatesTags: (result, error, { courseId }) => [
+        { type: 'Assessment', id: courseId },
         { type: 'Assessment', id: 'LIST' }
       ],
     }),

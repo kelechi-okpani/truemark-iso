@@ -95,6 +95,18 @@ const EnrolledCourseModules = () => {
         </div>
       </div>
 
+
+    <div className="flex justify-end mb-6">
+      <Link href="/overview/enrolled-course/course/certification">
+        <button className="flex items-center gap-4 bg-[#387467] text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-[#2d5d52] transition-all active:scale-[0.98] shadow-sm">
+          <FileCheck2 size={18} strokeWidth={2.5} />
+          Certification
+          <ChevronRight size={14} />
+        </button>
+      </Link>
+    </div>
+ 
+
       {/* --- Main Syllabus Container --- */}
       <div className="bg-white border border-gray-100 rounded-[2rem] p-4 md:p-10 shadow-sm shadow-gray-50">
         <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-50 pb-8">

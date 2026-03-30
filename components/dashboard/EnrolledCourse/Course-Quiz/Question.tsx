@@ -15,6 +15,8 @@ import {
 import { cn } from "@/lib/utils";
 // ✅ Redux: Using your submission mutation
 import { useSubmitQuizMutation } from "@/lib/redux/features/courses/assessmentApi";
+import { useSelector } from "react-redux";
+import { selectActiveCourseId } from "@/lib/redux/features/courses/courseSlice";
 
 const QuizQuestion = ({ currentQuestion, currentStep, id, allQuestions, handlePrev, handleNext }: any) => {
   const params = useParams();
@@ -26,31 +28,43 @@ const QuizQuestion = ({ currentQuestion, currentStep, id, allQuestions, handlePr
   
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const formik = useFormik({
-    initialValues: {
-      assignmentId: id,
-      answers: allQuestions.map((q: any) => ({
-        questionId: q.id,
-        selectedOptionId: "",
-      })),
-    },
-    enableReinitialize: false, // Prevents losing progress on re-renders
-    onSubmit: async (values) => {
-      try {
-        await submitQuiz({
-          courseId: params?.id as string,
-          input: {
-            assignmentId: id,
-            answers: values.answers.filter((a: any) => a.selectedOptionId !== ""),
-          }
-        }).unwrap();
-        
-        router.push(`/overview/enrolled-course/${params?.id}/certification`);
-      } catch (err) {
-        console.error("Submission Failed:", err);
-      }
-    },
-  });
+  const activeCourseId = useSelector(selectActiveCourseId);
+
+  console.log(activeCourseId, "activeCourseId...")
+  
+
+ const formik = useFormik({
+  initialValues: {
+    assignmentId: id,
+    answers: allQuestions.map((q: any) => ({
+      questionId: q.id,
+      selectedOptionId: "",
+    })),
+  },
+  enableReinitialize: false,
+  onSubmit: async (values) => {
+    try {
+      // ✅ We pass one object containing courseId (for tags) and input (for GraphQL)
+      await submitQuiz({
+        courseId: activeCourseId,
+        input: {
+          assignmentId: id, // This is the ID! the error was complaining about
+          answers: values.answers
+            .filter((a: any) => a.selectedOptionId !== "")
+            .map((a: any) => ({
+              questionId: a.questionId,
+              selectedOptionId: a.selectedOptionId,
+            })),
+        }
+      }).unwrap();
+      
+      router.push(`/overview/enrolled-course/${params?.id}/certification`);
+    } catch (err) {
+      console.error("Submission Failed:", err);
+      // Optional: Add a toast here to notify the user
+    }
+  },
+});
 
   // ⏳ ISO Standard: Proctoring & Timer Logic
   useEffect(() => {

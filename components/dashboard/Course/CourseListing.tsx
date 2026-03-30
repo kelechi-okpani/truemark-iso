@@ -16,36 +16,50 @@ export default function CourseListing() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState<TabType>("all");
 
-  const { data: allCourses, isLoading: loadingCourses } = useGetCoursesQuery(undefined);
+  const { data: allCourses, isLoading: loadingCourses } = useGetCoursesQuery(undefined) as any;
   const { data: enrolledData, isLoading: loadingEnrolled } = useGetEnrolledCoursesQuery(undefined);
+
+  console.log(allCourses, "allCourses...")
 
   const paidCourseIds = useMemo(() => {
     return enrolledData?.getUserEnrolledCourses?.map((c: any) => c.id) || [];
   }, [enrolledData]);
 
-  const filteredCourses = useMemo(() => {
-    let list = allCourses?.getCourses || [];
+ // Inside your CourseListing component...
 
-    if (searchTerm.trim()) {
-      list = list.filter((c: any) =>
-        c.name.toLowerCase().includes(searchTerm.toLowerCase())
+const filteredCourses = useMemo(() => {
+  // Access the array from the GraphQL response object
+  let list = allCourses || [];
+
+  // 1. Search Filter
+  if (searchTerm.trim()) {
+    list = list.filter((c: any) =>
+      c.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  // 2. Tab Filtering (In-Progress vs Completed)
+  if (activeTab !== "all") {
+    list = list.filter((c: any) => {
+      const enrollment = enrolledData?.getUserEnrolledCourses?.find(
+        (e: any) => e.id === c.id
       );
-    }
+      
+      if (!enrollment) return false; // Hide courses user isn't in if tab isn't 'all'
+      
+      if (activeTab === "in-progress") {
+        return enrollment.progress > 0 && enrollment.progress < 100;
+      }
+      if (activeTab === "completed") {
+        return enrollment.progress === 100;
+      }
+      return true;
+    });
+  }
 
-    if (activeTab === "in-progress") {
-      list = list.filter((c: any) => {
-        const enrollment = enrolledData?.getUserEnrolledCourses?.find((e: any) => e.id === c.id);
-        return enrollment && enrollment.progress > 0 && enrollment.progress < 100;
-      });
-    } else if (activeTab === "completed") {
-      list = list.filter((c: any) => {
-        const enrollment = enrolledData?.getUserEnrolledCourses?.find((e: any) => e.id === c.id);
-        return enrollment && enrollment.progress === 100;
-      });
-    }
+  return list;
+}, [searchTerm, activeTab, allCourses, enrolledData]);
 
-    return list;
-  }, [searchTerm, activeTab, allCourses, enrolledData]);
 
   if (loadingCourses || loadingEnrolled) {
     return (

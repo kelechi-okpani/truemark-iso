@@ -43,6 +43,12 @@ export const mainSideBar = [
     icon: sideIcons.expense,
     active_icon: sideIcons.expense_active,
   },
+    {
+    label: "Certification",
+    link: "/overview/certification",
+    icon: sideIcons.purchase,
+    active_icon: sideIcons.purchase_active,
+  },
 ];
 
 export const mainGeneral = [
