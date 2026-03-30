@@ -49,6 +49,8 @@ const CourseItem = ({ courseListing, paid }: { courseListing: CourseList, paid: 
     }
   };
 
+
+
   return (
     <div className="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-[#387467]/5 hover:border-[#387467]/20 transition-all duration-500 flex flex-col h-full relative">
       
@@ -130,6 +132,7 @@ const CourseItem = ({ courseListing, paid }: { courseListing: CourseList, paid: 
                   <ShoppingCart size={16} className="shrink-0" />
                   <span className="text-[11px] font-black uppercase tracking-wider">
                     {existsInCart ? "In Cart" : "Get Course"}
+                      {/* {config.text} */}
                   </span>
                 </button>
               </>

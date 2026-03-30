@@ -19,7 +19,6 @@ export default function CourseListing() {
   const { data: allCourses, isLoading: loadingCourses } = useGetCoursesQuery(undefined) as any;
   const { data: enrolledData, isLoading: loadingEnrolled } = useGetEnrolledCoursesQuery(undefined);
 
-  console.log(allCourses, "allCourses...")
 
   const paidCourseIds = useMemo(() => {
     return enrolledData?.getUserEnrolledCourses?.map((c: any) => c.id) || [];
@@ -27,9 +26,13 @@ export default function CourseListing() {
 
  // Inside your CourseListing component...
 
-const filteredCourses = useMemo(() => {
-  // Access the array from the GraphQL response object
+    const filteredCourses = useMemo(() => {
   let list = allCourses || [];
+
+  // --- NEW: UNIQUE FILTERING ---
+  // Ensure no duplicate IDs exist in the initial list
+  const uniqueList = Array.from(new Map(list.map((item: any) => [item.id, item])).values());
+  list = uniqueList;
 
   // 1. Search Filter
   if (searchTerm.trim()) {
@@ -38,14 +41,14 @@ const filteredCourses = useMemo(() => {
     );
   }
 
-  // 2. Tab Filtering (In-Progress vs Completed)
+  // 2. Tab Filtering
   if (activeTab !== "all") {
     list = list.filter((c: any) => {
       const enrollment = enrolledData?.getUserEnrolledCourses?.find(
         (e: any) => e.id === c.id
       );
       
-      if (!enrollment) return false; // Hide courses user isn't in if tab isn't 'all'
+      if (!enrollment) return false; 
       
       if (activeTab === "in-progress") {
         return enrollment.progress > 0 && enrollment.progress < 100;
