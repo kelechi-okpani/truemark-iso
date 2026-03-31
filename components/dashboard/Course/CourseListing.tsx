@@ -19,9 +19,8 @@ export default function CourseListing() {
   const { data: allCourses, isLoading: loadingCourses } = useGetCoursesQuery(undefined) as any;
   const { data: enrolledData, isLoading: loadingEnrolled } = useGetEnrolledCoursesQuery(undefined);
 
-
   const paidCourseIds = useMemo(() => {
-    return enrolledData?.getUserEnrolledCourses?.map((c: any) => c.id) || [];
+    return enrolledData?.map((c: any) => c.id) || [];
   }, [enrolledData]);
 
  // Inside your CourseListing component...

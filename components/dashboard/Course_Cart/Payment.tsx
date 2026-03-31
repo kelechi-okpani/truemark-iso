@@ -16,7 +16,13 @@ export default function Payment({ courseId, amount }: PaymentProps) {
 
   useEffect(() => setMounted(true), []);
 
-  const { token, currentUser } = useSelector((state: any) => state.user || {});
+  // const { token, currentUser } = useSelector((state: any) => state.user || {});
+
+  // ✅ Stable references. If state.user is null, it returns undefined instead of a new {}
+  const token = useSelector((state: any) => state.user?.token);
+  const currentUser = useSelector((state: any) => state.user?.currentUser);
+
+
   const [buyCourse, { isLoading }] = useBuyCourseMutation();
 
   const handlePayment = useCallback(async () => {
@@ -31,7 +37,7 @@ export default function Payment({ courseId, amount }: PaymentProps) {
         const urlWithAuth = new URL(paymentUrl);
         if (token) urlWithAuth.searchParams.append("token", token);
         if (currentUser?.id) urlWithAuth.searchParams.append("userId", currentUser.id);
-        
+
         window.location.href = urlWithAuth.toString();
       } else {
         throw new Error("Payment gateway unreachable");

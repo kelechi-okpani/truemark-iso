@@ -138,7 +138,7 @@ const CourseItem = ({ courseListing, paid }: { courseListing: CourseList, paid: 
               </>
             ) : (
               <button className="bg-gray-50 text-[#387467] border border-[#387467]/20 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] flex items-center gap-2 hover:bg-[#387467] hover:text-white transition-all group/access">
-                <span>Start Learning</span>
+                <span>Already Enroolled</span>
                 <ArrowRight size={14} className="group-hover/access:translate-x-1 transition-transform" />
               </button>
             )}

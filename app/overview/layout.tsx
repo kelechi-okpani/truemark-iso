@@ -63,7 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   if (userInfo?.isAdmin === true) return <Unauthorized />;
 
   return (
-    <div className="flex w-full h-screen bg-[#F8FAFB] overflow-hidden">
+    <div className="flex w-full h-screen bg-[#F8FAFB] overflow-hidden" suppressHydrationWarning>
       
       {/* --- MOBILE SIDEBAR OVERLAY (Drawer) --- */}
       {/* Background Dimmer */}

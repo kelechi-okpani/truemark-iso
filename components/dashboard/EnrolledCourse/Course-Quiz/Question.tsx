@@ -57,8 +57,7 @@ const QuizQuestion = ({ currentQuestion, currentStep, id, allQuestions, handlePr
             })),
         }
       }).unwrap();
-      
-      router.push(`/overview/enrolled-course/${params?.id}/certification`);
+      // router.push(`/overview/certification`);
     } catch (err) {
       console.error("Submission Failed:", err);
       // Optional: Add a toast here to notify the user

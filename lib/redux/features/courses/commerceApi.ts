@@ -35,13 +35,25 @@ export const commerceApi = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: { query: VERIFY_PAYMENT, variables: { reference } },
             }),
-            transformResponse: (res: any) => {
-                if (res?.errors) throw new Error(res.errors[0].message);
-                return res?.data?.verifyPayment;
-            },
-            transformErrorResponse: (res: any) => 
-                res?.data?.errors?.[0]?.message || "Payment verification failed. Please contact support.",
+            // transformResponse: (res: any) => {
+            //     if (res?.errors) throw new Error(res.errors[0].message);
+            //     return res?.data?.verifyPayment;
+            // },
+            // transformErrorResponse: (res: any) => 
+            //     res?.data?.errors?.[0]?.message || "Payment verification failed. Please contact support.",
 
+            transformResponse: (res: any) => {
+                    if (res?.errors) {
+                        throw new Error(res.errors[0].message);
+                    }
+                    return res?.data?.verifyPayment;
+                },
+            transformErrorResponse: (res: any) => {
+                return res?.data?.errors?.[0]?.message || 
+                    res?.message || 
+                    "Payment verification failed.";
+            },
+                    
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
@@ -60,7 +72,7 @@ export const commerceApi = apiSlice.injectEndpoints({
                     }
                 } catch (err: any) {
                     // Audit logging for failed verification attempts
-                    console.error("ISO Audit - Payment Verification Failure:", err);
+                    console?.error("ISO Audit - Payment Verification Failure:", err);
                 }
             }
         }),

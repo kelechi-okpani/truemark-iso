@@ -26,14 +26,41 @@ export default function EnrolledCourseListing() {
   // ✅ RTK Query with cached data
   const { data, isLoading, isFetching } = useGetEnrolledCoursesQuery(undefined);
 
-  const filteredCourses = useMemo(() => {
-    const courses = data || []; // Adjust based on your actual API return structure
-    if (!searchTerm.trim()) return courses;
+  // const filteredCourses = useMemo(() => {
+  //   const courses = data || []; // Adjust based on your actual API return structure
+  //   if (!searchTerm.trim()) return courses;
     
-    return courses.filter((course: any) =>
-      course.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm, data]);
+  //   return courses.filter((course: any) =>
+  //     course.name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  // }, [searchTerm, data]);
+
+
+  const filteredCourses = useMemo(() => {
+    // 1. Get raw data or empty array
+    const rawCourses = data || []; 
+    
+    // 2. Filter by search term first (Performance optimization)
+    const matchedCourses = !searchTerm.trim() 
+      ? rawCourses 
+      : rawCourses.filter((course: any) =>
+          course.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+    // 3. Deduplicate: Show the first occurrence, ignore subsequent duplicates
+    // Using a Map ensures we only keep one entry per unique ID
+    const uniqueMap = new Map();
+    
+    matchedCourses.forEach((course: any) => {
+      if (!uniqueMap.has(course.id)) {
+        uniqueMap.set(course.id, course);
+      }
+    });
+
+    return Array.from(uniqueMap.values());
+  }, [searchTerm, data]);
+
+
 
   if (isLoading) {
     return (

@@ -71,7 +71,7 @@ const EnrolledCourseModules = () => {
               </span>
             </div>
             
-            <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-1xl md:text-2xl font-black text-gray-900 tracking-tighter uppercase leading-[0.9]">
               {course?.name || "Curriculum Overview"}
             </h1>
             
