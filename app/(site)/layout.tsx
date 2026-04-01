@@ -11,6 +11,7 @@ export default function RootLayout({
   children, }: { children: React.ReactNode; }) {
   useAppSecurity();
 
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
