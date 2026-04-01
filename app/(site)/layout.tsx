@@ -9,7 +9,7 @@ import useAppSecurity from "@/components/hooks/useAppSecurity";
 
 export default function RootLayout({
   children, }: { children: React.ReactNode; }) {
-  // useAppSecurity();
+  useAppSecurity();
 
   return (
     <html lang="en" suppressHydrationWarning>

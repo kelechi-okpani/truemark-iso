@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import menuData from "./menuData";
+import { PrimaryLogo } from "@/components/molecules/logo";
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -38,15 +39,16 @@ const Header = () => {
         
         {/* Logo Section */}
         <div className="flex items-center justify-between w-full xl:w-auto">
-          <Link href="/" className="flex shrink-0">
-            <Image
+          <Link href="/" className="flex shrink-0 w-full">
+          <PrimaryLogo /> 
+            {/* <Image
               src="/images/Green-Logo.png"
               alt="TMGSS Logo"
-              width={120} // Slightly smaller logo for balance
+              width={60} 
               height={35}
-              className="object-contain"
-              priority
-            />
+              // className="object-contain"
+              // priority
+            /> */}
           </Link>
 
           <button

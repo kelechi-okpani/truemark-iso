@@ -15,8 +15,10 @@ import Unauthenticated from "@/components/hooks/Unauntheticated";
 import { useGetUserInfoQuery } from "@/lib/redux/features/auth/authApi";
 import { setCredentials, selectCurrentToken } from "@/lib/redux/features/auth/authSlice";
 import { selectIsSidebarOpen, toggleSidebar, selectActiveCourseId } from "@/lib/redux/features/courses/courseSlice";
+import useAppSecurity from "@/components/hooks/useAppSecurity";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+   useAppSecurity();
   const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();

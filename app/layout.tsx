@@ -3,17 +3,16 @@
 import './globals.css';
 import NextTopLoader from "nextjs-toploader";
 import { ReduxProvider } from "@/lib/redux/Provider"; // Recommended: wrap the provider in a client component
+import useAppSecurity from '@/components/hooks/useAppSecurity';
 
 export const metadata = {
   title: 'TrueMark Ltd | ISO LMS',
   description: 'Enterprise Compliance & Training Management',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children}: { children: React.ReactNode}) {
+
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
