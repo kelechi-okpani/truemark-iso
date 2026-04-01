@@ -14,7 +14,9 @@ export default function CertificateContainer() {
   
   // ✅ Use 'fullname' from your User interface
   const userName = user?.fullname || "Valued Learner";
+  const userEmail = user?.email || "Valued Learner";
   
+  console.log(user, "user.....")
   const today = new Date().toLocaleDateString('en-NG', {
     year: 'numeric',
     month: 'long',
@@ -30,6 +32,7 @@ export default function CertificateContainer() {
   return (
     <div className="flex justify-center py-20 bg-gray-50 min-h-screen">
       <ISOCertificate 
+        userEmail={userEmail}
         userName={userName}
         courseName={activeCourse?.name}
         date={today}

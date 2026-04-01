@@ -84,8 +84,8 @@ export default function CourseListing() {
           <div className="flex gap-6 md:gap-10 mt-6 overflow-x-auto no-scrollbar scroll-smooth">
             {[
               { id: "all", label: "All Courses" },
-              { id: "in-progress", label: "In Progress" },
-              { id: "completed", label: "Completed" }
+              // { id: "in-progress", label: "In Progress" },
+              // { id: "completed", label: "Completed" }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -118,10 +118,7 @@ export default function CourseListing() {
             />
           </div>
 
-          <button className="flex items-center justify-center gap-2.5 px-5 py-3 border border-gray-100 rounded-xl text-xs font-black uppercase tracking-widest text-gray-600 hover:bg-gray-50 hover:border-gray-200 transition-all">
-            <Filter size={14} className="text-[#387467]" />
-            Sort & Filter
-          </button>
+        
         </div>
 
         {/* --- Course Grid: Optimized Column Spans --- */}

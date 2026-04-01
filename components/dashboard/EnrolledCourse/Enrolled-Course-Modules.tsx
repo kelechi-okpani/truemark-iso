@@ -21,6 +21,7 @@ import EmptyContainer from "@/components/utility/EmptyContainer";
 import EnrolledAccordion from "@/components/dashboard/EnrolledCourse/Enrolled-Accordion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useGetAssessmentQuery } from "@/lib/redux/features/courses/assessmentApi";
 
 const EnrolledCourseModules = () => {
   const router = useRouter();
@@ -34,6 +35,13 @@ const EnrolledCourseModules = () => {
   } = useGetEnrolledModulesQuery(course?.id as string, {
     skip: !course?.id,
   });
+
+    const { data: assignment, error } = useGetAssessmentQuery(course?.id, {
+      skip: !course?.id,
+    });
+
+    console.log(assignment, "assignment")
+
 
   return (
     <div className="max-w-7xl mx-auto pb-20 px-4 sm:px-6">
@@ -96,7 +104,7 @@ const EnrolledCourseModules = () => {
       </div>
 
 
-    <div className="flex justify-end mb-6">
+    {/* <div className="flex justify-end mb-6">
       <Link href="/overview/enrolled-course/course/certification">
         <button className="flex items-center gap-4 bg-[#387467] text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-[#2d5d52] transition-all active:scale-[0.98] shadow-sm">
           <FileCheck2 size={18} strokeWidth={2.5} />
@@ -104,7 +112,7 @@ const EnrolledCourseModules = () => {
           <ChevronRight size={14} />
         </button>
       </Link>
-    </div>
+    </div> */}
  
 
       {/* --- Main Syllabus Container --- */}

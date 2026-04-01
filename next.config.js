@@ -2,7 +2,8 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  
+
+
   // ✅ Modern Next.js 15 Image Optimization
   images: {
     // Note: 'domains' is deprecated in favor of 'remotePatterns' for better security

@@ -1,11 +1,13 @@
 "use client";
 import React, { Suspense } from "react";
 import EnrolledCourseModules from "@/components/dashboard/EnrolledCourse/Enrolled-Course-Modules";
+import CourseGuard from "@/lib/CourseGuard";
 
 export default function MyLearningPage() {
 
   return (
-    <div className="">
+      <CourseGuard>
+         <div className="">
       <Suspense
         fallback={
           <div className="flex justify-center items-center h-screen">
@@ -18,6 +20,8 @@ export default function MyLearningPage() {
       <EnrolledCourseModules />
       </Suspense>
     </div>
+      </CourseGuard>
+   
   );
 }
 

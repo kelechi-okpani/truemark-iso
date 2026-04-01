@@ -2,7 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { ChevronLeft, AlertCircle, BarChart3, Home, ShieldCheck } from "lucide-react";
+import { ChevronLeft, AlertCircle, BarChart3, Home, ShieldCheck, Link, ChevronRight, FileCheck2 } from "lucide-react";
 import { RootState } from "@/lib/redux/store"; // Adjust path to your store
 import { cn } from "@/lib/utils";
 
@@ -52,6 +52,17 @@ const QuizAlreadyTaken = ({ error }: QuizAlreadyTakenProps) => {
           
           {/* Subtle Background Pattern for "ISO" feel */}
           <div className="absolute right-0 top-0 h-full w-1/3 bg-white/5 skew-x-[-20deg] translate-x-10" />
+       
+         <div className="flex justify-end mb-6">
+            <Link href="/overview/enrolled-course/course/certification">
+              <button className="flex items-center gap-4 bg-[#387467] text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-[#2d5d52] transition-all active:scale-[0.98] shadow-sm">
+                <FileCheck2 size={18} strokeWidth={2.5} />
+                Certification
+                <ChevronRight size={14} />
+              </button>
+            </Link>
+          </div>
+      
         </div>
 
         {/* Content Section */}

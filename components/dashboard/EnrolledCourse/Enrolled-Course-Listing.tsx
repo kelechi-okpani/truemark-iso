@@ -123,14 +123,14 @@ export default function EnrolledCourseListing() {
             />
           </div>
 
-          <div className="flex items-center gap-3 w-full md:w-auto">
+          {/* <div className="flex items-center gap-3 w-full md:w-auto">
             <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-4 bg-white border border-gray-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-600 hover:bg-gray-50 transition-all">
               <Filter size={14} /> Filter
             </button>
             <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-4 bg-white border border-gray-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-600 hover:bg-gray-50 transition-all">
               <SlidersHorizontal size={14} /> Sort
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* --- Grid Layout --- */}
